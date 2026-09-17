@@ -14,9 +14,26 @@ import Footer from './components/Footer.jsx'
 export default function App() {
   const darkSectionRef = useRef(null)
   const [sectionVisible, setSectionVisible] = useState(false)
+  const [skipShotAnimation, setSkipShotAnimation] = useState(false)
 
   useEffect(() => {
     let isAnimating = false
+
+    const showScreenshot = ({ instant = false } = {}) => {
+      if (instant) setSkipShotAnimation(true)
+      setSectionVisible(true)
+    }
+
+    const revealIfAlreadyPastHero = () => {
+      const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
+      if (window.scrollY >= darkTop - 40) {
+        showScreenshot({ instant: true })
+      }
+    }
+
+    revealIfAlreadyPastHero()
+    window.addEventListener('pageshow', revealIfAlreadyPastHero)
+    window.addEventListener('load', revealIfAlreadyPastHero)
 
     const smoothScrollTo = (targetY, duration = 950, onComplete) => {
       const startY = window.scrollY
@@ -47,7 +64,7 @@ export default function App() {
     const scrollToDark = () => {
       if (isAnimating) return
       isAnimating = true
-      setSectionVisible(true)
+      showScreenshot()
 
       const targetY = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
       smoothScrollTo(targetY, 950, () => {
@@ -60,7 +77,6 @@ export default function App() {
       isAnimating = true
 
       smoothScrollTo(0, 850, () => {
-        setSectionVisible(false)
         isAnimating = false
       })
     }
@@ -110,6 +126,8 @@ export default function App() {
     window.addEventListener('keydown', onKeyDown)
 
     return () => {
+      window.removeEventListener('pageshow', revealIfAlreadyPastHero)
+      window.removeEventListener('load', revealIfAlreadyPastHero)
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('touchstart', onTouchStart)
       window.removeEventListener('touchend', onTouchEnd)
@@ -123,7 +141,7 @@ export default function App() {
       <Hero />
       <div ref={darkSectionRef}>
         <DarkSection>
-          <AppScreenshot isVisible={sectionVisible} />
+          <AppScreenshot isVisible={sectionVisible} skipAnimation={skipShotAnimation} />
           <TickerSection />
         </DarkSection>
         <Section4 />

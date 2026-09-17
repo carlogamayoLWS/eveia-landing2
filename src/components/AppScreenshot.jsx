@@ -4,7 +4,7 @@ import section2After from '../assets/section2-after.png'
 import section2Userchat from '../assets/section2-userchat.png'
 import section2ChatAi from '../assets/section2-chat-ai.png'
 
-export default function AppScreenshot({ isVisible = false }) {
+export default function AppScreenshot({ isVisible = false, skipAnimation = false }) {
   const [reducedMotion, setReducedMotion] = useState(false)
 
   useEffect(() => {
@@ -12,9 +12,10 @@ export default function AppScreenshot({ isVisible = false }) {
   }, [])
 
   const visible = isVisible || reducedMotion
+  const instant = skipAnimation || reducedMotion
 
   return (
-    <div className={`app-shot-wrap ${visible ? 'is-visible' : ''}`}>
+    <div className={`app-shot-wrap ${visible ? 'is-visible' : ''} ${instant ? 'is-instant' : ''}`}>
       <div className="shot-glow"></div>
       <div className="app-shot">
         <img className="base base-before" src={section2} alt="" aria-hidden="true" />

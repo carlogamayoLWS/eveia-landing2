@@ -297,6 +297,32 @@ a{text-decoration:none;color:inherit;}
   opacity:1;
   transform:translateY(0) scale(1);
 }
+.app-shot-wrap.is-instant,
+.app-shot-wrap.is-instant.is-visible{
+  opacity:1;
+  transform:none;
+  transition:none;
+}
+.app-shot-wrap.is-instant .base-before{
+  opacity:0;
+  visibility:hidden;
+  transition:none;
+}
+.app-shot-wrap.is-instant .base-after{
+  opacity:1;
+  transition:none;
+}
+.app-shot-wrap.is-instant .overlay-user,
+.app-shot-wrap.is-instant .overlay-ai{
+  opacity:1;
+  transform:none;
+  animation:none;
+}
+.app-shot-wrap.is-instant .shot-glow{
+  opacity:1;
+  transform:none;
+  transition:none;
+}
 
 /* ---------- GRADIENT LINE (bottom of dark section) ---------- */
 .gradient-line{
