@@ -16,7 +16,7 @@ html{
   overflow-x:clip;
 }
 body{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Montserrat',sans-serif;
   background:#fff;
   color:var(--ink);
   -webkit-font-smoothing:antialiased;
