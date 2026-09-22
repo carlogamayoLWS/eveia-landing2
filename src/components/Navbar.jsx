@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const DARK_SECTION_SELECTOR = '.dark, .sec4, .sec7, .footer, .sec8-banner'
 
@@ -32,7 +33,7 @@ export default function Navbar() {
     }
   }, [])
 
-  return (
+  return createPortal(
     <div className="nav-wrap">
       <nav className={`nav-pill ${isOverDark ? 'nav-over-dark' : ''}`}>
         <a href="#">Product <span className="caret">▾</span></a>
@@ -41,6 +42,7 @@ export default function Navbar() {
         <a href="#" className="label-hide">Pricing</a>
         <a href="#" className="cta">Request a Demo</a>
       </nav>
-    </div>
+    </div>,
+    document.body
   )
 }
