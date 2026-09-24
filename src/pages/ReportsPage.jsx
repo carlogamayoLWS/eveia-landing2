@@ -61,23 +61,23 @@ const USE_CASES = [
 const AMPLIFY = [
   {
     tone: 'blue',
-    title: 'It drafts, people decide.',
-    body: 'Eveia.AI prepares reports and summaries, while people review, refine, and approve the final output.',
+    title: 'It drafts, not signs off.',
+    body: 'A person reviews the report before it is used.',
   },
   {
     tone: 'pink',
-    title: 'It brings information together.',
-    body: 'Eveia.AI helps teams make sense of approved data and documents, giving people a clearer starting point for analysis and decision-making.',
+    title: 'It does not correct source data.',
+    body: 'If a source contains an incorrect figure, the user can trace it back and verify it.',
   },
   {
     tone: 'orange',
-    title: 'It keeps people connected to the source.',
-    body: 'Source references help users verify important information and apply their own judgment.',
+    title: 'It works from your approved information.',
+    body: 'It does not create unsupported recommendations or outside context.',
   },
   {
     tone: 'green',
-    title: 'It supports human expertise.',
-    body: 'Eveia.AI handles the work of organizing and synthesizing information so your team can focus on analysis, decisions, and action.',
+    title: 'It can make mistakes.',
+    body: 'Source links help users check important information before relying on it.',
   },
 ]
 
@@ -196,9 +196,7 @@ export default function ReportsPage() {
           <div className="reports-hero-copy">
             <p className="reports-eyebrow">Decision-Ready Reports</p>
             <h1 className="reports-hero-title">
-              Turn Approved
-              <br />
-              Information
+              Turn Approved Information{' '}
               <span className="reports-hero-grad">Into Reports Faster</span>
             </h1>
             <p className="reports-hero-desc">
@@ -260,7 +258,8 @@ export default function ReportsPage() {
       </div>
 
       <section className="reports-sources">
-        <div className="reports-sources-glow" aria-hidden="true" />
+        <div className="reports-sources-glow reports-sources-glow--purple" aria-hidden="true" />
+        <div className="reports-sources-glow reports-sources-glow--pink" aria-hidden="true" />
         <div className="reports-sources-inner">
           <h2 className="reports-sources-title">
             Eveia.AI helps teams generate reports from approved
@@ -352,16 +351,18 @@ export default function ReportsPage() {
             Where Organizations Use AI Report Generation
           </h2>
           <div className="reports-uses-split">
-            <div className="reports-uses-cards">
-              {USE_CASES.map((item) => (
-                <article className="reports-use-card" key={item.title}>
-                  <span className="reports-use-dot" />
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </div>
-                </article>
-              ))}
+            <div className="reports-uses-scroller">
+              <div className="reports-uses-cards">
+                {USE_CASES.map((item) => (
+                  <article className="reports-use-card" key={item.title}>
+                    <span className="reports-use-dot" />
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
             <div className="reports-uses-visual">
               <img
@@ -379,12 +380,11 @@ export default function ReportsPage() {
       >
         <div className="reports-amplify-inner">
           <h2 className="reports-amplify-heading">
-            Built to Amplify Human Expertise
+            Built for Human Review
           </h2>
           <p className="reports-amplify-desc">
-            Eveia.AI works alongside your team to turn approved information into
-            clear, useful outputs, helping people spend less time processing
-            information and more time applying their expertise.
+            Eveia.AI helps prepare reports, but people remain responsible for
+            reviewing and approving them.
           </p>
           <div className="reports-amplify-cards">
             {AMPLIFY.map((item) => (
@@ -412,7 +412,7 @@ export default function ReportsPage() {
                   <h3>Enterprise AI Search</h3>
                   <p>
                     Lorem ipsum dolor sit amet consectetur. Ac sapien massa
-                    pharetra dolor dui viverra
+                    pharetra dolor dui viverra auctor eu netus.
                   </p>
                   <a href="/reports">Read more →</a>
                 </div>
@@ -431,15 +431,21 @@ export default function ReportsPage() {
           </div>
           <div className="reports-cta-content">
             <h2 className="reports-cta-heading">
-              Start with a Report Your Team Already Produces
+              Start With a Report Your Team Already Produces
             </h2>
             <p className="reports-cta-desc">
-              Bring one recurring report. We’ll show you how Eveia.AI drafts it
-              from approved documents and data.
+              Bring a report your team regularly prepares and the documents it
+              uses. We can show you how Eveia.AI can use your approved
+              organizational information to prepare a source-supported draft.
             </p>
-            <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
-              Request a Demo
-            </a>
+            <div className="reports-cta-actions">
+              <a className="reports-cta-btn reports-cta-btn--primary" href="mailto:inquiry@eveia.ai">
+                Request Demo
+              </a>
+              <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
+                Send us a message
+              </a>
+            </div>
           </div>
         </div>
       </section>
