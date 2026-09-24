@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import footerLogo from '../assets/footer-logo.png'
 
 export default function Footer() {
@@ -76,9 +77,9 @@ export default function Footer() {
             <h4 className="footer-col-title">Product</h4>
             <ul className="footer-links">
               <li><a href="#blog">Blog</a></li>
-              <li><a href="#what-is-eveia">What is Eveia.AI</a></li>
-              <li><a href="#use-cases">Use Cases</a></li>
-              <li><a href="#pricing">Pricing</a></li>
+              <li><Link to="/">What is Eveia.AI</Link></li>
+              <li><Link to="/reports">AI Report Generation</Link></li>
+              <li><Link to="/#pricing">Pricing</Link></li>
               <li><a href="#request-demo">Request a Private Demo</a></li>
             </ul>
           </div>
