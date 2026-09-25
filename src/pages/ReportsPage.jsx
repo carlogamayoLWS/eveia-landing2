@@ -71,7 +71,7 @@ const BY_NEED = [
   {
     title: 'Executive Summaries',
     body: 'Important information is often buried in long reports, meeting records, audits...',
-    href: '/#solutions',
+    href: '/summaries',
   },
 ]
 

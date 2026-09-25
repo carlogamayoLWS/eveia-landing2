@@ -72,7 +72,7 @@ const BY_NEED = [
   {
     title: 'Executive Summaries',
     body: 'Important information is often buried in long reports, meeting records, audits...',
-    href: '/#solutions',
+    href: '/summaries',
   },
 ]
 
@@ -188,6 +188,9 @@ export default function ProposalPage() {
               <img className="proposal-docs-card proposal-docs-card--center" src={docCenterRight} alt="" />
               <img className="proposal-docs-card proposal-docs-card--side" src={docRight} alt="" />
             </div>
+            <div className="proposal-overlap">
+              <img src={overlapVisual} alt="" />
+            </div>
           </div>
         </div>
       </section>
@@ -196,9 +199,6 @@ export default function ProposalPage() {
         ref={stackRef}
         className={`reports-stack-wrap ${stackVisible ? 'is-visible' : ''}`}
       >
-        <div className="proposal-overlap" aria-hidden="true">
-          <img src={overlapVisual} alt="" />
-        </div>
         <div className="reports-stack">
           <section className="reports-how">
             <div className="reports-how-inner">

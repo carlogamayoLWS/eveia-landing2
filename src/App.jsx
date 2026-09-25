@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage.jsx'
 import ReportsPage from './pages/ReportsPage.jsx'
 import SearchPage from './pages/SearchPage.jsx'
 import ProposalPage from './pages/ProposalPage.jsx'
+import SummariesPage from './pages/SummariesPage.jsx'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/proposals" element={<ProposalPage />} />
+        <Route path="/summaries" element={<SummariesPage />} />
       </Routes>
     </BrowserRouter>
   )

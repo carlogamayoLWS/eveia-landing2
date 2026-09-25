@@ -103,9 +103,9 @@ export default function Navbar() {
                 <NavLink to="/proposals" onClick={() => setSolutionsOpen(false)}>
                   Proposal Drafting
                 </NavLink>
-                <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                <NavLink to="/summaries" onClick={() => setSolutionsOpen(false)}>
                   Executive Summaries
-                </a>
+                </NavLink>
               </div>
               <div className="nav-mega-col nav-mega-col--industry">
                 <p className="nav-mega-label">BY INDUSTRY</p>
