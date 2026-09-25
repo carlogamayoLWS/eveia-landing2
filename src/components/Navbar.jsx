@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink } from 'react-router-dom'
 
 const DARK_SECTION_SELECTOR =
-  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap'
+  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses'
 
 export default function Navbar() {
   const [isOverDark, setIsOverDark] = useState(false)
@@ -54,6 +54,7 @@ export default function Navbar() {
   return createPortal(
     <div className="nav-wrap">
       <nav className={`nav-pill ${isOverDark ? 'nav-over-dark' : ''}`}>
+        <div className="nav-pill-glass" aria-hidden="true" />
         <div className={`nav-item ${productOpen ? 'is-open' : ''}`}>
           <button
             type="button"
@@ -96,12 +97,12 @@ export default function Navbar() {
                 <NavLink to="/reports" onClick={() => setSolutionsOpen(false)}>
                   Decision-Ready Reports
                 </NavLink>
-                <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                <NavLink to="/search" onClick={() => setSolutionsOpen(false)}>
                   Instant Answers from Data
-                </a>
-                <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                </NavLink>
+                <NavLink to="/proposals" onClick={() => setSolutionsOpen(false)}>
                   Proposal Drafting
-                </a>
+                </NavLink>
                 <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
                   Executive Summaries
                 </a>

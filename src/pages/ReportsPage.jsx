@@ -61,12 +61,12 @@ const BY_NEED = [
   {
     title: 'Instant Answers from Data',
     body: 'Your organization already has the information people need.',
-    href: '/#solutions',
+    href: '/search',
   },
   {
     title: 'Create Proposal Faster',
     body: 'Proposal writing often starts with gathering pricing, service information, company.',
-    href: '/#solutions',
+    href: '/proposals',
   },
   {
     title: 'Executive Summaries',
