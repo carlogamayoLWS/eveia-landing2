@@ -9,7 +9,6 @@ import iconCsv from '../assets/icon-csv.png'
 import iconDocs from '../assets/icon-docs.png'
 import usesVisual from '../assets/reports-chat-ui.png'
 import footerLogo from '../assets/footer-logo.png'
-import byNeedImg from '../assets/section4-img.png'
 import Footer from '../components/Footer.jsx'
 
 const FILE_ROW_1 = [
@@ -58,6 +57,24 @@ const USE_CASES = [
   },
 ]
 
+const BY_NEED = [
+  {
+    title: 'Instant Answers from Data',
+    body: 'Your organization already has the information people need.',
+    href: '/#solutions',
+  },
+  {
+    title: 'Create Proposal Faster',
+    body: 'Proposal writing often starts with gathering pricing, service information, company.',
+    href: '/#solutions',
+  },
+  {
+    title: 'Executive Summaries',
+    body: 'Important information is often buried in long reports, meeting records, audits...',
+    href: '/#solutions',
+  },
+]
+
 const AMPLIFY = [
   {
     tone: 'blue',
@@ -81,7 +98,7 @@ const AMPLIFY = [
   },
 ]
 
-function useInView(threshold = 0.2) {
+function useInView(threshold = 0.2, rootMargin = '0px 0px -40px 0px') {
   const ref = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -93,19 +110,26 @@ function useInView(threshold = 0.2) {
           observer.disconnect()
         }
       },
-      { threshold, rootMargin: '0px 0px -40px 0px' }
+      { threshold, rootMargin }
     )
 
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
-  }, [threshold])
+  }, [threshold, rootMargin])
 
   return [ref, isVisible]
 }
 
-function FileTile({ src, alt }) {
+function FileTile({ src, alt, offset = 0, delay = 0, rise = 180 }) {
   return (
-    <div className="reports-file-tile">
+    <div
+      className="reports-file-tile"
+      style={{
+        '--tile-offset': offset,
+        '--tile-delay': `${delay}s`,
+        '--tile-rise': `${rise}px`,
+      }}
+    >
       <img src={src} alt={alt} />
     </div>
   )
@@ -142,38 +166,41 @@ function Q2ReportCard() {
       <div className="reports-q2-charts">
         <svg className="reports-q2-spark" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true">
           <path
+            className="reports-q2-spark-fill"
             d="M0 96 C36 94 52 86 78 80 C112 72 124 88 156 70 C196 48 214 52 246 42 C278 32 298 18 320 10 V120 H0 Z"
             fill="#F3E8FF"
           />
           <path
+            className="reports-q2-spark-line"
             d="M0 96 C36 94 52 86 78 80 C112 72 124 88 156 70 C196 48 214 52 246 42 C278 32 298 18 320 10"
             fill="none"
             stroke="#FF4D9A"
             strokeWidth="3"
             strokeLinecap="round"
+            pathLength="1"
           />
         </svg>
         <svg className="reports-q2-donut" viewBox="0 0 72 72" aria-hidden="true">
           <circle cx="36" cy="36" r="24" fill="none" stroke="#F6D7F4" strokeWidth="10" />
           <circle
+            className="reports-q2-donut-pink"
             cx="36"
             cy="36"
             r="24"
             fill="none"
             stroke="#FF4D9A"
             strokeWidth="10"
-            strokeDasharray="46 110"
             strokeLinecap="butt"
             transform="rotate(-20 36 36)"
           />
           <circle
+            className="reports-q2-donut-purple"
             cx="36"
             cy="36"
             r="24"
             fill="none"
             stroke="#7C3AED"
             strokeWidth="10"
-            strokeDasharray="34 122"
             transform="rotate(110 36 36)"
           />
         </svg>
@@ -183,9 +210,57 @@ function Q2ReportCard() {
 }
 
 export default function ReportsPage() {
+  const [sourcesRef, sourcesVisible] = useInView(0.28)
+  const [stackRef, stackVisible] = useInView(0, '0px 0px 0px 0px')
   const [howRef, howVisible] = useInView()
   const [usesRef, usesVisible] = useInView()
-  const [amplifyRef, amplifyVisible] = useInView(0.16)
+  const [amplifyRef, amplifyVisible] = useInView(0.08, '0px 0px -8% 0px')
+  const usesScrollerRef = useRef(null)
+  const usesCardsRef = useRef(null)
+
+  useEffect(() => {
+    const section = usesRef.current
+    const scroller = usesScrollerRef.current
+    const cards = usesCardsRef.current
+    if (!section || !scroller || !cards) return
+
+    let ticking = false
+
+    const syncCards = () => {
+      ticking = false
+      if (window.matchMedia('(max-width: 860px), (prefers-reduced-motion: reduce)').matches) {
+        cards.style.setProperty('--uses-cards-y', '0px')
+        return
+      }
+
+      const pin = section.querySelector('.reports-uses-sticky')
+      if (!pin) return
+
+      const pinH = pin.offsetHeight
+      const range = section.offsetHeight - pinH
+      if (range <= 0) return
+
+      const traveled = Math.min(range, Math.max(0, -section.getBoundingClientRect().top + pin.getBoundingClientRect().top))
+      const progress = traveled / range
+      const maxY = Math.max(0, cards.scrollHeight - scroller.clientHeight)
+      cards.style.setProperty('--uses-cards-y', `${-(progress * maxY)}px`)
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(syncCards)
+      }
+    }
+
+    syncCards()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [usesRef])
 
   return (
     <main className="reports-page">
@@ -270,15 +345,31 @@ export default function ReportsPage() {
             need, and provides the sources behind the content. Spend less time
             assembling information and more time reviewing what it means.
           </p>
+          <div
+            ref={sourcesRef}
+            className={`reports-files-stage ${sourcesVisible ? 'is-visible' : ''}`}
+          >
           <div className="reports-file-grid" aria-label="Supported document types">
             <div className="reports-file-row">
-              {FILE_ROW_1.map((file) => (
-                <FileTile key={file.alt} {...file} />
+              {FILE_ROW_1.map((file, i) => (
+                <FileTile
+                  key={file.alt}
+                  {...file}
+                  offset={i - Math.floor(FILE_ROW_1.length / 2)}
+                  delay={0.12 + Math.abs(i - Math.floor(FILE_ROW_1.length / 2)) * 0.05}
+                  rise={220}
+                />
               ))}
             </div>
             <div className="reports-file-row">
-              {FILE_ROW_2.map((file) => (
-                <FileTile key={file.alt} {...file} />
+              {FILE_ROW_2.map((file, i) => (
+                <FileTile
+                  key={file.alt}
+                  {...file}
+                  offset={i - Math.floor(FILE_ROW_2.length / 2)}
+                  delay={0.02 + Math.abs(i - Math.floor(FILE_ROW_2.length / 2)) * 0.04}
+                  rise={110}
+                />
               ))}
             </div>
           </div>
@@ -308,10 +399,14 @@ export default function ReportsPage() {
               </button>
             </div>
           </div>
+          </div>
         </div>
       </section>
 
-      <div className="reports-stack-wrap">
+      <div
+        ref={stackRef}
+        className={`reports-stack-wrap ${stackVisible ? 'is-visible' : ''}`}
+      >
       <div className="reports-stack">
       <section
         ref={howRef}
@@ -345,14 +440,15 @@ export default function ReportsPage() {
         ref={usesRef}
         className={`reports-uses ${usesVisible ? 'is-visible' : ''}`}
       >
+        <div className="reports-uses-sticky">
         <div className="reports-uses-glow" aria-hidden="true" />
         <div className="reports-uses-inner">
           <h2 className="reports-uses-heading">
             Where Organizations Use AI Report Generation
           </h2>
           <div className="reports-uses-split">
-            <div className="reports-uses-scroller">
-              <div className="reports-uses-cards">
+            <div className="reports-uses-scroller" ref={usesScrollerRef}>
+              <div className="reports-uses-cards" ref={usesCardsRef}>
                 {USE_CASES.map((item) => (
                   <article className="reports-use-card" key={item.title}>
                     <span className="reports-use-dot" />
@@ -372,10 +468,10 @@ export default function ReportsPage() {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       <section
-        ref={amplifyRef}
         className={`reports-amplify ${amplifyVisible ? 'is-visible' : ''}`}
       >
         <div className="reports-amplify-inner">
@@ -386,7 +482,7 @@ export default function ReportsPage() {
             Eveia.AI helps prepare reports, but people remain responsible for
             reviewing and approving them.
           </p>
-          <div className="reports-amplify-cards">
+          <div ref={amplifyRef} className="reports-amplify-cards">
             {AMPLIFY.map((item) => (
               <article
                 className={`reports-amplify-card reports-amplify-card--${item.tone}`}
@@ -405,16 +501,15 @@ export default function ReportsPage() {
         <div className="reports-byneed">
           <p className="reports-byneed-label">BY NEED</p>
           <div className="reports-byneed-grid">
-            {[0, 1, 2].map((idx) => (
-              <article className="reports-byneed-card" key={idx}>
-                <img src={byNeedImg} alt="" />
+            {BY_NEED.map((item) => (
+              <article className="reports-byneed-card" key={item.title}>
+                <div className="reports-byneed-media" aria-hidden="true">
+                  <span>Image</span>
+                </div>
                 <div className="reports-byneed-copy">
-                  <h3>Enterprise AI Search</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur. Ac sapien massa
-                    pharetra dolor dui viverra auctor eu netus.
-                  </p>
-                  <a href="/reports">Read more →</a>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                  <a href={item.href}>Read more →</a>
                 </div>
               </article>
             ))}

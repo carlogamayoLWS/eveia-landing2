@@ -32,12 +32,6 @@ export default function HomePage() {
 
     if (window.location.hash) {
       showScreenshot({ instant: true })
-      const target = document.querySelector(window.location.hash)
-      if (target) {
-        requestAnimationFrame(() => {
-          target.scrollIntoView({ behavior: 'instant', block: 'start' })
-        })
-      }
     }
 
     revealIfAlreadyPastHero()
@@ -45,6 +39,10 @@ export default function HomePage() {
     window.addEventListener('load', revealIfAlreadyPastHero)
 
     const smoothScrollTo = (targetY, duration = 950, onComplete) => {
+      const html = document.documentElement
+      const previousBehavior = html.style.scrollBehavior
+      html.style.scrollBehavior = 'auto'
+
       const startY = window.scrollY
       const difference = targetY - startY
       const startTime = performance.now()
@@ -52,17 +50,22 @@ export default function HomePage() {
       const easeInOutCubic = (t) =>
         t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
+      const finish = () => {
+        html.style.scrollBehavior = previousBehavior
+        if (onComplete) onComplete()
+      }
+
       const step = (currentTime) => {
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
         const ease = easeInOutCubic(progress)
 
-        window.scrollTo(0, startY + difference * ease)
+        window.scrollTo({ top: startY + difference * ease, left: 0, behavior: 'instant' })
 
         if (progress < 1) {
           requestAnimationFrame(step)
-        } else if (onComplete) {
-          onComplete()
+        } else {
+          finish()
         }
       }
 
