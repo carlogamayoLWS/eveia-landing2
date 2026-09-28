@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import heroVisual from '../assets/proposal-hero.png'
+import heroVisual from '../assets/proposal-hero-card.png'
 import docLeft from '../assets/proposal-doc-left.png'
 import docCenterLeft from '../assets/proposal-doc-center-left.png'
 import docCenterRight from '../assets/proposal-doc-center-right.png'
@@ -111,7 +111,7 @@ export default function ProposalPage() {
             <div className="reports-hero-copy">
               <p className="reports-eyebrow">Proposal Drafting</p>
               <h1 className="reports-hero-title">
-                Create Proposal <span className="reports-hero-grad">Faster</span>
+                Create Proposal Faster
               </h1>
               <p className="reports-hero-desc">
                 Proposal writing often starts with gathering pricing, service
