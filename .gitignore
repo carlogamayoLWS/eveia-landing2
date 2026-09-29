@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local environment files
+.env
+.env*.local
+
 # Local MCP secrets (Figma token, etc.)
 .cursor/mcp.json
 

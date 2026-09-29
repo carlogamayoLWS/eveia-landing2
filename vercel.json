@@ -1,5 +1,11 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+    { "source": "/eveia-api/:path*", "destination": "https://api.eveia.ai/:path*" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "functions": {
+    "api/contact.js": {
+      "maxDuration": 15
+    }
+  }
 }

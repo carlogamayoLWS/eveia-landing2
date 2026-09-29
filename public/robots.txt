@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Allow: /humans.txt
+Allow: /llms.txt

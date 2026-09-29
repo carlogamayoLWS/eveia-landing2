@@ -11,8 +11,8 @@ export default function Hero() {
       <p className="tagline"><span className="t1">MOVE YOUR TEAM</span> <span className="t2">FORWARD</span></p>
       <p className="hero-desc">Turn your organization's knowledge into<br />instant answers, reports, and proposals in minutes.</p>
       <div className="hero-ctas">
-        <a className="btn btn-primary" href="#">Request a Private Demo</a>
-        <a className="btn btn-secondary" href="#">Send us a message</a>
+        <a className="btn btn-primary" href="mailto:inquiry@eveia.ai">Request a Private Demo</a>
+        <a className="btn btn-secondary" href="mailto:inquiry@eveia.ai">Send us a message</a>
       </div>
     </header>
   )

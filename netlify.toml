@@ -1,4 +1,10 @@
 [[redirects]]
+  from = "/eveia-api/*"
+  to = "https://api.eveia.ai/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

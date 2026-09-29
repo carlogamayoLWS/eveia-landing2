@@ -122,6 +122,7 @@ function useInView(threshold = 0.2, rootMargin = '0px 0px -40px 0px') {
 
 export default function ProposalPage() {
   const [stepsRef, stepsVisible] = useInView(0.15)
+  const [bridgeRef, bridgeVisible] = useInView(0.12)
   const [stackRef, stackVisible] = useInView(0, '0px 0px 0px 0px')
   const [whoRef, whoVisible] = useInView(0.12)
   const [front, setFront] = useState(0)
@@ -131,19 +132,29 @@ export default function ProposalPage() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) return undefined
 
-    const cycle = window.setInterval(() => {
+    let cycleInterval
+    const startCycle = () => {
       setFront((current) => {
         setLeaving(current)
         return (current + 1) % HERO_PAGES.length
       })
-    }, 3200)
+    }
 
-    return () => window.clearInterval(cycle)
+    // Start initial animation quickly (500ms) after opening the page
+    const initialTimeout = window.setTimeout(() => {
+      startCycle()
+      cycleInterval = window.setInterval(startCycle, 2600)
+    }, 500)
+
+    return () => {
+      window.clearTimeout(initialTimeout)
+      if (cycleInterval) window.clearInterval(cycleInterval)
+    }
   }, [])
 
   useEffect(() => {
     if (leaving === null) return undefined
-    const t = window.setTimeout(() => setLeaving(null), 850)
+    const t = window.setTimeout(() => setLeaving(null), 700)
     return () => window.clearTimeout(t)
   }, [leaving])
 
@@ -238,7 +249,7 @@ export default function ProposalPage() {
               </div>
             ))}
           </div>
-          <div className={`proposal-bridge ${stepsVisible ? 'is-visible' : ''}`} aria-hidden="true">
+          <div ref={bridgeRef} className={`proposal-bridge ${bridgeVisible ? 'is-visible' : ''}`} aria-hidden="true">
             <div className="proposal-docs">
               <img className="proposal-docs-card proposal-docs-card--side" src={docLeft} alt="" />
               <img className="proposal-docs-card proposal-docs-card--center" src={docCenterLeft} alt="" />

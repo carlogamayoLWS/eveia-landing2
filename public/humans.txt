@@ -1,0 +1,13 @@
+/* TEAM */
+
+Developer: John Carlo Gamayo
+Role: Software Engineer
+Site: Eveia.AI
+From: Philippines
+
+/* SITE */
+
+Last update: 2026/09/29
+Standards: HTML5, CSS3, JavaScript
+Components: React, Vite
+Software: Eveia.AI landing experience, designed and developed by John Carlo Gamayo

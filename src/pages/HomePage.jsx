@@ -19,13 +19,17 @@ export default function HomePage() {
     let isAnimating = false
 
     const showScreenshot = ({ instant = false } = {}) => {
-      if (instant) setSkipShotAnimation(true)
+      if (instant) {
+        setSkipShotAnimation(true)
+      } else {
+        setSkipShotAnimation(false)
+      }
       setSectionVisible(true)
     }
 
     const revealIfAlreadyPastHero = () => {
       const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
-      if (window.scrollY >= darkTop - 40) {
+      if (window.scrollY > 300 && window.scrollY >= darkTop - 40) {
         showScreenshot({ instant: true })
       }
     }
@@ -34,11 +38,27 @@ export default function HomePage() {
       showScreenshot({ instant: true })
     }
 
-    revealIfAlreadyPastHero()
+    const initialTimer = setTimeout(revealIfAlreadyPastHero, 150)
     window.addEventListener('pageshow', revealIfAlreadyPastHero)
     window.addEventListener('load', revealIfAlreadyPastHero)
 
-    const smoothScrollTo = (targetY, duration = 950, onComplete) => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          showScreenshot()
+        } else if (window.scrollY < 100) {
+          setSectionVisible(false)
+          setSkipShotAnimation(false)
+        }
+      },
+      { threshold: 0.15 }
+    )
+
+    if (darkSectionRef.current) {
+      observer.observe(darkSectionRef.current)
+    }
+
+    const smoothScrollTo = (targetY, duration = 700, onComplete) => {
       const html = document.documentElement
       const previousBehavior = html.style.scrollBehavior
       html.style.scrollBehavior = 'auto'
@@ -47,8 +67,7 @@ export default function HomePage() {
       const difference = targetY - startY
       const startTime = performance.now()
 
-      const easeInOutCubic = (t) =>
-        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
 
       const finish = () => {
         html.style.scrollBehavior = previousBehavior
@@ -58,7 +77,7 @@ export default function HomePage() {
       const step = (currentTime) => {
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
-        const ease = easeInOutCubic(progress)
+        const ease = easeOutCubic(progress)
 
         window.scrollTo({ top: startY + difference * ease, left: 0, behavior: 'instant' })
 
@@ -78,7 +97,7 @@ export default function HomePage() {
       showScreenshot()
 
       const targetY = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
-      smoothScrollTo(targetY, 950, () => {
+      smoothScrollTo(targetY, 700, () => {
         isAnimating = false
       })
     }
@@ -87,7 +106,7 @@ export default function HomePage() {
       if (isAnimating) return
       isAnimating = true
 
-      smoothScrollTo(0, 850, () => {
+      smoothScrollTo(0, 650, () => {
         isAnimating = false
       })
     }
@@ -137,6 +156,8 @@ export default function HomePage() {
     window.addEventListener('keydown', onKeyDown)
 
     return () => {
+      clearTimeout(initialTimer)
+      observer.disconnect()
       window.removeEventListener('pageshow', revealIfAlreadyPastHero)
       window.removeEventListener('load', revealIfAlreadyPastHero)
       window.removeEventListener('wheel', onWheel)

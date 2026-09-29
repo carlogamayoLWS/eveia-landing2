@@ -54,12 +54,12 @@ export default function Section8() {
             </p>
 
             <div className="sec8-actions">
-              <button className="btn btn-primary sec8-btn-primary">
+              <a href="mailto:inquiry@eveia.ai" className="btn btn-primary sec8-btn-primary">
                 Request Pricing
-              </button>
-              <button className="btn btn-secondary sec8-btn-secondary">
+              </a>
+              <a href="mailto:inquiry@eveia.ai" className="btn btn-secondary sec8-btn-secondary">
                 Request Private Demo
-              </button>
+              </a>
             </div>
           </div>
 
@@ -131,9 +131,9 @@ export default function Section8() {
               Contact us to learn more about plans built for your organization’s
               scale, security requirements and data governance needs.
             </p>
-            <button className="sec8-banner-btn">
+            <a href="mailto:inquiry@eveia.ai" className="sec8-banner-btn">
               Send us a message
-            </button>
+            </a>
           </div>
         </div>
       </div>

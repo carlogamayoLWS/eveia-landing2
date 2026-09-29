@@ -81,7 +81,7 @@ export default function Footer() {
               <li><Link to="/reports">AI Report Generation</Link></li>
               <li><Link to="/proposals">Proposal Drafting</Link></li>
               <li><Link to="/#pricing">Pricing</Link></li>
-              <li><a href="#request-demo">Request a Private Demo</a></li>
+              <li><a href="mailto:inquiry@eveia.ai">Request a Private Demo</a></li>
             </ul>
           </div>
 
@@ -113,9 +113,9 @@ export default function Footer() {
               </li>
             </ul>
 
-            <button className="footer-touch-btn">
+            <a href="mailto:inquiry@eveia.ai" className="footer-touch-btn">
               Send us a message
-            </button>
+            </a>
           </div>
         </div>
 

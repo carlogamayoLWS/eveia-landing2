@@ -69,11 +69,14 @@ export default function Navbar() {
             Product <span className="caret">▾</span>
           </button>
           <div className="nav-dropdown">
-            <NavLink to="/reports" onClick={() => setProductOpen(false)}>
-              AI Report Generation
-            </NavLink>
-            <Link to="/" onClick={() => setProductOpen(false)}>
+            <Link to="/#what-is-eveia" onClick={() => setProductOpen(false)}>
               What is Eveia.AI
+            </Link>
+            <Link to="/#how-it-works" onClick={() => setProductOpen(false)}>
+              How it Works
+            </Link>
+            <Link to="/#security-privacy" onClick={() => setProductOpen(false)}>
+              Security & Privacy
             </Link>
           </div>
         </div>

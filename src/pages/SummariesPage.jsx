@@ -86,9 +86,81 @@ function useInView(threshold = 0.2, rootMargin = '0px 0px -40px 0px') {
 export default function SummariesPage() {
   const [stepsRef, stepsVisible] = useInView(0.15)
   const [stackRef, stackVisible] = useInView(0, '0px 0px 0px 0px')
+  const [compareRef, compareVisible] = useInView(0.18)
+  const [heroReady, setHeroReady] = useState(false)
+  const [heroSettled, setHeroSettled] = useState(false)
+  const pageRef = useRef(null)
+  const ringsRef = useRef(null)
+  const heroVisualRef = useRef(null)
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setHeroReady(true))
+    const settle = window.setTimeout(() => setHeroSettled(true), 1300)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.clearTimeout(settle)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const page = pageRef.current
+    if (!page) return undefined
+
+    let ticking = false
+    const update = () => {
+      ticking = false
+      const y = window.scrollY
+      const heroOffset = Math.min(Math.max(y, 0), 520)
+
+      if (heroVisualRef.current) {
+        heroVisualRef.current.style.setProperty('--paper-back-y', `${heroOffset * 0.16}px`)
+        heroVisualRef.current.style.setProperty('--paper-mid-y', `${heroOffset * 0.09}px`)
+        heroVisualRef.current.style.setProperty('--paper-front-y', `${heroOffset * 0.03}px`)
+      }
+
+      if (ringsRef.current) {
+        const rect = ringsRef.current.getBoundingClientRect()
+        const progress = (window.innerHeight * 0.72 - rect.top) / window.innerHeight
+        const p = Math.max(-0.35, Math.min(0.55, progress))
+        ringsRef.current.style.setProperty('--rings-y', `${p * 90}px`)
+        ringsRef.current.style.setProperty('--rings-scale', `${1 + p * 0.08}`)
+      }
+
+      const glows = page.querySelectorAll('.summaries-compare-glow')
+      if (glows.length) {
+        const compare = glows[0].closest('.summaries-compare')
+        if (compare) {
+          const rect = compare.getBoundingClientRect()
+          const p = Math.max(-1, Math.min(1, (window.innerHeight * 0.5 - rect.top) / window.innerHeight))
+          glows[0].style.setProperty('--glow-x', `${p * 28}px`)
+          glows[0].style.setProperty('--glow-y', `${p * -22}px`)
+          if (glows[1]) {
+            glows[1].style.setProperty('--glow-x', `${p * -18}px`)
+            glows[1].style.setProperty('--glow-y', `${p * 16}px`)
+          }
+          if (glows[2]) {
+            glows[2].style.setProperty('--glow-x', `${p * -10}px`)
+            glows[2].style.setProperty('--glow-y', `${p * 24}px`)
+          }
+        }
+      }
+    }
+
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(update)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    update()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <main className="reports-page search-page summaries-page">
+    <main ref={pageRef} className="reports-page search-page summaries-page">
       <div className="reports-hero-wrap">
         <header className="reports-hero">
           <div className="reports-hero-inner">
@@ -116,7 +188,10 @@ export default function SummariesPage() {
                 information.
               </p>
             </div>
-            <div className="summaries-hero-visual">
+            <div
+              ref={heroVisualRef}
+              className={`summaries-hero-visual ${heroReady ? 'is-ready' : ''} ${heroSettled ? 'is-settled' : ''}`}
+            >
               <span className="summaries-hero-paper summaries-hero-paper--back" />
               <span className="summaries-hero-paper summaries-hero-paper--mid" />
               <img
@@ -132,7 +207,8 @@ export default function SummariesPage() {
         <div className="reports-sources-inner">
           <div className="summaries-how-head">
             <img
-              className="summaries-rings"
+              ref={ringsRef}
+              className={`summaries-rings ${stepsVisible ? 'is-inview' : ''}`}
               src={ringsArt}
               alt=""
               aria-hidden="true"
@@ -198,7 +274,10 @@ export default function SummariesPage() {
             </div>
           </section>
 
-          <section className="summaries-compare">
+          <section
+            ref={compareRef}
+            className={`summaries-compare ${compareVisible ? 'is-visible' : ''}`}
+          >
             <img
               className="summaries-compare-glow summaries-compare-glow--tr"
               src={glowPink}

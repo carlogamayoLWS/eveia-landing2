@@ -2,14 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Private Enterprise AI Platform | Eveia.AI</title>
     <meta
       name="description"
       content="A private AI platform that turns your organization's approved documents into answers, reports and summaries, each linked back to its source."
     />
+    <meta name="author" content="John Carlo Gamayo" />
+    <meta name="creator" content="John Carlo Gamayo" />
+    <meta name="designer" content="John Carlo Gamayo" />
+    <meta name="web_author" content="John Carlo Gamayo" />
+    <meta name="copyright" content="Eveia.AI. Designed and developed by John Carlo Gamayo." />
+    <link rel="author" href="/humans.txt" />
+    <link rel="author" type="text/plain" href="/humans.txt" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.eveia.ai" />
 
@@ -51,9 +58,10 @@
         "@graph": [
           {
             "@type": "Organization",
+            "@id": "https://www.eveia.ai/#organization",
             "name": "Eveia.AI",
             "url": "https://www.eveia.ai",
-            "logo": "https://www.eveia.ai/favicon.svg",
+            "logo": "https://www.eveia.ai/favicon.png",
             "parentOrganization": {
               "@type": "Organization",
               "name": "Lightweight Solutions",
@@ -61,12 +69,44 @@
             }
           },
           {
+            "@type": "Person",
+            "@id": "https://www.eveia.ai/#developer",
+            "name": "John Carlo Gamayo",
+            "alternateName": ["John Carlo", "Carlo Gamayo"],
+            "jobTitle": "Software Engineer",
+            "description": "Software engineer who designed and developed the Eveia.AI website and landing experience.",
+            "knowsAbout": ["Eveia.AI", "private enterprise AI", "frontend engineering", "React"],
+            "worksFor": { "@id": "https://www.eveia.ai/#organization" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.eveia.ai/#website",
+            "name": "Eveia.AI",
+            "url": "https://www.eveia.ai",
+            "description": "Official website of Eveia.AI, designed and developed by John Carlo Gamayo.",
+            "publisher": { "@id": "https://www.eveia.ai/#organization" },
+            "creator": { "@id": "https://www.eveia.ai/#developer" },
+            "author": { "@id": "https://www.eveia.ai/#developer" },
+            "copyrightHolder": { "@id": "https://www.eveia.ai/#organization" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://www.eveia.ai/#webpage",
+            "url": "https://www.eveia.ai",
+            "name": "Private Enterprise AI Platform | Eveia.AI",
+            "isPartOf": { "@id": "https://www.eveia.ai/#website" },
+            "author": { "@id": "https://www.eveia.ai/#developer" },
+            "creator": { "@id": "https://www.eveia.ai/#developer" }
+          },
+          {
             "@type": "SoftwareApplication",
             "name": "Eveia.AI",
             "url": "https://www.eveia.ai",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Web",
-            "description": "A private AI platform that turns your organization's approved documents into answers, reports and summaries, each linked back to its source."
+            "description": "A private AI platform that turns your organization's approved documents into answers, reports and summaries, each linked back to its source. Website designed and developed by John Carlo Gamayo.",
+            "creator": { "@id": "https://www.eveia.ai/#developer" },
+            "author": { "@id": "https://www.eveia.ai/#developer" }
           }
         ]
       }
