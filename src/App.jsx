@@ -7,6 +7,8 @@ import ReportsPage from './pages/ReportsPage.jsx'
 import SearchPage from './pages/SearchPage.jsx'
 import ProposalPage from './pages/ProposalPage.jsx'
 import SummariesPage from './pages/SummariesPage.jsx'
+import EnterprisePage from './pages/EnterprisePage.jsx'
+import IndustryPage from './pages/IndustryPage.jsx'
 
 export default function App() {
   return (
@@ -20,6 +22,14 @@ export default function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/proposals" element={<ProposalPage />} />
           <Route path="/summaries" element={<SummariesPage />} />
+          <Route path="/enterprise" element={<EnterprisePage />} />
+          <Route path="/government" element={<IndustryPage id="government" />} />
+          <Route path="/healthcare" element={<IndustryPage id="healthcare" />} />
+          <Route path="/education" element={<IndustryPage id="education" />} />
+          <Route path="/legal" element={<IndustryPage id="legal" />} />
+          <Route path="/financial-services" element={<IndustryPage id="finance" />} />
+          <Route path="/energy" element={<IndustryPage id="energy" />} />
+          <Route path="/manufacturing" element={<IndustryPage id="manufacturing" />} />
         </Routes>
       </DemoModalProvider>
     </BrowserRouter>

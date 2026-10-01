@@ -114,29 +114,29 @@ export default function Navbar() {
                 <p className="nav-mega-label">BY INDUSTRY</p>
                 <div className="nav-mega-industry">
                   <div>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    <NavLink to="/enterprise" onClick={() => setSolutionsOpen(false)}>
                       Enterprise
-                    </a>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    </NavLink>
+                    <NavLink to="/government" onClick={() => setSolutionsOpen(false)}>
                       Government
-                    </a>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    </NavLink>
+                    <NavLink to="/healthcare" onClick={() => setSolutionsOpen(false)}>
                       Healthcare
-                    </a>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    </NavLink>
+                    <NavLink to="/legal" onClick={() => setSolutionsOpen(false)}>
                       Legal
-                    </a>
+                    </NavLink>
                   </div>
                   <div>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    <NavLink to="/financial-services" onClick={() => setSolutionsOpen(false)}>
                       Financial Services
-                    </a>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    </NavLink>
+                    <NavLink to="/energy" onClick={() => setSolutionsOpen(false)}>
                       Energy & Utilities
-                    </a>
-                    <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                    </NavLink>
+                    <NavLink to="/manufacturing" onClick={() => setSolutionsOpen(false)}>
                       Manufacturing
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>
