@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink } from 'react-router-dom'
 
 const DARK_SECTION_SELECTOR =
-  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses'
+  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses, .pricing-hero, .pricing-expand'
 
 export default function Navbar() {
   const [isOverDark, setIsOverDark] = useState(false)
@@ -149,7 +149,7 @@ export default function Navbar() {
           </div>
         </div>
         <a href="#" className="label-hide">Blog</a>
-        <Link to="/#pricing" className="label-hide">Pricing</Link>
+        <NavLink to="/pricing" className="label-hide">Pricing</NavLink>
         <a href="mailto:inquiry@eveia.ai" className="cta">Request a Demo</a>
       </nav>
     </div>,

@@ -9,6 +9,7 @@ import ProposalPage from './pages/ProposalPage.jsx'
 import SummariesPage from './pages/SummariesPage.jsx'
 import EnterprisePage from './pages/EnterprisePage.jsx'
 import IndustryPage from './pages/IndustryPage.jsx'
+import PricingPage from './pages/PricingPage.jsx'
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/financial-services" element={<IndustryPage id="finance" />} />
           <Route path="/energy" element={<IndustryPage id="energy" />} />
           <Route path="/manufacturing" element={<IndustryPage id="manufacturing" />} />
+          <Route path="/pricing" element={<PricingPage />} />
         </Routes>
       </DemoModalProvider>
     </BrowserRouter>
