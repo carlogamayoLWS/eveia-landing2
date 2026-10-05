@@ -128,6 +128,9 @@ export default function HomePage() {
     }
 
     const onTouchEnd = (e) => {
+      // Do not hijack scroll on mobile screens - allow natural, responsive finger scrolling
+      if (window.innerWidth <= 860) return
+
       const touchEndY = e.changedTouches[0].clientY
       const diffY = touchStartY - touchEndY
       const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight

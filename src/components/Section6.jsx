@@ -50,41 +50,6 @@ const ROW2 = [
   },
 ]
 
-const LAPTOP_SCREENS = [
-  decisionReportImg,
-  execSummaryImg,
-  proposalDraftImg,
-  instantAnswersImg,
-]
-
-function LaptopScreenSwitcher({ alt }) {
-  const [activeIdx, setActiveIdx] = useState(0)
-
-  useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) return undefined
-
-    const interval = window.setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % LAPTOP_SCREENS.length)
-    }, 3000)
-
-    return () => window.clearInterval(interval)
-  }, [])
-
-  return (
-    <div className="laptop-screen-switcher">
-      {LAPTOP_SCREENS.map((screen, idx) => (
-        <img
-          key={screen}
-          src={screen}
-          alt={idx === 0 ? alt : ''}
-          className={idx === activeIdx ? 'is-active' : ''}
-        />
-      ))}
-    </div>
-  )
-}
-
 function FeatureCard({ title, from, to, body, img, alt, tone, visual }) {
   return (
     <article className={`sec6-card sec6-card--${tone} slide-in-card`}>
@@ -96,11 +61,7 @@ function FeatureCard({ title, from, to, body, img, alt, tone, visual }) {
         <p className="sec6-card-body">{body}</p>
       </div>
       <div className={`sec6-card-visual sec6-card-visual--${visual}`}>
-        {visual === 'laptop' ? (
-          <LaptopScreenSwitcher alt={alt} />
-        ) : (
-          <img src={img} alt={alt} />
-        )}
+        <img src={img} alt={alt} />
       </div>
     </article>
   )
