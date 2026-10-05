@@ -10,6 +10,7 @@ import SummariesPage from './pages/SummariesPage.jsx'
 import EnterprisePage from './pages/EnterprisePage.jsx'
 import IndustryPage from './pages/IndustryPage.jsx'
 import PricingPage from './pages/PricingPage.jsx'
+import SecurityPage from './pages/SecurityPage.jsx'
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/energy" element={<IndustryPage id="energy" />} />
           <Route path="/manufacturing" element={<IndustryPage id="manufacturing" />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/security" element={<SecurityPage />} />
         </Routes>
       </DemoModalProvider>
     </BrowserRouter>

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const DARK_SECTION_SELECTOR =
-  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses, .pricing-hero, .pricing-expand'
+  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses, .pricing-hero, .pricing-expand, .security-hero'
 
 export default function Navbar() {
   const [isOverDark, setIsOverDark] = useState(false)
@@ -44,7 +44,7 @@ export default function Navbar() {
       window.removeEventListener('scroll', updateNavTheme)
       window.removeEventListener('resize', updateNavTheme)
     }
-  }, [])
+  }, [location.pathname])
 
   useEffect(() => {
     if (!productOpen && !solutionsOpen) return
@@ -115,7 +115,7 @@ export default function Navbar() {
               <Link to="/#how-it-works" onClick={() => setProductOpen(false)}>
                 How it Works
               </Link>
-              <Link to="/#security-privacy" onClick={() => setProductOpen(false)}>
+              <Link to="/security" onClick={() => setProductOpen(false)}>
                 Security & Privacy
               </Link>
             </div>
@@ -259,7 +259,7 @@ export default function Navbar() {
                     <span className="accordion-bullet" />
                     How it Works
                   </Link>
-                  <Link to="/#security-privacy" onClick={closeMobile}>
+                  <Link to="/security" onClick={closeMobile}>
                     <span className="accordion-bullet" />
                     Security & Privacy
                   </Link>
