@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const DARK_SECTION_SELECTOR =
-  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses, .pricing-hero, .pricing-expand, .security-hero'
+  '.dark, .sec4, .sec7, .footer, .sec8-banner, .reports-sources, .reports-uses, .reports-cta, .reports-cta-wrap, .search-uses, .pricing-hero, .pricing-expand, .security-hero, .contact-hero, .ph-audience, .privacy-approach'
 
 export default function Navbar() {
   const [isOverDark, setIsOverDark] = useState(false)
@@ -118,6 +118,9 @@ export default function Navbar() {
               <Link to="/security" onClick={() => setProductOpen(false)}>
                 Security & Privacy
               </Link>
+              <Link to="/philippines" onClick={() => setProductOpen(false)}>
+                AI in the Philippines
+              </Link>
             </div>
           </div>
           <div className={`nav-item ${solutionsOpen ? 'is-open' : ''}`}>
@@ -182,9 +185,9 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="nav-mega-foot">
-                <a href="#solutions" onClick={() => setSolutionsOpen(false)}>
+                <NavLink to="/data-privacy" onClick={() => setSolutionsOpen(false)}>
                   Data Privacy and AI
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -263,6 +266,10 @@ export default function Navbar() {
                     <span className="accordion-bullet" />
                     Security & Privacy
                   </Link>
+                  <Link to="/philippines" onClick={closeMobile}>
+                    <span className="accordion-bullet" />
+                    AI in the Philippines
+                  </Link>
                 </div>
               </div>
 
@@ -327,9 +334,9 @@ export default function Navbar() {
                   </NavLink>
 
                   <div className="nav-mobile-group-foot">
-                    <a href="#solutions" onClick={closeMobile}>
+                    <NavLink to="/data-privacy" onClick={closeMobile}>
                       Data Privacy and AI →
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>

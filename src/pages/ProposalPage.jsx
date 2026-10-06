@@ -177,7 +177,7 @@ export default function ProposalPage() {
                 <a className="btn btn-primary" href="#request-demo">
                   Request a Private Demo
                 </a>
-                <a className="btn btn-secondary" href="mailto:inquiry@eveia.ai">
+                <a className="btn btn-secondary" href="/contact#send-message">
                   Send us a message
                 </a>
               </div>
@@ -369,7 +369,7 @@ export default function ProposalPage() {
               <a className="reports-cta-btn reports-cta-btn--primary" href="mailto:inquiry@eveia.ai">
                 Request Demo
               </a>
-              <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
+              <a className="reports-cta-btn" href="/contact#send-message">
                 Send us a message
               </a>
             </div>

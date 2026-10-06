@@ -131,7 +131,7 @@ export default function Section8() {
               Contact us to learn more about plans built for your organization’s
               scale, security requirements and data governance needs.
             </p>
-            <a href="mailto:inquiry@eveia.ai" className="sec8-banner-btn">
+            <a href="/contact#send-message" className="sec8-banner-btn">
               Send us a message
             </a>
           </div>

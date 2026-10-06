@@ -29,6 +29,7 @@ export function DemoModalProvider({ children }) {
 
       const isDemoBtn =
         text.includes('request a private demo') ||
+        text.includes('request for a private demo') ||
         text.includes('request a demo') ||
         text.includes('request demo') ||
         text.includes('request pricing') ||
@@ -36,8 +37,9 @@ export function DemoModalProvider({ children }) {
         href.includes('#request-demo')
 
       if (isSendMsg) {
+        if (href.includes('/contact') || href.includes('#send-message')) return
         e.preventDefault()
-        openModal('message')
+        window.location.assign('/contact#send-message')
       } else if (isDemoBtn) {
         e.preventDefault()
         openModal('demo')

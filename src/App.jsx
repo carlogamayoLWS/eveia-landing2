@@ -11,6 +11,9 @@ import EnterprisePage from './pages/EnterprisePage.jsx'
 import IndustryPage from './pages/IndustryPage.jsx'
 import PricingPage from './pages/PricingPage.jsx'
 import SecurityPage from './pages/SecurityPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
+import PhilippinesPage from './pages/PhilippinesPage.jsx'
+import DataPrivacyPage from './pages/DataPrivacyPage.jsx'
 
 export default function App() {
   return (
@@ -34,6 +37,9 @@ export default function App() {
           <Route path="/manufacturing" element={<IndustryPage id="manufacturing" />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/security" element={<SecurityPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/philippines" element={<PhilippinesPage />} />
+          <Route path="/data-privacy" element={<DataPrivacyPage />} />
         </Routes>
       </DemoModalProvider>
     </BrowserRouter>

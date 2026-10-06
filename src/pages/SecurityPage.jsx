@@ -185,23 +185,24 @@ export default function SecurityPage() {
         className={`reports-stack-wrap ${stackVisible ? 'is-visible' : ''}`}
       >
         <div className="reports-stack security-sheet">
-          <section className="security-claims">
-            <h2>What We Do Not Claim</h2>
-            <p className="security-claims-lead">
-              We believe security should be explained clearly, including its limits.
-            </p>
-            <ul>
-              {CLAIMS.map((item) => (
-                <li key={item.title}>
-                  <strong>{item.title}</strong> – {item.body}
-                </li>
-              ))}
-            </ul>
-          </section>
+          <div className="security-sheet-column">
+            <section className="security-claims">
+              <h2>What We Do Not Claim</h2>
+              <p className="security-claims-lead">
+                We believe security should be explained clearly, including its limits.
+              </p>
+              <ul>
+                {CLAIMS.map((item) => (
+                  <li key={item.title}>
+                    <strong>{item.title}</strong> – {item.body}
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-          <hr className="security-divider" />
+            <hr className="security-divider" />
 
-          <section className="security-faq">
+            <section className="security-faq">
             <h2>Questions to Ask About Enterprise AI Security</h2>
             <p className="security-faq-lead">
               When evaluating an enterprise AI platform, ask:
@@ -243,7 +244,8 @@ export default function SecurityPage() {
                 )
               })}
             </div>
-          </section>
+            </section>
+          </div>
         </div>
       </div>
 
@@ -269,7 +271,7 @@ export default function SecurityPage() {
               <a className="reports-cta-btn reports-cta-btn--primary" href="#request-demo">
                 Request Demo
               </a>
-              <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
+              <a className="reports-cta-btn" href="/contact#send-message">
                 Send us a message
               </a>
             </div>

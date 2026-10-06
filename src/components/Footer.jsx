@@ -89,7 +89,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-links">
-              <li><a href="#privacy">Privacy</a></li>
+              <li><Link to="/data-privacy">Privacy</Link></li>
               <li><a href="#terms">Terms & Conditions</a></li>
               <li><a href="mailto:inquiry@eveia.ai">inquiry@eveia.ai</a></li>
             </ul>
@@ -113,9 +113,9 @@ export default function Footer() {
               </li>
             </ul>
 
-            <a href="mailto:inquiry@eveia.ai" className="footer-touch-btn">
+            <Link to="/contact#send-message" className="footer-touch-btn">
               Send us a message
-            </a>
+            </Link>
           </div>
         </div>
 

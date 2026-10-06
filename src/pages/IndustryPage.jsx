@@ -172,7 +172,7 @@ export default function IndustryPage({ id }) {
               <a className="reports-cta-btn reports-cta-btn--primary" href="mailto:inquiry@eveia.ai">
                 Request Demo
               </a>
-              <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
+              <a className="reports-cta-btn" href="/contact#send-message">
                 Send us a message
               </a>
             </div>

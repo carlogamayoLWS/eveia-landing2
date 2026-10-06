@@ -12,7 +12,7 @@ export default function Hero() {
       <p className="hero-desc">Turn your organization's knowledge into <br className="hero-br" />instant answers, reports, and proposals in minutes.</p>
       <div className="hero-ctas">
         <a className="btn btn-primary" href="mailto:inquiry@eveia.ai">Request a Private Demo</a>
-        <a className="btn btn-secondary" href="mailto:inquiry@eveia.ai">Send us a message</a>
+        <a className="btn btn-secondary" href="/contact#send-message">Send us a message</a>
       </div>
     </header>
   )

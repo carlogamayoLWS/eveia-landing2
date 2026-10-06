@@ -187,7 +187,7 @@ export default function PricingPage() {
               <a className="reports-cta-btn reports-cta-btn--primary" href="#request-demo">
                 Request Demo
               </a>
-              <a className="reports-cta-btn" href="mailto:inquiry@eveia.ai">
+              <a className="reports-cta-btn" href="/contact#send-message">
                 Send us a message
               </a>
             </div>
