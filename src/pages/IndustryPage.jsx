@@ -6,40 +6,52 @@ import footerLogo from '../assets/footer-logo.png'
 import Footer from '../components/Footer.jsx'
 import { INDUSTRY_CARDS, industries } from '../data/industries.js'
 
-function useInView(threshold = 0.2, rootMargin = '0px 0px -40px 0px') {
-  const ref = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold, rootMargin }
-    )
-
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [threshold, rootMargin])
-
-  return [ref, isVisible]
-}
-
 export default function IndustryPage({ id }) {
   const page = industries[id]
-  const [teamsRef, teamsVisible] = useInView(0.15)
-  const [stackRef, stackVisible] = useInView(0, '0px 0px 0px 0px')
+  const [section2Visible, setSection2Visible] = useState(false)
+  const [stackVisible, setStackVisible] = useState(false)
   const pageRef = useRef(null)
+  const sourcesRef = useRef(null)
+  const stackRef = useRef(null)
+  const stackCardRef = useRef(null)
   const ringsRef = useRef(null)
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    setSection2Visible(false)
 
-    const root = pageRef.current
-    if (!root) return undefined
+    const section = sourcesRef.current
+    if (!section) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) {
+      setSection2Visible(true)
+      return undefined
+    }
+
+    const isSectionInView = () => {
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      return rect.top < vh * 0.62 && rect.bottom > vh * 0.28
+    }
+
+    const tryReveal = () => {
+      if (window.scrollY < 32) return false
+      if (!isSectionInView()) return false
+      setSection2Visible(true)
+      return true
+    }
+
+    const onScroll = () => {
+      if (tryReveal()) window.removeEventListener('scroll', onScroll)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [id])
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    if (!section2Visible) return undefined
 
     let ticking = false
     const update = () => {
@@ -61,7 +73,43 @@ export default function IndustryPage({ id }) {
     window.addEventListener('scroll', onScroll, { passive: true })
     update()
     return () => window.removeEventListener('scroll', onScroll)
+  }, [id, section2Visible])
+
+  useEffect(() => {
+    setStackVisible(false)
   }, [id])
+
+  useEffect(() => {
+    if (!section2Visible) return undefined
+
+    const card = stackCardRef.current
+    if (!card) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) {
+      setStackVisible(true)
+      return undefined
+    }
+
+    const startY = window.scrollY
+
+    const tryReveal = () => {
+      if (window.scrollY < startY + 20) return false
+      const rect = card.getBoundingClientRect()
+      if (rect.top < window.innerHeight * 0.9) {
+        setStackVisible(true)
+        return true
+      }
+      return false
+    }
+
+    const onScroll = () => {
+      if (tryReveal()) window.removeEventListener('scroll', onScroll)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [id, section2Visible])
 
   return (
     <main ref={pageRef} className={`reports-page summaries-page enterprise-page enterprise-page--${id}`}>
@@ -86,12 +134,12 @@ export default function IndustryPage({ id }) {
         </header>
       </div>
 
-      <section className="reports-sources">
+      <section ref={sourcesRef} className="reports-sources">
         <div className="reports-sources-inner">
           <div className="summaries-how-head">
             <img
               ref={ringsRef}
-              className={`summaries-rings ${teamsVisible ? 'is-inview' : ''}`}
+              className={`summaries-rings ${section2Visible ? 'is-inview' : ''}`}
               src={ringsArt}
               alt=""
               aria-hidden="true"
@@ -100,8 +148,7 @@ export default function IndustryPage({ id }) {
             <p className="reports-sources-desc">{page.howBody}</p>
           </div>
           <div
-            ref={teamsRef}
-            className={`enterprise-teams ${teamsVisible ? 'is-visible' : ''}`}
+            className={`enterprise-teams ${section2Visible ? 'is-visible' : ''}`}
           >
             {page.teams.map((team) => (
               <article
@@ -121,7 +168,7 @@ export default function IndustryPage({ id }) {
         ref={stackRef}
         className={`reports-stack-wrap ${stackVisible ? 'is-visible' : ''}`}
       >
-        <div className="reports-stack">
+        <div ref={stackCardRef} className="reports-stack">
           <span className="enterprise-stack-glow" aria-hidden="true" />
           <section className="reports-how">
             <div className="reports-how-inner">
