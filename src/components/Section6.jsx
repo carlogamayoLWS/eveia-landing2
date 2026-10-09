@@ -115,16 +115,7 @@ export default function Section6() {
           </h2>
 
           <p className="sec6-desc">
-            See how Eveia.AI helps your team complete work faster. For more
-            detail, read about{' '}
-            <a href="/reports" className="sec6-link">
-              AI report generation
-            </a>{' '}
-            or{' '}
-            <a href="#solutions" className="sec6-link">
-              view all solutions
-            </a>
-            .
+            See how Eveia.AI helps your team complete work faster.
           </p>
         </div>
 

@@ -4,7 +4,6 @@ import productStrategy from '../assets/sec8-product-strategy.png'
 import userChat from '../assets/sec8-userchat.png'
 import latestReport from '../assets/sec8-latest-report.png'
 import chatBox from '../assets/sec8-chatbox.png'
-import footerLogo from '../assets/footer-logo.png'
 
 export default function Section8() {
   const sectionRef = useRef(null)
@@ -110,30 +109,6 @@ export default function Section8() {
                 />
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Bottom Banner Card (Dark Gradient Banner) */}
-        <div className="sec8-banner">
-          <div className="sec8-banner-bg" aria-hidden="true">
-            <img
-              src={footerLogo}
-              alt=""
-              className="sec8-banner-spiral"
-            />
-          </div>
-
-          <div className="sec8-banner-content">
-            <h3 className="sec8-banner-heading">
-              Pricing available upon request
-            </h3>
-            <p className="sec8-banner-desc">
-              Contact us to learn more about plans built for your organization’s
-              scale, security requirements and data governance needs.
-            </p>
-            <a href="/contact#send-message" className="sec8-banner-btn">
-              Send us a message
-            </a>
           </div>
         </div>
       </div>
