@@ -46,21 +46,20 @@ export default function Section7() {
       <div className="sec7-container">
         <div className="sec7-header">
           <h2 className="sec7-heading">
-            Turn Hours of Work into
+            <span className="sec7-heading__accent">Built</span> for Organizations That
             <br />
-            <span className="sec7-heading__grad">Minutes.</span>
+            Value Privacy and Security.
           </h2>
 
           <p className="sec7-desc">
             Eveia.AI is designed for organizations that manage important
-            knowledge, sensitive information and critical workflows. Access
-            follows role, answers are drawn only from the documents you approve,
-            and every answer links back to its source.
+            knowledge, sensitive information, and critical workflows. Your data
+            remains private, secure, and accessible only to authorized users.
+            <br />
+            <a href="/data-privacy" className="sec7-link">
+              Read how we handle data →
+            </a>
           </p>
-
-          <a href="#handle-data" className="sec7-link">
-            Read how we handle data →
-          </a>
         </div>
 
         {/* 4 Feature / Security Pills */}

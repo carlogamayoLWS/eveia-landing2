@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import decisionReportImg from '../assets/decision-ready-report2.png'
+import decisionReportImg from '../assets/decision-ready-report3.png'
 import instantAnswersImg from '../assets/instant-answer2.png'
 import proposalDraftImg from '../assets/proposal-draft2.png'
-import execSummaryImg from '../assets/executive-summary2.png'
+import execSummaryImg from '../assets/executive-summary3.png'
 
 const ROW1 = [
   {
@@ -11,7 +11,7 @@ const ROW1 = [
     to: 'Minutes',
     body: "Generate executive reports using your organization's trusted knowledge, reducing hours of preparation into minutes.",
     img: decisionReportImg,
-    alt: 'Q2 business report on a laptop with a customer contact card',
+    alt: 'Q2 business report overlay on an Eveia.AI laptop workspace',
     tone: 'blush',
     visual: 'laptop',
   },
@@ -21,9 +21,9 @@ const ROW1 = [
     to: 'Seconds',
     body: "Ask questions in natural language and receive source-backed answers from your organization's trusted knowledge.",
     img: instantAnswersImg,
-    alt: 'Q2 business report with floating knowledge source icons',
+    alt: 'Chat asking for a Q2 board summary with a source-backed answer',
     tone: 'lavender',
-    visual: 'report',
+    visual: 'chat',
   },
 ]
 
@@ -34,9 +34,9 @@ const ROW2 = [
     to: 'Minutes',
     body: 'Create proposals using previous work and approved material, rather than starting from a blank page.',
     img: proposalDraftImg,
-    alt: 'Document files being pulled together into a proposal',
+    alt: 'Operations improvement proposal generated in Eveia.AI',
     tone: 'lavender',
-    visual: 'icons',
+    visual: 'document',
   },
   {
     title: 'Executive Summaries',
@@ -44,9 +44,9 @@ const ROW2 = [
     to: 'Minutes',
     body: 'Transform large volumes of internal material into concise summaries, each linked back to its source.',
     img: execSummaryImg,
-    alt: 'Q3 2026 board report with financial performance and key highlights',
+    alt: 'Q2 sales question connected to a database of source material',
     tone: 'blush',
-    visual: 'dashboard',
+    visual: 'summary',
   },
 ]
 
@@ -56,7 +56,7 @@ function FeatureCard({ title, from, to, body, img, alt, tone, visual }) {
       <div className="sec6-card-copy">
         <h3 className="sec6-card-title">{title}</h3>
         <p className="sec6-card-accent">
-          {from} <span>→ {to}</span>
+          {from} → {to}
         </p>
         <p className="sec6-card-body">{body}</p>
       </div>
@@ -102,7 +102,7 @@ export default function Section6() {
   }, [])
 
   return (
-    <section className="sec6" id="section-6">
+    <section className="sec6" id="solutions">
       <div className="sec6-ambient-left" aria-hidden="true" />
       <div className="sec6-ambient-right" aria-hidden="true" />
 
@@ -115,16 +115,7 @@ export default function Section6() {
           </h2>
 
           <p className="sec6-desc">
-            See how Eveia.AI helps your team complete work faster. For more
-            detail, read about{' '}
-            <a href="/reports" className="sec6-link">
-              AI report generation
-            </a>{' '}
-            or{' '}
-            <a href="#solutions" className="sec6-link">
-              view all solutions
-            </a>
-            .
+            See how Eveia.AI helps your team complete work faster.
           </p>
         </div>
 
@@ -147,6 +138,19 @@ export default function Section6() {
             ))}
           </div>
         </div>
+
+        <p className="sec6-footnote">
+          For more detail, read about
+          <br />
+          <a href="/security" className="sec6-link">
+            secure AI for company documents
+          </a>{' '}
+          or{' '}
+          <a href="/enterprise" className="sec6-link">
+            view all solutions
+          </a>
+          .
+        </p>
       </div>
     </section>
   )
