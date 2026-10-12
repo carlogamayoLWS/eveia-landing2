@@ -46,9 +46,9 @@ export default function Section7() {
       <div className="sec7-container">
         <div className="sec7-header">
           <h2 className="sec7-heading">
-            <span className="sec7-heading__accent">Built</span> for Organizations That
+            <span className="sec7-heading__accent">Built</span> for Organizations That Value
             <br />
-            Value Privacy and Security.
+            Privacy and Security.
           </h2>
 
           <p className="sec7-desc">
