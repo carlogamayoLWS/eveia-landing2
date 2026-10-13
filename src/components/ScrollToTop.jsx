@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
+const PIN_TO_SECTION_TOP = new Set(['what-is-eveia', 'how-it-works'])
+
 export default function ScrollToTop() {
   const { pathname, hash } = useLocation()
 
@@ -14,17 +16,38 @@ export default function ScrollToTop() {
     }
 
     const id = decodeURIComponent(hash.slice(1))
-    const scrollToHash = () => {
-      const el = document.getElementById(id)
-      if (el) el.scrollIntoView({ behavior, block: 'start' })
+    const reveal = (el) => {
+      el.classList.add('is-visible')
+      el.querySelectorAll('.sec6-row').forEach((row) => row.classList.add('is-inview'))
     }
 
-    scrollToHash()
-    const frame = requestAnimationFrame(scrollToHash)
-    const timer = window.setTimeout(scrollToHash, 80)
+    const pinToTop = (el) => {
+      const top = Math.round(el.getBoundingClientRect().top + window.scrollY)
+      if (Math.abs(window.scrollY - top) > 2) {
+        window.scrollTo({ top, left: 0, behavior: 'instant' })
+      }
+    }
+
+    const scrollToHash = (mode) => {
+      const el = document.getElementById(id)
+      if (!el) return false
+      reveal(el)
+      if (PIN_TO_SECTION_TOP.has(id)) {
+        pinToTop(el)
+        return true
+      }
+      el.scrollIntoView({ behavior: mode, block: 'start' })
+      return true
+    }
+
+    scrollToHash(behavior)
+    const frame = requestAnimationFrame(() => scrollToHash(behavior))
+    const timer = window.setTimeout(() => scrollToHash('instant'), 80)
+    const late = window.setTimeout(() => scrollToHash('instant'), 320)
     return () => {
       cancelAnimationFrame(frame)
       window.clearTimeout(timer)
+      window.clearTimeout(late)
     }
   }, [pathname, hash])
 

@@ -7,6 +7,12 @@
   --gray:#5d5b63;
   --gray-light:#8a8890;
   --black:#050505;
+  --charcoal:#141414;
+  --charcoal-mid:#666666;
+  --dark-wash:linear-gradient(180deg, #141414 0%, #3d3d3d 62%, #666666 100%);
+  --blush:#fff3f9;
+  --glow-pink:#f00878;
+  --glow-magenta:#ab009a;
   --ai-reveal-delay: 0.85s;
   --shot-overhang: clamp(72px, 10vh, 120px);
   --line-draw-duration: 1.15s;
@@ -808,9 +814,9 @@ a{text-decoration:none;color:inherit;}
   position:absolute;
   inset:-100px -280px -80px -280px;
   background:
-    radial-gradient(ellipse 650px 520px at 0% 50%, rgba(139,8,101,0.75) 0%, rgba(37,13,105,0.45) 45%, transparent 75%),
-    radial-gradient(ellipse 650px 520px at 100% 50%, rgba(252,0,97,0.65) 0%, rgba(139,8,101,0.35) 45%, transparent 75%),
-    radial-gradient(ellipse 900px 380px at 50% 85%, rgba(139,8,101,0.3) 0%, transparent 70%);
+    radial-gradient(ellipse 650px 520px at 0% 50%, rgba(171,0,154,0.85) 0%, rgba(240,8,120,0.4) 45%, transparent 75%),
+    radial-gradient(ellipse 650px 520px at 100% 50%, rgba(240,8,120,0.8) 0%, rgba(171,0,154,0.35) 45%, transparent 75%),
+    radial-gradient(ellipse 900px 380px at 50% 85%, rgba(240,8,120,0.28) 0%, transparent 70%);
   filter:blur(65px);
   z-index:0;
   pointer-events:none;
@@ -873,7 +879,7 @@ a{text-decoration:none;color:inherit;}
 
 /* ---------- BLACK SECTION ---------- */
 .dark{
-  background:var(--black);
+  background:var(--charcoal);
   min-height:100vh;
   margin-top:0;
   padding-top:28px;
@@ -882,7 +888,7 @@ a{text-decoration:none;color:inherit;}
   z-index:2;
   overflow:visible;
   display:flow-root;
-  box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.55);
 }
 
 .ticker-track{
@@ -938,34 +944,34 @@ a{text-decoration:none;color:inherit;}
   color:transparent;
 }
 .dark-desc{
-  max-width:1020px;
-  margin:0 auto 36px;
+  max-width:1147px;
+  margin:0 auto 51px;
   text-align:center;
-  font-size:16px;
+  font-size:20px;
   font-weight:400;
-  line-height:1.55;
-  letter-spacing:0.2px;
-  color:#c8c8c8;
-  padding:0 20px;
+  line-height:1.5;
+  letter-spacing:2.5px;
+  color:#ffffff;
+  padding:0 24px;
 }
 .dark-callout{
   display:block;
-  max-width:520px;
+  max-width:640px;
   margin:0 auto;
   text-align:center;
-  font-size:16px;
+  font-size:20px;
   font-weight:700;
-  line-height:1.5;
-  letter-spacing:0.15px;
-  color:#fff;
-  padding:0 20px;
+  line-height:1.4;
+  letter-spacing:2.5px;
+  color:#ffffff;
+  padding:0 24px;
 }
 
 /* ==========================================================================
    SECTION 4: What Slows Down Organizations?
    ========================================================================== */
 .sec4{
-  background:var(--black);
+  background:linear-gradient(180deg, var(--charcoal) 0%, #2a2a2a 100%);
   position:relative;
   z-index:2;
   padding:90px 0 140px;
@@ -1121,7 +1127,7 @@ a{text-decoration:none;color:inherit;}
    SECTION 5: Transform Trusted Knowledge Into Work
    ========================================================================== */
 .sec5{
-  background:#FCF4F6;
+  background:var(--blush);
   position:relative;
   z-index:2;
   padding:140px 24px 150px;
@@ -1129,7 +1135,7 @@ a{text-decoration:none;color:inherit;}
   box-shadow:0 -20px 40px rgba(0,0,0,0.12);
 }
 .sec5-container{
-  max-width:1080px;
+  max-width:1313px;
   margin:0 auto;
   opacity:0;
   transform:translateY(35px);
@@ -1140,12 +1146,21 @@ a{text-decoration:none;color:inherit;}
   transform:translateY(0);
 }
 .sec5-heading{
-  font-size:clamp(30px, 3.4vw, 48px);
+  font-size:clamp(32px, 4.2vw, 60px);
   font-weight:700;
-  line-height:1.15;
-  letter-spacing:-0.6px;
+  line-height:1.05;
+  letter-spacing:-2px;
   color:var(--ink);
-  margin:0 auto 28px;
+  margin:0 auto 52px;
+  text-align:center;
+}
+.sec5-heading__line{
+  display:block;
+}
+@media (min-width: 1100px){
+  .sec5-heading__line{
+    white-space:nowrap;
+  }
 }
 .sec5-heading__grad{
   display:block;
@@ -1157,22 +1172,24 @@ a{text-decoration:none;color:inherit;}
   color:transparent;
 }
 .sec5-desc{
-  max-width:680px;
-  margin:0 auto 36px;
-  font-size:16px;
-  line-height:1.55;
-  letter-spacing:0.2px;
-  color:#6b6b73;
+  max-width:1065px;
+  margin:0 auto 51px;
+  font-size:20px;
+  line-height:1.5;
+  letter-spacing:2.5px;
+  color:#1d1d1f;
   font-weight:400;
+  text-align:center;
 }
 .sec5-callout{
-  max-width:720px;
+  max-width:1065px;
   margin:0 auto;
-  font-size:16px;
+  font-size:20px;
   font-weight:500;
   line-height:1.5;
-  letter-spacing:0.15px;
+  letter-spacing:2.5px;
   color:#303030;
+  text-align:center;
 }
 
 /* ==========================================================================
@@ -1459,10 +1476,11 @@ a{text-decoration:none;color:inherit;}
    SECTION 7: Security and Data Governance
    ========================================================================== */
 .sec7{
-  background:var(--black);
+  background:linear-gradient(180deg, #141414 0%, #1a1a1a 42%, #3d3d3d 78%, #666666 100%);
   position:relative;
   z-index:2;
-  padding-bottom:150px;
+  min-height:792px;
+  padding:132px 24px 130px;
   overflow:hidden;
 }
 .sec7 > .gradient-line{
@@ -1473,34 +1491,9 @@ a{text-decoration:none;color:inherit;}
   height:6px;
   margin:0;
 }
-.sec7-ambient-left{
-  position:absolute;
-  top:-140px;
-  left:-140px;
-  width:640px;
-  height:640px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(37,13,105,0.85) 0%, rgba(139,8,101,0.45) 45%, transparent 72%);
-  filter:blur(80px);
-  pointer-events:none;
-  z-index:0;
-}
-.sec7-ambient-right{
-  position:absolute;
-  top:-140px;
-  right:-140px;
-  width:640px;
-  height:640px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(252,0,97,0.7) 0%, rgba(139,8,101,0.35) 45%, transparent 72%);
-  filter:blur(80px);
-  pointer-events:none;
-  z-index:0;
-}
 .sec7-container{
-  max-width:1120px;
+  max-width:1177px;
   margin:0 auto;
-  padding:100px 24px 0;
   text-align:center;
   position:relative;
   z-index:1;
@@ -1513,15 +1506,24 @@ a{text-decoration:none;color:inherit;}
   transform:translateY(0);
 }
 .sec7-header{
-  margin-bottom:48px;
+  margin-bottom:70px;
 }
 .sec7-heading{
-  font-size:clamp(30px, 3.4vw, 48px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:clamp(32px, 4.4vw, 64px);
   font-weight:700;
-  line-height:1.15;
-  letter-spacing:-0.6px;
+  line-height:1.05;
+  letter-spacing:-2px;
   color:#ffffff;
-  margin-bottom:28px;
+  margin:0 auto 46px;
+  max-width:100%;
+  text-align:center;
+}
+.sec7-heading__line{
+  display:block;
+  white-space:nowrap;
 }
 .sec7-heading__grad{
   display:inline-block;
@@ -1535,21 +1537,29 @@ a{text-decoration:none;color:inherit;}
   color:var(--pink);
 }
 .sec7-desc{
-  max-width:700px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-width:100%;
   margin:0 auto;
-  font-size:16px;
-  line-height:1.55;
-  letter-spacing:0.2px;
-  color:#c8c8c8;
+  font-size:20px;
+  line-height:30px;
+  letter-spacing:2.5px;
+  color:#ffffff;
   font-weight:400;
+  text-align:center;
+}
+.sec7-desc span{
+  display:block;
+  white-space:nowrap;
 }
 .sec7-link{
-  display:inline-block;
+  display:block;
   color:var(--pink);
   font-weight:400;
-  font-size:16px;
-  line-height:1.55;
-  letter-spacing:0.2px;
+  font-size:20px;
+  line-height:30px;
+  letter-spacing:2.5px;
   text-decoration:underline;
   text-underline-offset:3px;
   transition:opacity 0.2s ease, transform 0.2s ease;
@@ -1562,68 +1572,82 @@ a{text-decoration:none;color:inherit;}
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:16px;
+  gap:25px;
   flex-wrap:wrap;
-  margin-bottom:48px;
+  margin-bottom:70px;
 }
 .sec7-pill{
   display:inline-flex;
   align-items:center;
-  gap:16px;
-  padding:16.4px 20.85px;
-  background:rgba(255, 255, 255, 0.06);
-  border:1px solid rgba(255, 255, 255, 0.28);
-  border-radius:999px;
-  backdrop-filter:blur(20px) saturate(140%);
-  -webkit-backdrop-filter:blur(20px) saturate(140%);
-  box-shadow:inset 0 1px 1.5px rgba(255, 255, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35);
+  gap:8px;
+  height:49px;
+  padding:0 21px;
+  background:rgba(255, 255, 255, 0.1);
+  border:0.75px solid rgba(255, 255, 255, 0.12);
+  border-radius:74px;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  box-shadow:0 8px 24px rgba(0, 0, 0, 0.28);
   cursor:pointer;
-  transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
   user-select:none;
 }
 .sec7-pill:hover{
-  background:var(--pink);
-  border-color:var(--pink);
+  background:rgba(255, 255, 255, 0.16);
   transform:translateY(-2px);
-  box-shadow:0 10px 28px rgba(252, 0, 97, 0.45);
 }
 .sec7-pill-dot{
   width:7px;
   height:7px;
   border-radius:50%;
   background:var(--pink);
-  box-shadow:0 0 8px rgba(252, 0, 97, 0.9);
-  transition:all 0.25s ease;
+  flex-shrink:0;
 }
 .sec7-pill:hover .sec7-pill-dot{
-  background:#ffffff;
-  box-shadow:0 0 8px rgba(255, 255, 255, 0.95);
+  background:var(--pink);
 }
 .sec7-pill-text{
-  font-size:12px;
+  font-size:16px;
   font-weight:500;
   color:#ffffff;
   letter-spacing:0;
   line-height:1;
 }
 .sec7-ideal{
-  max-width:520px;
+  max-width:none;
   margin:0 auto;
+  text-align:center;
 }
 .sec7-ideal-label{
-  font-size:16px;
-  line-height:1.5;
-  letter-spacing:0.15px;
-  color:#c8c8c8;
+  font-size:18px;
+  line-height:28px;
+  letter-spacing:2.5px;
+  color:#ffffff;
   font-weight:400;
   margin-bottom:0;
+  text-align:center;
 }
 .sec7-ideal-list{
-  font-size:16px;
-  line-height:1.5;
-  letter-spacing:0.15px;
-  color:#c8c8c8;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:18px;
+  line-height:28px;
+  letter-spacing:2.5px;
+  color:#ffffff;
   font-weight:400;
+  text-align:center;
+}
+.sec7-ideal-list span{
+  display:block;
+  white-space:nowrap;
+}
+@media (max-width: 1199px){
+  .sec7-heading__line,
+  .sec7-desc span,
+  .sec7-ideal-list span{
+    white-space:normal;
+  }
 }
 
 /* ==========================================================================
@@ -1638,12 +1662,12 @@ a{text-decoration:none;color:inherit;}
 }
 .sec8-ambient-left{
   position:absolute;
-  top:10%;
+  bottom:-80px;
   left:-140px;
   width:580px;
   height:580px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(235, 215, 255, 0.65) 0%, transparent 70%);
+  background:radial-gradient(circle, rgba(171,0,154,0.18) 0%, transparent 70%);
   filter:blur(80px);
   pointer-events:none;
 }
@@ -1654,7 +1678,7 @@ a{text-decoration:none;color:inherit;}
   width:580px;
   height:580px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(255, 215, 240, 0.65) 0%, transparent 70%);
+  background:radial-gradient(circle, rgba(240,8,120,0.12) 0%, transparent 70%);
   filter:blur(80px);
   pointer-events:none;
 }
@@ -1863,18 +1887,23 @@ a{text-decoration:none;color:inherit;}
   font-size:clamp(28px, 3.4vw, 45px);
   font-weight:700;
   color:#ffffff;
-  letter-spacing:-1.5px;
-  line-height:1.15;
-  margin-bottom:18px;
+  letter-spacing:-2px;
+  line-height:1.05;
+  margin-bottom:34px;
+  text-align:center;
 }
 .sec8-banner-accent{
+  display:block;
   color:var(--pink);
 }
 .sec8-banner-desc{
-  font-size:16px;
-  line-height:1.7;
-  color:#e4dbe8;
-  margin-bottom:36px;
+  max-width:988px;
+  margin:0 auto 36px;
+  font-size:18px;
+  line-height:30px;
+  letter-spacing:2.5px;
+  color:#ffffff;
+  text-align:center;
 }
 .sec8-banner-btn{
   display:inline-flex;
@@ -1905,7 +1934,7 @@ a{text-decoration:none;color:inherit;}
    FOOTER
    ========================================================================== */
 .footer{
-  background:#050505;
+  background:var(--charcoal);
   color:#ffffff;
   position:relative;
   z-index:2;
@@ -1918,22 +1947,22 @@ a{text-decoration:none;color:inherit;}
   position:absolute;
   bottom:-100px;
   left:-120px;
-  width:520px;
-  height:520px;
+  width:560px;
+  height:560px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(139, 8, 101, 0.32) 0%, rgba(37, 13, 105, 0.42) 45%, transparent 75%);
+  background:radial-gradient(circle, rgba(171,0,154,0.7) 0%, rgba(240,8,120,0.28) 45%, transparent 75%);
   filter:blur(80px);
   pointer-events:none;
   z-index:0;
 }
 .footer-ambient-right{
   position:absolute;
-  top:-60px;
-  right:-80px;
-  width:520px;
-  height:520px;
+  top:-80px;
+  right:-100px;
+  width:620px;
+  height:620px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(252, 0, 97, 0.35) 0%, rgba(139, 8, 101, 0.2) 45%, transparent 75%);
+  background:radial-gradient(circle, rgba(240,8,120,0.72) 0%, rgba(171,0,154,0.28) 45%, transparent 75%);
   filter:blur(80px);
   pointer-events:none;
   z-index:0;
@@ -3036,14 +3065,14 @@ a{text-decoration:none;color:inherit;}
   .dark-desc{
     font-size:15px;
     line-height:1.55;
-    letter-spacing:0.1px;
+    letter-spacing:0.8px;
     margin-bottom:28px;
     padding:0 16px;
   }
   .dark-callout{
     font-size:15px;
     line-height:1.5;
-    letter-spacing:0.1px;
+    letter-spacing:0.8px;
     padding:0 16px;
   }
   .ticker-track{
@@ -3116,20 +3145,20 @@ a{text-decoration:none;color:inherit;}
   }
   .sec5-heading{
     font-size:clamp(26px, 6.5vw, 40px);
-    letter-spacing:-0.6px;
-    line-height:1.2;
+    letter-spacing:-0.8px;
+    line-height:1.15;
     margin-bottom:20px;
   }
   .sec5-desc{
     font-size:15px;
     line-height:1.55;
-    letter-spacing:0.1px;
+    letter-spacing:0.8px;
     margin-bottom:26px;
   }
   .sec5-callout{
     font-size:15px;
     line-height:1.5;
-    letter-spacing:0.1px;
+    letter-spacing:0.8px;
   }
 
   /* SECTION 6 */
@@ -3215,10 +3244,11 @@ a{text-decoration:none;color:inherit;}
 
   /* SECTION 7 */
   .sec7{
-    padding-bottom:90px;
+    min-height:0;
+    padding:80px 16px 90px;
   }
   .sec7-container{
-    padding:70px 16px 0;
+    padding:0;
   }
   .sec7-header{
     margin-bottom:32px;
@@ -3227,6 +3257,11 @@ a{text-decoration:none;color:inherit;}
     font-size:clamp(26px, 6.5vw, 40px);
     letter-spacing:-0.6px;
     margin-bottom:18px;
+  }
+  .sec7-heading__line,
+  .sec7-desc span,
+  .sec7-ideal-list span{
+    white-space:normal;
   }
   .sec7-desc{
     font-size:15px;
@@ -3331,11 +3366,12 @@ a{text-decoration:none;color:inherit;}
   .sec8-banner-heading{
     font-size:clamp(22px, 5.5vw, 32px);
     letter-spacing:-0.8px;
-    margin-bottom:14px;
+    margin-bottom:16px;
   }
   .sec8-banner-desc{
     font-size:14.5px;
     line-height:1.6;
+    letter-spacing:0.8px;
     margin-bottom:24px;
   }
   .sec8-banner-btn{

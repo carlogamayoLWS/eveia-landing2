@@ -102,7 +102,7 @@ export default function Section6() {
   }, [])
 
   return (
-    <section className="sec6" id="solutions">
+    <section className="sec6" id="how-it-works">
       <div className="sec6-ambient-left" aria-hidden="true" />
       <div className="sec6-ambient-right" aria-hidden="true" />
 

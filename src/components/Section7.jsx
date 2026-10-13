@@ -39,23 +39,19 @@ export default function Section7() {
       {/* Top Gradient Line drawn left to right */}
       <GradientLine />
 
-      {/* Top Ambient Glow */}
-      <div className="sec7-ambient-left" aria-hidden="true" />
-      <div className="sec7-ambient-right" aria-hidden="true" />
-
       <div className="sec7-container">
         <div className="sec7-header">
           <h2 className="sec7-heading">
-            <span className="sec7-heading__accent">Built</span> for Organizations That Value
-            <br />
-            Privacy and Security.
+            <span className="sec7-heading__line">
+              <span className="sec7-heading__accent">Built</span> for Organizations That Value
+            </span>
+            <span className="sec7-heading__line">Privacy and Security.</span>
           </h2>
 
           <p className="sec7-desc">
-            Eveia.AI is designed for organizations that manage important
-            knowledge, sensitive information, and critical workflows. Your data
-            remains private, secure, and accessible only to authorized users.
-            <br />
+            <span>Eveia.AI is designed for organizations that manage important knowledge, sensitive</span>
+            <span>information, and critical workflows. Your data remains private, secure, and accessible</span>
+            <span>only to authorized users.</span>
             <a href="/data-privacy" className="sec7-link">
               Read how we handle data →
             </a>
@@ -76,8 +72,8 @@ export default function Section7() {
         <div className="sec7-ideal">
           <p className="sec7-ideal-label">Ideal for:</p>
           <p className="sec7-ideal-list">
-            Enterprise, Government, Healthcare, Manufacturing, Education, Legal,
-            Financial Services and Corporate Organizations.
+            <span>Enterprise, Government, Healthcare, Manufacturing, Education,</span>
+            <span>Legal, Financial Services and Corporate Organizations.</span>
           </p>
         </div>
       </div>

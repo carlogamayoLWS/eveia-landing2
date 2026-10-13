@@ -79,7 +79,7 @@ export default function Section8() {
             <p className="sec8-banner-kicker">Start today</p>
             <h3 className="sec8-banner-heading">
               See how Eveia.AI helps your team complete
-              <span className="sec8-banner-accent"> work faster.</span>
+              <span className="sec8-banner-accent">work faster.</span>
             </h3>
             <p className="sec8-banner-desc">
               Contact us to learn more about plans built for your organization’s

@@ -77,7 +77,7 @@ export default function Footer() {
             <h4 className="footer-col-title">Product</h4>
             <ul className="footer-links">
               <li><a href="#blog">Blog</a></li>
-              <li><Link to="/">What is Eveia.AI</Link></li>
+              <li><Link to="/#what-is-eveia">What is Eveia.AI</Link></li>
               <li><Link to="/reports">AI Report Generation</Link></li>
               <li><Link to="/proposals">Proposal Drafting</Link></li>
               <li><Link to="/pricing">Pricing</Link></li>

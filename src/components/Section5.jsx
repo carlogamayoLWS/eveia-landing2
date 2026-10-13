@@ -26,12 +26,11 @@ export default function Section5() {
     <section
       ref={sectionRef}
       className={`sec5 ${isVisible ? 'is-visible' : ''}`}
-      id="section-5"
+      id="what-is-eveia"
     >
       <div className="sec5-container">
         <h2 className="sec5-heading">
-          Transform Trusted Knowledge Into Work
-          <br />
+          <span className="sec5-heading__line">Transform Trusted Knowledge Into Work</span>
           <span className="sec5-heading__grad">That’s Ready to Use.</span>
         </h2>
 
