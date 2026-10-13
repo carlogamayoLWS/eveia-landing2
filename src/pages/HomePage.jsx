@@ -27,9 +27,23 @@ export default function HomePage() {
       setSectionVisible(true)
     }
 
+    const getDarkTop = () => {
+      return darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
+    }
+
+    const getShotTop = () => {
+      const wrap = darkSectionRef.current?.querySelector('.app-shot-wrap')
+      if (!wrap) return getDarkTop()
+      return wrap.getBoundingClientRect().top + window.scrollY
+    }
+
+    const getSection2Y = () => {
+      const clearance = Math.min(108, Math.max(84, Math.round(window.innerHeight * 0.1)))
+      return Math.max(getShotTop() - clearance, 0)
+    }
+
     const revealIfAlreadyPastHero = () => {
-      const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
-      if (window.scrollY > 300 && window.scrollY >= darkTop - 40) {
+      if (window.scrollY > 300 && window.scrollY >= getSection2Y() - 40) {
         showScreenshot({ instant: true })
       }
     }
@@ -46,15 +60,15 @@ export default function HomePage() {
       ([entry]) => {
         if (entry.isIntersecting) {
           showScreenshot()
-        } else if (window.scrollY < 100) {
-          setSectionVisible(false)
-          setSkipShotAnimation(false)
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.22, rootMargin: '0px 0px -12% 0px' }
     )
 
-    if (darkSectionRef.current) {
+    const shotWrap = darkSectionRef.current?.querySelector('.app-shot-wrap')
+    if (shotWrap) {
+      observer.observe(shotWrap)
+    } else if (darkSectionRef.current) {
       observer.observe(darkSectionRef.current)
     }
 
@@ -96,7 +110,7 @@ export default function HomePage() {
       isAnimating = true
       showScreenshot()
 
-      const targetY = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
+      const targetY = getSection2Y()
       smoothScrollTo(targetY, 700, () => {
         isAnimating = false
       })
@@ -112,11 +126,11 @@ export default function HomePage() {
     }
 
     const onWheel = (e) => {
-      const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
-      if (window.scrollY < darkTop - 40 && e.deltaY > 0) {
+      const section2Y = getSection2Y()
+      if (window.scrollY < section2Y - 40 && e.deltaY > 0) {
         e.preventDefault()
         scrollToDark()
-      } else if (window.scrollY <= darkTop + 40 && window.scrollY > 0 && e.deltaY < 0) {
+      } else if (window.scrollY <= section2Y + 40 && window.scrollY > 0 && e.deltaY < 0) {
         e.preventDefault()
         scrollToHero()
       }
@@ -133,21 +147,21 @@ export default function HomePage() {
 
       const touchEndY = e.changedTouches[0].clientY
       const diffY = touchStartY - touchEndY
-      const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
+      const section2Y = getSection2Y()
 
-      if (window.scrollY < darkTop - 40 && diffY > 30) {
+      if (window.scrollY < section2Y - 40 && diffY > 30) {
         scrollToDark()
-      } else if (window.scrollY <= darkTop + 40 && window.scrollY > 0 && diffY < -30) {
+      } else if (window.scrollY <= section2Y + 40 && window.scrollY > 0 && diffY < -30) {
         scrollToHero()
       }
     }
 
     const onKeyDown = (e) => {
-      const darkTop = darkSectionRef.current ? darkSectionRef.current.offsetTop : window.innerHeight
-      if ((e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') && window.scrollY < darkTop - 40) {
+      const section2Y = getSection2Y()
+      if ((e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') && window.scrollY < section2Y - 40) {
         e.preventDefault()
         scrollToDark()
-      } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && window.scrollY <= darkTop + 40 && window.scrollY > 0) {
+      } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && window.scrollY <= section2Y + 40 && window.scrollY > 0) {
         e.preventDefault()
         scrollToHero()
       }

@@ -8,6 +8,7 @@
   --gray-light:#8a8890;
   --black:#050505;
   --ai-reveal-delay: 0.85s;
+  --shot-overhang: clamp(72px, 10vh, 120px);
   --line-draw-duration: 1.15s;
   --white:#ffffff;
   --surface:#f4f4f6;
@@ -713,17 +714,9 @@ a{text-decoration:none;color:inherit;}
 .app-shot-wrap{
   position:relative;
   max-width:1250px;
-  margin:0 auto 90px;
+  margin:calc(var(--shot-overhang) * -1) auto 48px;
   padding:0 20px;
-  opacity:0;
-  transform:translateY(30px) scale(0.98);
-  transition:opacity 0.6s ease-out,
-             transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-.app-shot-wrap.is-visible{
-  opacity:1;
-  transform:translateY(0) scale(1);
+  pointer-events:none;
 }
 .app-shot{
   position:relative;
@@ -733,6 +726,19 @@ a{text-decoration:none;color:inherit;}
   background:#ffffff;
   box-shadow:0 40px 90px rgba(30,10,50,0.28);
   aspect-ratio:1253/605;
+  opacity:0;
+  transform:translateY(36px) scale(0.98);
+  transition:opacity 0.65s ease-out,
+             transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.app-shot-wrap.is-visible .app-shot{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.app-shot-wrap:not(.is-visible) .app-shot,
+.app-shot-wrap:not(.is-visible) .shot-glow{
+  transition:none;
 }
 .app-shot img.base{
   position:absolute;
@@ -809,17 +815,17 @@ a{text-decoration:none;color:inherit;}
   z-index:0;
   pointer-events:none;
   opacity:0;
-  transform:translateY(30px) scale(0.95);
-  transition:opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
-             transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  transform:translateY(24px) scale(0.96);
+  transition:opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.7s,
+             transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
   will-change: opacity, transform;
 }
 .app-shot-wrap.is-visible .shot-glow{
   opacity:1;
   transform:translateY(0) scale(1);
 }
-.app-shot-wrap.is-instant,
-.app-shot-wrap.is-instant.is-visible{
+.app-shot-wrap.is-instant .app-shot,
+.app-shot-wrap.is-instant.is-visible .app-shot{
   opacity:1;
   transform:none;
   transition:none;
@@ -869,11 +875,13 @@ a{text-decoration:none;color:inherit;}
 .dark{
   background:var(--black);
   min-height:100vh;
-  padding-top:140px;
+  margin-top:0;
+  padding-top:28px;
   padding-bottom:130px;
   position:relative;
-  overflow:hidden;
   z-index:2;
+  overflow:visible;
+  display:flow-root;
   box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.7);
 }
 
@@ -2997,12 +3005,13 @@ a{text-decoration:none;color:inherit;}
 
   /* DARK SECTION & SCREENSHOT */
   .dark{
-    padding-top:70px;
+    --shot-overhang: 24px;
+    padding-top:40px;
     padding-bottom:80px;
     min-height:auto;
   }
   .app-shot-wrap{
-    margin:0 auto 40px;
+    margin:calc(var(--shot-overhang) * -1) auto 40px;
     padding:0 16px;
     max-width:100%;
   }
@@ -3421,7 +3430,11 @@ a{text-decoration:none;color:inherit;}
 
 @media (prefers-reduced-motion: reduce){
   .app-shot-wrap,
-  .app-shot-wrap.is-visible{
+  .app-shot-wrap.is-visible,
+  .app-shot,
+  .app-shot-wrap.is-visible .app-shot,
+  .shot-glow,
+  .app-shot-wrap.is-visible .shot-glow{
     opacity:1;
     transform:none;
     transition:none;
