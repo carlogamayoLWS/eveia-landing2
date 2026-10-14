@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import heroVisual from '../assets/summaries-hero-card.png'
-import ringsArt from '../assets/summaries-rings.png'
-import glowPink from '../assets/summaries-compare-glow-tr.svg'
-import glowPurple from '../assets/summaries-compare-glow-bl.svg'
-import glowPurpleDeep from '../assets/summaries-compare-glow-bl2.svg'
 import dotCyan from '../assets/summaries-dot-cyan.svg'
 import dotOrange from '../assets/summaries-dot-orange.svg'
 import dotGreen from '../assets/summaries-dot-green.svg'
 import stepLine from '../assets/proposal-step-line.svg'
-import byNeedImg from '../assets/proposal-byneed.png'
+import byNeedReports from '../assets/summaries-byneed-reports.png'
+import byNeedSearch from '../assets/summaries-byneed-search.png'
+import byNeedProposal from '../assets/summaries-byneed-proposal.png'
 import footerLogo from '../assets/footer-logo.png'
 import Footer from '../components/Footer.jsx'
 
@@ -45,19 +43,22 @@ const HELP_POINTS = [
 
 const BY_NEED = [
   {
-    title: 'Instant Answers from Data',
-    body: 'Your organization already has the information people need.',
-    href: '/search',
-  },
-  {
     title: 'Decision-Ready Reports',
     body: 'Preparing a report often takes more time than writing it.',
     href: '/reports',
+    image: byNeedReports,
+  },
+  {
+    title: 'Instant Answers from Data',
+    body: 'Your organization already has the information people need.',
+    href: '/search',
+    image: byNeedSearch,
   },
   {
     title: 'Create Proposal Faster',
     body: 'Proposal writing often starts with gathering pricing, service information, company.',
     href: '/proposals',
+    image: byNeedProposal,
   },
 ]
 
@@ -90,7 +91,6 @@ export default function SummariesPage() {
   const [heroReady, setHeroReady] = useState(false)
   const [heroSettled, setHeroSettled] = useState(false)
   const pageRef = useRef(null)
-  const ringsRef = useRef(null)
   const heroVisualRef = useRef(null)
 
   useEffect(() => {
@@ -119,33 +119,6 @@ export default function SummariesPage() {
         heroVisualRef.current.style.setProperty('--paper-mid-y', `${heroOffset * 0.09}px`)
         heroVisualRef.current.style.setProperty('--paper-front-y', `${heroOffset * 0.03}px`)
       }
-
-      if (ringsRef.current) {
-        const rect = ringsRef.current.getBoundingClientRect()
-        const progress = (window.innerHeight * 0.72 - rect.top) / window.innerHeight
-        const p = Math.max(-0.35, Math.min(0.55, progress))
-        ringsRef.current.style.setProperty('--rings-y', `${p * 90}px`)
-        ringsRef.current.style.setProperty('--rings-scale', `${1 + p * 0.08}`)
-      }
-
-      const glows = page.querySelectorAll('.summaries-compare-glow')
-      if (glows.length) {
-        const compare = glows[0].closest('.summaries-compare')
-        if (compare) {
-          const rect = compare.getBoundingClientRect()
-          const p = Math.max(-1, Math.min(1, (window.innerHeight * 0.5 - rect.top) / window.innerHeight))
-          glows[0].style.setProperty('--glow-x', `${p * 28}px`)
-          glows[0].style.setProperty('--glow-y', `${p * -22}px`)
-          if (glows[1]) {
-            glows[1].style.setProperty('--glow-x', `${p * -18}px`)
-            glows[1].style.setProperty('--glow-y', `${p * 16}px`)
-          }
-          if (glows[2]) {
-            glows[2].style.setProperty('--glow-x', `${p * -10}px`)
-            glows[2].style.setProperty('--glow-y', `${p * 24}px`)
-          }
-        }
-      }
     }
 
     const onScroll = () => {
@@ -160,7 +133,7 @@ export default function SummariesPage() {
   }, [])
 
   return (
-    <main ref={pageRef} className="reports-page search-page summaries-page">
+    <main ref={pageRef} className="reports-page search-page summaries-page reports-page--blush">
       <div className="reports-hero-wrap">
         <header className="reports-hero">
           <div className="reports-hero-inner">
@@ -206,13 +179,6 @@ export default function SummariesPage() {
       <section className="reports-sources">
         <div className="reports-sources-inner">
           <div className="summaries-how-head">
-            <img
-              ref={ringsRef}
-              className={`summaries-rings ${stepsVisible ? 'is-inview' : ''}`}
-              src={ringsArt}
-              alt=""
-              aria-hidden="true"
-            />
             <h2 className="reports-sources-title">How it works</h2>
             <p className="reports-sources-desc">
               Turn Long Documents Into Clear, Actionable Summaries
@@ -278,24 +244,6 @@ export default function SummariesPage() {
             ref={compareRef}
             className={`summaries-compare ${compareVisible ? 'is-visible' : ''}`}
           >
-            <img
-              className="summaries-compare-glow summaries-compare-glow--tr"
-              src={glowPink}
-              alt=""
-              aria-hidden="true"
-            />
-            <img
-              className="summaries-compare-glow summaries-compare-glow--bl"
-              src={glowPurple}
-              alt=""
-              aria-hidden="true"
-            />
-            <img
-              className="summaries-compare-glow summaries-compare-glow--bl2"
-              src={glowPurpleDeep}
-              alt=""
-              aria-hidden="true"
-            />
             <div className="summaries-compare-inner">
               <h2>
                 Executive Summaries <span>vs.</span> Eveia.AI
@@ -327,7 +275,9 @@ export default function SummariesPage() {
               <div className="reports-byneed-grid">
                 {BY_NEED.map((item) => (
                   <article className="reports-byneed-card" key={item.title}>
-                    <img src={byNeedImg} alt="" />
+                    <div className="reports-byneed-media">
+                      <img src={item.image} alt="" />
+                    </div>
                     <div className="reports-byneed-copy">
                       <h3>{item.title}</h3>
                       <p>{item.body}</p>
