@@ -3,8 +3,8 @@ import searchIconExcel from '../assets/search-icon-excel.png'
 import searchIconPpt from '../assets/search-icon-ppt.png'
 import searchIconWord from '../assets/search-icon-word.png'
 import searchIconCsv from '../assets/search-icon-csv.png'
-import searchIconPdf from '../assets/search-icon-pdf.png'
 import searchHeroEve from '../assets/search-hero-eve.png'
+import searchHeroDoc from '../assets/search-hero-doc.png'
 import searchAvatar from '../assets/search-avatar.png'
 import searchAgentLogo from '../assets/search-chat-agent.png'
 import searchChatPdf from '../assets/search-chat-pdf.svg'
@@ -207,17 +207,7 @@ export default function SearchPage() {
                   <img src={file.src} alt="" />
                 </span>
               ))}
-              <div className="search-hero-bar">
-                <span className="search-hero-pdf">
-                  <img src={searchIconPdf} alt="" />
-                </span>
-                <span className="search-hero-lines">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </span>
-              </div>
+              <img className="search-hero-bar" src={searchHeroDoc} alt="" />
               <img className="search-hero-eve" src={searchHeroEve} alt="" />
             </div>
           </div>
