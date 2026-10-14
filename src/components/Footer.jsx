@@ -27,18 +27,6 @@ export default function Footer() {
               help your team complete work faster.
             </p>
 
-            <p className="footer-sub">
-              A product of{' '}
-              <a
-                href="https://lightweightsolutions.com"
-                target="_blank"
-                rel="noreferrer"
-                className="footer-link-underline"
-              >
-                Lightweight Solutions
-              </a>
-            </p>
-
             <div className="footer-socials">
               <a
                 href="#facebook"
@@ -70,6 +58,18 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
+
+            <p className="footer-sub">
+              A product of{' '}
+              <a
+                href="https://lightweightsolutions.com"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-link-underline"
+              >
+                Lightweight Solutions
+              </a>
+            </p>
           </div>
 
           {/* Col 2: Product */}

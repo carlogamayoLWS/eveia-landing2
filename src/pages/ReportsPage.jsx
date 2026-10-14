@@ -7,7 +7,10 @@ import iconSlides from '../assets/icon-slides.png'
 import iconSheets from '../assets/icon-sheets.png'
 import iconCsv from '../assets/icon-csv.png'
 import iconDocs from '../assets/icon-docs.png'
-import usesVisual from '../assets/reports-chat-ui.png'
+import usesVisual from '../assets/reports-uses-ipad.png'
+import byNeedAnswers from '../assets/reports-byneed-answers.png'
+import byNeedProposal from '../assets/reports-byneed-proposal.png'
+import byNeedSummaries from '../assets/reports-byneed-summaries.png'
 import footerLogo from '../assets/footer-logo.png'
 import Footer from '../components/Footer.jsx'
 
@@ -62,39 +65,42 @@ const BY_NEED = [
     title: 'Instant Answers from Data',
     body: 'Your organization already has the information people need.',
     href: '/search',
+    image: byNeedAnswers,
   },
   {
     title: 'Create Proposal Faster',
     body: 'Proposal writing often starts with gathering pricing, service information, company.',
     href: '/proposals',
+    image: byNeedProposal,
   },
   {
     title: 'Executive Summaries',
     body: 'Important information is often buried in long reports, meeting records, audits...',
     href: '/summaries',
+    image: byNeedSummaries,
   },
 ]
 
 const AMPLIFY = [
   {
     tone: 'blue',
-    title: 'It drafts, not signs off.',
-    body: 'A person reviews the report before it is used.',
+    title: 'It drafts, people decide.',
+    body: 'Eveia.AI prepares reports and summaries, while people review, refine, and approve the final output.',
   },
   {
     tone: 'pink',
-    title: 'It does not correct source data.',
-    body: 'If a source contains an incorrect figure, the user can trace it back and verify it.',
+    title: 'It brings information together.',
+    body: 'Eveia.AI helps teams make sense of approved data and documents, giving people a clearer starting point for analysis and decision-making.',
   },
   {
     tone: 'orange',
-    title: 'It works from your approved information.',
-    body: 'It does not create unsupported recommendations or outside context.',
+    title: 'It keeps people connected to the source.',
+    body: 'Source references help users verify important information and apply their own judgment.',
   },
   {
     tone: 'green',
-    title: 'It can make mistakes.',
-    body: 'Source links help users check important information before relying on it.',
+    title: 'It supports human expertise.',
+    body: 'Eveia.AI handles the work of organizing and synthesizing information so your team can focus on analysis, decisions, and action.',
   },
 ]
 
@@ -263,7 +269,7 @@ export default function ReportsPage() {
   }, [usesRef])
 
   return (
-    <main className="reports-page">
+    <main className="reports-page reports-page--blush">
       <div className="reports-hero-wrap">
       <header className="reports-hero">
         <div className="reports-hero-ambient" aria-hidden="true" />
@@ -476,11 +482,12 @@ export default function ReportsPage() {
       >
         <div className="reports-amplify-inner">
           <h2 className="reports-amplify-heading">
-            Built for Human Review
+            Built to Amplify Human Expertise
           </h2>
           <p className="reports-amplify-desc">
-            Eveia.AI helps prepare reports, but people remain responsible for
-            reviewing and approving them.
+            Eveia.AI works alongside your team to turn approved information into
+            clear, useful outputs, helping people spend less time processing
+            information and more time applying their expertise.
           </p>
           <div ref={amplifyRef} className="reports-amplify-cards">
             {AMPLIFY.map((item) => (
@@ -503,8 +510,8 @@ export default function ReportsPage() {
           <div className="reports-byneed-grid">
             {BY_NEED.map((item) => (
               <article className="reports-byneed-card" key={item.title}>
-                <div className="reports-byneed-media" aria-hidden="true">
-                  <span>Image</span>
+                <div className="reports-byneed-media">
+                  <img src={item.image} alt="" />
                 </div>
                 <div className="reports-byneed-copy">
                   <h3>{item.title}</h3>
@@ -529,9 +536,8 @@ export default function ReportsPage() {
               Start With a Report Your Team Already Produces
             </h2>
             <p className="reports-cta-desc">
-              Bring a report your team regularly prepares and the documents it
-              uses. We can show you how Eveia.AI can use your approved
-              organizational information to prepare a source-supported draft.
+              See how Eveia.AI can help prepare a report your team regularly
+              works on, using approved organizational information.
             </p>
             <div className="reports-cta-actions">
               <a className="reports-cta-btn reports-cta-btn--primary" href="mailto:inquiry@eveia.ai">
