@@ -10,8 +10,12 @@ import docCenterRight from '../assets/proposal-doc-center-right.png'
 import docRight from '../assets/proposal-doc-right.png'
 import overlapVisual from '../assets/proposal-laptop.png'
 import whoLaptop from '../assets/proposal-who-laptop.png'
-import fileSprite from '../assets/proposal-file-sprite.png'
-import byNeedImg from '../assets/proposal-byneed.png'
+import filePdf from '../assets/proposal-file-pdf.png'
+import fileWord from '../assets/proposal-file-word.png'
+import fileExcel from '../assets/proposal-file-excel.png'
+import byNeedReports from '../assets/proposal-byneed-reports.png'
+import byNeedSearch from '../assets/proposal-byneed-search.png'
+import byNeedSummaries from '../assets/proposal-byneed-summaries.png'
 import dotBlue from '../assets/proposal-dot-blue.svg'
 import dotPink from '../assets/proposal-dot-pink.svg'
 import dotOrange from '../assets/proposal-dot-green.svg'
@@ -56,9 +60,9 @@ const WHO_PILLS = [
 ]
 
 const WHO_FILES = [
-  { label: 'PDF', pos: '0% 0%' },
-  { label: 'Word', pos: '25% 0%' },
-  { label: 'Excel', pos: '50% 0%' },
+  { label: 'PDF', src: filePdf },
+  { label: 'Word', src: fileWord },
+  { label: 'Excel', src: fileExcel },
 ]
 
 const BY_NEED = [
@@ -66,16 +70,19 @@ const BY_NEED = [
     title: 'Decision-Ready Reports',
     body: 'Preparing a report often takes more time than writing it.',
     href: '/reports',
+    image: byNeedReports,
   },
   {
     title: 'Instant Answers from Data',
     body: 'Your organization already has the information people need.',
     href: '/search',
+    image: byNeedSearch,
   },
   {
     title: 'Executive Summaries',
     body: 'Important information is often buried in long reports, meeting records, audits...',
     href: '/summaries',
+    image: byNeedSummaries,
   },
 ]
 
@@ -159,7 +166,7 @@ export default function ProposalPage() {
   }, [leaving])
 
   return (
-    <main className="reports-page search-page proposal-page">
+    <main className="reports-page search-page proposal-page reports-page--blush">
       <div className="reports-hero-wrap">
         <header className="reports-hero">
           <div className="reports-hero-inner">
@@ -316,15 +323,12 @@ export default function ProposalPage() {
                 />
                 <div className="proposal-who-files" aria-hidden="true">
                   {WHO_FILES.map((file) => (
-                    <span className="proposal-who-file" key={file.label}>
-                      <span
-                        className="proposal-who-file-icon"
-                        style={{
-                          backgroundImage: `url(${fileSprite})`,
-                          backgroundPosition: file.pos,
-                        }}
-                      />
-                    </span>
+                    <img
+                      className="proposal-who-file"
+                      src={file.src}
+                      alt=""
+                      key={file.label}
+                    />
                   ))}
                 </div>
               </div>
@@ -337,7 +341,9 @@ export default function ProposalPage() {
               <div className="reports-byneed-grid">
                 {BY_NEED.map((item) => (
                   <article className="reports-byneed-card" key={item.title}>
-                    <img src={byNeedImg} alt="" />
+                    <div className="reports-byneed-media">
+                      <img src={item.image} alt="" />
+                    </div>
                     <div className="reports-byneed-copy">
                       <h3>{item.title}</h3>
                       <p>{item.body}</p>

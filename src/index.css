@@ -4102,21 +4102,9 @@ a{text-decoration:none;color:inherit;}
   z-index:2;
   overflow:hidden;
   padding:clamp(120px,14vw,202px) 24px calc(-40px + var(--reports-card-overlap));
-  background:#000;
+  background:var(--reports-dark-bg);
 }
-.proposal-page .reports-sources-glow--pink{
-  right:-8%;
-  top:auto;
-  bottom:8%;
-  width:min(70vw,880px);
-  height:min(70vw,520px);
-  opacity:.95;
-}
-.proposal-page .reports-sources-glow--purple{
-  left:8%;
-  bottom:4%;
-  opacity:.85;
-}
+.proposal-page .reports-sources-glow{display:none;}
 .proposal-page .reports-hero-inner > *{min-width:0;}
 .proposal-page .reports-stack,
 .proposal-page .proposal-who,
@@ -4291,18 +4279,9 @@ a{text-decoration:none;color:inherit;}
   height:auto;
   padding:77px 24px 72px;
   overflow:visible;
-  background:
-    radial-gradient(ellipse 55% 80% at 92% 8%, rgba(252,0,97,.55) 0%, transparent 58%),
-    radial-gradient(ellipse 38% 60% at 0% 100%, rgba(37,13,105,.75) 0%, transparent 62%),
-    #000;
+  background:var(--reports-dark-bg);
 }
-.proposal-who .search-uses-glow{
-  right:-6%;
-  top:-28%;
-  width:min(72vw,760px);
-  height:min(72vw,760px);
-  opacity:.9;
-}
+.proposal-who .search-uses-glow{display:none;}
 .proposal-who-inner{
   position:relative;
   z-index:1;
@@ -4373,7 +4352,10 @@ a{text-decoration:none;color:inherit;}
   display:block;
   width:100%;
   height:auto;
-  border-radius:40px;
+  max-height:406px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:24px;
 }
 .proposal-who-files{
   position:absolute;
@@ -4385,11 +4367,11 @@ a{text-decoration:none;color:inherit;}
   gap:11px;
 }
 .proposal-who-file{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:block;
   width:100%;
+  height:auto;
   aspect-ratio:1;
+  object-fit:contain;
   border-radius:18px;
   background:linear-gradient(160deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 48%,rgba(255,255,255,.16) 100%);
   border:1px solid rgba(255,255,255,.4);
@@ -4410,12 +4392,7 @@ a{text-decoration:none;color:inherit;}
 .proposal-who.is-visible .proposal-who-file:nth-child(1){transition-delay:0.48s;}
 .proposal-who.is-visible .proposal-who-file:nth-child(2){transition-delay:0.62s;}
 .proposal-who.is-visible .proposal-who-file:nth-child(3){transition-delay:0.76s;}
-.proposal-who-file-icon{
-  width:62%;
-  height:72%;
-  background-repeat:no-repeat;
-  background-size:500% 300%;
-}
+.proposal-who-file-icon{display:none;}
 .proposal-page .search-uses.is-visible .search-pill{opacity:1;transform:none;}
 
 @media (max-width:1240px){
