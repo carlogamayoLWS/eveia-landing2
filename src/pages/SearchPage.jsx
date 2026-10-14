@@ -4,7 +4,7 @@ import searchIconPpt from '../assets/search-icon-ppt.png'
 import searchIconWord from '../assets/search-icon-word.png'
 import searchIconCsv from '../assets/search-icon-csv.png'
 import searchIconPdf from '../assets/search-icon-pdf.png'
-import searchHeroGlass from '../assets/search-hero-glass.png'
+import searchHeroEve from '../assets/search-hero-eve.png'
 import searchAvatar from '../assets/search-avatar.png'
 import searchAgentLogo from '../assets/search-chat-agent.png'
 import searchChatPdf from '../assets/search-chat-pdf.svg'
@@ -14,7 +14,9 @@ import searchChatMore from '../assets/search-chat-more.svg'
 import usecaseLeft from '../assets/search-usecase-left.png'
 import usecaseCenter from '../assets/search-usecase-center.png'
 import usecaseRight from '../assets/search-usecase-right.png'
-import byNeedImg from '../assets/search-byneed.jpg'
+import byNeedReports from '../assets/search-byneed-reports.png'
+import byNeedProposal from '../assets/search-byneed-proposal.png'
+import byNeedSummaries from '../assets/search-byneed-summaries.png'
 import footerLogo from '../assets/footer-logo.png'
 import Footer from '../components/Footer.jsx'
 
@@ -51,16 +53,19 @@ const BY_NEED = [
     title: 'Decision-Ready Reports',
     body: 'Preparing a report often takes more time than writing it.',
     href: '/reports',
+    image: byNeedReports,
   },
   {
     title: 'Create Proposal Faster',
     body: 'Proposal writing often starts with gathering pricing, service information, company.',
     href: '/proposals',
+    image: byNeedProposal,
   },
   {
     title: 'Executive Summaries',
     body: 'Important information is often buried in long reports, meeting records, audits...',
     href: '/summaries',
+    image: byNeedSummaries,
   },
 ]
 
@@ -166,7 +171,7 @@ export default function SearchPage() {
   }, [])
 
   return (
-    <main className="reports-page search-page">
+    <main className="reports-page search-page reports-page--blush">
       <div className="reports-hero-wrap">
         <header className="reports-hero">
           <div className="reports-hero-inner">
@@ -213,10 +218,7 @@ export default function SearchPage() {
                   <span />
                 </span>
               </div>
-              <div className="search-hero-glass">
-                <img src={searchHeroGlass} alt="" />
-                <span className="search-hero-glass-liquid" />
-              </div>
+              <img className="search-hero-eve" src={searchHeroEve} alt="" />
             </div>
           </div>
         </header>
@@ -365,7 +367,9 @@ export default function SearchPage() {
               <div className="reports-byneed-grid">
                 {BY_NEED.map((item) => (
                   <article className="reports-byneed-card" key={item.title}>
-                    <img src={byNeedImg} alt="" />
+                    <div className="reports-byneed-media">
+                      <img src={item.image} alt="" />
+                    </div>
                     <div className="reports-byneed-copy">
                       <h3>{item.title}</h3>
                       <p>{item.body}</p>
