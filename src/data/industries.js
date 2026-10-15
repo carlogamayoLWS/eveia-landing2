@@ -2,6 +2,7 @@ import enterpriseHero from '../assets/enterprise-hero.png'
 import enterpriseBuiltArt from '../assets/enterprise-built-art.png'
 import governmentBuiltArt from '../assets/government-built-art.png'
 import healthcareBuiltArt from '../assets/healthcare-built-art.png'
+import legalBuiltArt from '../assets/legal-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -231,6 +232,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved legal knowledge to prepare work faster, with source-supported outputs and controlled access.',
     hero: legalHero,
     heroAlt: 'Legal professionals',
+    builtArt: legalBuiltArt,
     howTitle: 'How Legal Teams Use Eveia.AI',
     howBody:
       'Legal teams work across matters, documents, and internal resources that require careful handling. Eveia.AI helps authorized users work with approved legal knowledge to prepare work faster while keeping confidential information controlled.',
@@ -241,9 +243,9 @@ export const industries = {
       { title: 'Templates & Precedents', body: 'Access current templates and previous legal work.', icon: lgTemplates },
       { title: 'Management', body: 'Prepare summaries and briefings from approved legal documents.', icon: lgManagement },
     ]),
-    builtBefore: 'Built for Confidential ',
-    builtHighlight: 'Legal',
-    builtAfter: ' Work',
+    builtBefore: 'Built for ',
+    builtHighlight: 'Confidential Legal Work',
+    builtAfter: '',
     builtLead: 'Eveia.AI supports legal teams with:',
     requirements: [
       'Role-based access for confidential information',

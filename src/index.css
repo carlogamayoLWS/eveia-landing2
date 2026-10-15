@@ -5444,10 +5444,13 @@ a{text-decoration:none;color:inherit;}
 .enterprise-page--government .reports-stack-wrap::after,
 .enterprise-page--government .reports-cta-wrap,
 .enterprise-page--healthcare .reports-stack-wrap::after,
-.enterprise-page--healthcare .reports-cta-wrap{background:#fff3f9;}
+.enterprise-page--healthcare .reports-cta-wrap,
+.enterprise-page--legal .reports-stack-wrap::after,
+.enterprise-page--legal .reports-cta-wrap{background:#fff3f9;}
 .enterprise-page--enterprise .reports-cta,
 .enterprise-page--government .reports-cta,
-.enterprise-page--healthcare .reports-cta{
+.enterprise-page--healthcare .reports-cta,
+.enterprise-page--legal .reports-cta{
   border:0;
   box-shadow:none;
 }
