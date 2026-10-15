@@ -5448,12 +5448,15 @@ a{text-decoration:none;color:inherit;}
 .enterprise-page--legal .reports-stack-wrap::after,
 .enterprise-page--legal .reports-cta-wrap,
 .enterprise-page--finance .reports-stack-wrap::after,
-.enterprise-page--finance .reports-cta-wrap{background:#fff3f9;}
+.enterprise-page--finance .reports-cta-wrap,
+.enterprise-page--energy .reports-stack-wrap::after,
+.enterprise-page--energy .reports-cta-wrap{background:#fff3f9;}
 .enterprise-page--enterprise .reports-cta,
 .enterprise-page--government .reports-cta,
 .enterprise-page--healthcare .reports-cta,
 .enterprise-page--legal .reports-cta,
-.enterprise-page--finance .reports-cta{
+.enterprise-page--finance .reports-cta,
+.enterprise-page--energy .reports-cta{
   border:0;
   box-shadow:none;
 }

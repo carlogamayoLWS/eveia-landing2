@@ -4,6 +4,7 @@ import governmentBuiltArt from '../assets/government-built-art.png'
 import healthcareBuiltArt from '../assets/healthcare-built-art.png'
 import legalBuiltArt from '../assets/legal-built-art.png'
 import financeBuiltArt from '../assets/finance-built-art.png'
+import energyBuiltArt from '../assets/energy-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -306,6 +307,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved organizational knowledge to prepare work and access source-supported answers faster.',
     hero: energyHero,
     heroAlt: 'Energy and utilities team',
+    builtArt: energyBuiltArt,
     howTitle: 'How Energy & Utility Teams Use Eveia.AI',
     howBody:
       'Eveia.AI helps energy and utility teams work with the information they rely on every day. Use approved procedures, records, reports, and regulatory documents to support everyday work with controlled access.',
