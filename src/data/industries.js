@@ -1,6 +1,7 @@
 import enterpriseHero from '../assets/enterprise-hero.png'
 import enterpriseBuiltArt from '../assets/enterprise-built-art.png'
 import governmentBuiltArt from '../assets/government-built-art.png'
+import healthcareBuiltArt from '../assets/healthcare-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -159,6 +160,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved organizational knowledge to prepare reports, summaries, and source-supported answers while keeping access controlled.',
     hero: healthcareHero,
     heroAlt: 'Healthcare professionals',
+    builtArt: healthcareBuiltArt,
     howTitle: 'How Healthcare Teams Use Eveia.AI',
     howBody:
       'Eveia.AI helps healthcare teams work with the information they rely on every day. Use approved organizational knowledge to prepare documents, summaries, and reports while maintaining controlled access to sensitive information.',
