@@ -3,6 +3,7 @@ import enterpriseBuiltArt from '../assets/enterprise-built-art.png'
 import governmentBuiltArt from '../assets/government-built-art.png'
 import healthcareBuiltArt from '../assets/healthcare-built-art.png'
 import legalBuiltArt from '../assets/legal-built-art.png'
+import financeBuiltArt from '../assets/finance-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -268,6 +269,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved institutional knowledge to prepare work and provide source-supported answers faster.',
     hero: financeHero,
     heroAlt: 'Financial services team',
+    builtArt: financeBuiltArt,
     howTitle: 'How Financial Teams Use Eveia.AI',
     howBody:
       'Financial institutions manage information across teams, products, and processes. Eveia.AI brings approved institutional knowledge into a private, controlled environment to support everyday financial work.',
