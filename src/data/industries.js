@@ -1,9 +1,15 @@
 import enterpriseHero from '../assets/enterprise-hero.png'
+import enterpriseBuiltArt from '../assets/enterprise-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
 import iconOps from '../assets/enterprise-icon-ops.svg'
 import iconMgmt from '../assets/enterprise-icon-mgmt.svg'
+import cardGovernment from '../assets/industry-card-government.png'
+import cardHealthcare from '../assets/industry-card-healthcare.png'
+import cardEducation from '../assets/industry-card-education.png'
+import cardLegal from '../assets/industry-card-legal.png'
+import cardFinance from '../assets/industry-card-finance.png'
 
 import governmentHero from '../assets/industry-hero-government.png'
 import healthcareHero from '../assets/industry-hero-healthcare.png'
@@ -62,11 +68,11 @@ function teams(items) {
 }
 
 export const INDUSTRY_CARDS = [
-  { title: 'Government', href: '/government' },
-  { title: 'Healthcare', href: '/healthcare' },
-  { title: 'Education', href: '/education' },
-  { title: 'Legal', href: '/legal' },
-  { title: 'Finance', href: '/financial-services' },
+  { title: 'Government', href: '/government', image: cardGovernment },
+  { title: 'Healthcare', href: '/healthcare', image: cardHealthcare },
+  { title: 'Education', href: '/education', image: cardEducation },
+  { title: 'Legal', href: '/legal', image: cardLegal },
+  { title: 'Finance', href: '/financial-services', image: cardFinance },
 ]
 
 export const industries = {
@@ -78,6 +84,7 @@ export const industries = {
     note: 'Eveia.AI helps enterprise teams use approved company knowledge to prepare work faster',
     hero: enterpriseHero,
     heroAlt: 'Two enterprise colleagues standing with their arms crossed',
+    builtArt: enterpriseBuiltArt,
     howTitle: 'How Enterprise Teams Use Eveia.AI',
     howBody:
       'Eveia.AI supports teams across the organization, from HR and legal to finance, operations, and management. Give each team access to the approved knowledge they need to complete their work faster.',

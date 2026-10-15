@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ringsArt from '../assets/summaries-rings.png'
-import industryImg from '../assets/enterprise-industry.png'
 import footerLogo from '../assets/footer-logo.png'
 import Footer from '../components/Footer.jsx'
 import { INDUSTRY_CARDS, industries } from '../data/industries.js'
@@ -112,7 +111,10 @@ export default function IndustryPage({ id }) {
   }, [id, section2Visible])
 
   return (
-    <main ref={pageRef} className={`reports-page summaries-page enterprise-page enterprise-page--${id}`}>
+    <main
+      ref={pageRef}
+      className={`reports-page summaries-page enterprise-page enterprise-page--${id}`}
+    >
       <div className="reports-hero-wrap">
         <header className="reports-hero">
           <div className="reports-hero-inner">
@@ -171,19 +173,28 @@ export default function IndustryPage({ id }) {
         <div ref={stackCardRef} className="reports-stack">
           <span className="enterprise-stack-glow" aria-hidden="true" />
           <section className="reports-how">
-            <div className="reports-how-inner">
+            <div className={`reports-how-inner${page.builtArt ? ' enterprise-built' : ''}`}>
               <h2 className="reports-how-heading">
                 {page.builtBefore}
                 <span>{page.builtHighlight}</span>
                 {page.builtAfter}
               </h2>
-              <p className="reports-how-lead">{page.builtLead}</p>
-              <ul className="reports-how-list">
-                {page.requirements.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="reports-how-lead">{page.builtClose}</p>
+              <div className="enterprise-built-row">
+                <div className="enterprise-built-copy">
+                  <p className="reports-how-lead">{page.builtLead}</p>
+                  <ul className="reports-how-list">
+                    {page.requirements.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="reports-how-lead">{page.builtClose}</p>
+                </div>
+                {page.builtArt ? (
+                  <div className="enterprise-built-art">
+                    <img src={page.builtArt} alt="" />
+                  </div>
+                ) : null}
+              </div>
             </div>
           </section>
 
@@ -193,7 +204,7 @@ export default function IndustryPage({ id }) {
               <div className="reports-byneed-grid">
                 {INDUSTRY_CARDS.map((item) => (
                   <article className="reports-byneed-card" key={item.title}>
-                    <img src={industryImg} alt="" />
+                    <img src={item.image} alt="" />
                     <div className="reports-byneed-copy">
                       <h3>{item.title}</h3>
                       <p>Lorem ipsum dolor sit amet consectetur. Ac sapien....</p>
