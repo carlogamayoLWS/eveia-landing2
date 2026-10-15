@@ -5412,15 +5412,15 @@ a{text-decoration:none;color:inherit;}
 .enterprise-page .reports-amplify{position:relative;z-index:1;}
 .enterprise-page .reports-how{padding-bottom:0;}
 .enterprise-page .reports-how-list{margin-bottom:36px;}
-.enterprise-page--enterprise .reports-how-inner.enterprise-built{max-width:1280px;}
-.enterprise-page--enterprise .enterprise-built-row{
+.enterprise-page .reports-how-inner.enterprise-built{max-width:1280px;}
+.enterprise-page .enterprise-built-row{
   display:grid;
   grid-template-columns:minmax(0,746px) minmax(240px,1fr);
   align-items:start;
   gap:clamp(16px,3vw,24px);
 }
-.enterprise-page--enterprise .enterprise-built .reports-how-heading{margin-bottom:36px;}
-.enterprise-page--enterprise .reports-how-heading span{
+.enterprise-page .enterprise-built .reports-how-heading{margin-bottom:36px;}
+.enterprise-page .reports-how-heading span{
   background:none;
   -webkit-background-clip:unset;
   background-clip:unset;
@@ -5440,8 +5440,11 @@ a{text-decoration:none;color:inherit;}
   object-fit:contain;
 }
 .enterprise-page--enterprise .reports-stack-wrap::after,
-.enterprise-page--enterprise .reports-cta-wrap{background:#fff3f9;}
-.enterprise-page--enterprise .reports-cta{
+.enterprise-page--enterprise .reports-cta-wrap,
+.enterprise-page--government .reports-stack-wrap::after,
+.enterprise-page--government .reports-cta-wrap{background:#fff3f9;}
+.enterprise-page--enterprise .reports-cta,
+.enterprise-page--government .reports-cta{
   border:0;
   box-shadow:none;
 }
@@ -5624,8 +5627,8 @@ a{text-decoration:none;color:inherit;}
     letter-spacing:0;
   }
   .enterprise-page .reports-how{padding-top:36px;}
-  .enterprise-page--enterprise .reports-how-inner.enterprise-built{max-width:none;}
-  .enterprise-page--enterprise .enterprise-built-row{grid-template-columns:1fr;}
+  .enterprise-page .reports-how-inner.enterprise-built{max-width:none;}
+  .enterprise-page .enterprise-built-row{grid-template-columns:1fr;}
   .enterprise-built-art{
     justify-content:center;
     padding-top:0;

@@ -202,7 +202,9 @@ export default function IndustryPage({ id }) {
             <div className="reports-byneed">
               <p className="reports-byneed-label">BY INDUSTRY</p>
               <div className="reports-byneed-grid">
-                {INDUSTRY_CARDS.map((item) => (
+                {INDUSTRY_CARDS.filter((item) => item.id !== id)
+                  .slice(0, 5)
+                  .map((item) => (
                   <article className="reports-byneed-card" key={item.title}>
                     <img src={item.image} alt="" />
                     <div className="reports-byneed-copy">

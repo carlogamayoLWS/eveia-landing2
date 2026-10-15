@@ -1,10 +1,12 @@
 import enterpriseHero from '../assets/enterprise-hero.png'
 import enterpriseBuiltArt from '../assets/enterprise-built-art.png'
+import governmentBuiltArt from '../assets/government-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
 import iconOps from '../assets/enterprise-icon-ops.svg'
 import iconMgmt from '../assets/enterprise-icon-mgmt.svg'
+import cardEnterprise from '../assets/industry-card-enterprise.png'
 import cardGovernment from '../assets/industry-card-government.png'
 import cardHealthcare from '../assets/industry-card-healthcare.png'
 import cardEducation from '../assets/industry-card-education.png'
@@ -68,11 +70,12 @@ function teams(items) {
 }
 
 export const INDUSTRY_CARDS = [
-  { title: 'Government', href: '/government', image: cardGovernment },
-  { title: 'Healthcare', href: '/healthcare', image: cardHealthcare },
-  { title: 'Education', href: '/education', image: cardEducation },
-  { title: 'Legal', href: '/legal', image: cardLegal },
-  { title: 'Finance', href: '/financial-services', image: cardFinance },
+  { id: 'enterprise', title: 'Enterprise', href: '/enterprise', image: cardEnterprise },
+  { id: 'government', title: 'Government', href: '/government', image: cardGovernment },
+  { id: 'healthcare', title: 'Healthcare', href: '/healthcare', image: cardHealthcare },
+  { id: 'education', title: 'Education', href: '/education', image: cardEducation },
+  { id: 'legal', title: 'Legal', href: '/legal', image: cardLegal },
+  { id: 'finance', title: 'Finance', href: '/financial-services', image: cardFinance },
 ]
 
 export const industries = {
@@ -120,6 +123,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved agency information to prepare reports, summaries, briefings, and source-supported answers.',
     hero: governmentHero,
     heroAlt: 'Government team using Eveia.AI',
+    builtArt: governmentBuiltArt,
     howTitle: 'How Government Teams Use Eveia.AI',
     howBody:
       'Eveia.AI supports teams across government agencies, from frontline services to management. Give each team access to the approved information they need to prepare work faster and with greater confidence.',
