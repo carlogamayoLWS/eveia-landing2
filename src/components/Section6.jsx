@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import decisionReportImg from '../assets/decision-ready-report3.png'
-import instantAnswersImg from '../assets/instant-answer2.png'
-import proposalDraftImg from '../assets/proposal-draft2.png'
-import execSummaryImg from '../assets/executive-summary3.png'
+import decisionReportImg from '../assets/decision-ready-report3.webp'
+import instantAnswersImg from '../assets/instant-answer2.webp'
+import proposalDraftImg from '../assets/proposal-draft2.webp'
+import execSummaryImg from '../assets/executive-summary3.webp'
 
 const ROW1 = [
   {

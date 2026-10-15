@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import footerLogo from '../assets/footer-logo.png'
-import contactPhoto from '../assets/contact-photo.png'
+import footerLogo from '../assets/footer-logo.webp'
+import contactPhoto from '../assets/contact-photo.webp'
 import contactIconMobile from '../assets/contact-icon-mobile.svg'
 import contactIconEmail from '../assets/contact-icon-email.svg'
 import contactIconPhone from '../assets/contact-icon-phone.svg'

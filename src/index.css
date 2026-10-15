@@ -2115,9 +2115,19 @@ a{text-decoration:none;color:inherit;}
   transition:color 0.2s ease;
 }
 .footer-contact-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:14px;
+  height:14px;
+  flex-shrink:0;
   color:#bdbdbd;
-  font-size:16px;
   transition:color 0.2s ease;
+}
+.footer-contact-icon svg{
+  display:block;
+  width:100%;
+  height:100%;
 }
 .footer-contact-list a{
   color:#9a97a3;

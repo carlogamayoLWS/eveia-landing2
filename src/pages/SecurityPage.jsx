@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import footerLogo from '../assets/footer-logo.png'
+import footerLogo from '../assets/footer-logo.webp'
 import securityPlus from '../assets/security-plus.svg'
 import securityDotFaq from '../assets/security-dot-faq.svg'
 import securityDotCard from '../assets/security-dot-card.svg'

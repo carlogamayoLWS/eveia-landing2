@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), spaFallback(), contactApiDevPlugin()],
     server: {
       watch: {
-        ignored: ['**/ChatGPT Image*', '**/Frame 270.png'],
+        ignored: ['**/ChatGPT Image*', '**/Frame 270.webp'],
       },
       proxy: {
         '/eveia-api': {

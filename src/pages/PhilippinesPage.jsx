@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import footerLogo from '../assets/footer-logo.png'
-import philippinesPhoto from '../assets/philippines-photo.png'
+import footerLogo from '../assets/footer-logo.webp'
+import philippinesPhoto from '../assets/philippines-photo.webp'
 import securityDotCard from '../assets/security-dot-card.svg'
 import Footer from '../components/Footer.jsx'
 

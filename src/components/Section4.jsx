@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import sec4Img from '../assets/section4-img.png'
-import salesDeckMini from '../assets/sec4-salesdeckmini.png'
-import pricingMini from '../assets/sec4-pricingmini.png'
-import csMini from '../assets/sec4-csmini.png'
+import sec4Img from '../assets/section4-img.webp'
+import salesDeckMini from '../assets/sec4-salesdeckmini.webp'
+import pricingMini from '../assets/sec4-pricingmini.webp'
+import csMini from '../assets/sec4-csmini.webp'
 
 const BULLETS = [
   'Information is spread across teams and systems.',

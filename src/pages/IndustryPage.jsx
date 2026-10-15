@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ringsArt from '../assets/summaries-rings.png'
-import footerLogo from '../assets/footer-logo.png'
+import ringsArt from '../assets/summaries-rings.webp'
+import footerLogo from '../assets/footer-logo.webp'
 import Footer from '../components/Footer.jsx'
 import { INDUSTRY_CARDS, industries } from '../data/industries.js'
 

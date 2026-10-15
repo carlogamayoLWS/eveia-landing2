@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import handshakeImg from '../assets/sec8-handshake.png'
-import footerLogo from '../assets/footer-logo.png'
+import handshakeImg from '../assets/sec8-handshake.webp'
+import footerLogo from '../assets/footer-logo.webp'
 
 export default function Section8() {
   const sectionRef = useRef(null)

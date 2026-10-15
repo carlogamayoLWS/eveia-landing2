@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import heroBg from '../assets/hero-bg.png'
+import heroBg from '../assets/hero-bg.webp'
 
 export default function Hero() {
   const brandRef = useRef(null)

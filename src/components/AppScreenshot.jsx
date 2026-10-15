@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import section2 from '../assets/section2.png'
-import section2After from '../assets/section2-after.png'
-import section2Userchat from '../assets/section2-userchat.png'
-import section2ChatAi from '../assets/section2-chat-ai.png'
+import section2 from '../assets/section2.webp'
+import section2After from '../assets/section2-after.webp'
+import section2Userchat from '../assets/section2-userchat.webp'
+import section2ChatAi from '../assets/section2-chat-ai.webp'
 
 export default function AppScreenshot({ isVisible = false, skipAnimation = false }) {
   const [reducedMotion, setReducedMotion] = useState(false)

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import footerLogo from '../assets/footer-logo.png'
+import footerLogo from '../assets/footer-logo.webp'
 
 export default function Footer() {
   return (
@@ -100,15 +100,29 @@ export default function Footer() {
             <h4 className="footer-col-title">Get in Touch</h4>
             <ul className="footer-contact-list">
               <li>
-                <span className="footer-contact-icon">✉</span>
+                <span className="footer-contact-icon" aria-hidden="true">
+                  <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
+                    <path d="M1.2 1h11.6c.44 0 .8.36.8.8v7.4c0 .44-.36.8-.8.8H1.2c-.44 0-.8-.36-.8-.8V1.8c0-.44.36-.8.8-.8Z" stroke="currentColor" strokeWidth="1.2" />
+                    <path d="M.7 1.6 7 6.1l6.3-4.5" stroke="currentColor" strokeWidth="1.2" />
+                  </svg>
+                </span>
                 <a href="mailto:inquiry@eveia.ai">inquiry@eveia.ai</a>
               </li>
               <li>
-                <span className="footer-contact-icon">📞</span>
+                <span className="footer-contact-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M6.6 3.2 9.1 8.4l-2 1.2a14.4 14.4 0 0 0 7.1 7.1l1.2-2 5.2 2.5v3.2A2 2 0 0 1 18.6 22 16.6 16.6 0 0 1 2 5.4a2 2 0 0 1 2-2h2.6Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                  </svg>
+                </span>
                 <a href="tel:+63915974975">+63 91597 4975</a>
               </li>
               <li>
-                <span className="footer-contact-icon">☎</span>
+                <span className="footer-contact-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 3h10v14H7V3Z" stroke="currentColor" strokeWidth="1.8" />
+                    <path d="M10 21h4M12 17v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                </span>
                 <a href="tel:0270071075">(02) 7007 1075</a>
               </li>
             </ul>

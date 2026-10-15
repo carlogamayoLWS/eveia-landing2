@@ -1,7 +1,7 @@
 import Footer from '../components/Footer.jsx'
-import heroBg from '../assets/pricing-hero-bg.png'
-import logomark from '../assets/pricing-included-mark.png'
-import footerLogo from '../assets/footer-logo.png'
+import heroBg from '../assets/pricing-hero-bg.webp'
+import logomark from '../assets/pricing-included-mark.webp'
+import footerLogo from '../assets/footer-logo.webp'
 
 const FACTORS = [
   {
