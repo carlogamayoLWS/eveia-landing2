@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import decisionReportImg from '../assets/decision-ready-report3.webp'
 import instantAnswersImg from '../assets/instant-answer2.webp'
 import proposalDraftImg from '../assets/proposal-draft2.webp'
-import execSummaryImg from '../assets/executive-summary3.webp'
+import execSummaryImg from '../assets/executive-summary.webp'
 
 const ROW1 = [
   {
@@ -44,7 +44,7 @@ const ROW2 = [
     to: 'Minutes',
     body: 'Transform large volumes of internal material into concise summaries, each linked back to its source.',
     img: execSummaryImg,
-    alt: 'Q2 sales question connected to a database of source material',
+    alt: 'Q2 sales performance question connected to a source database',
     tone: 'blush',
     visual: 'summary',
   },
