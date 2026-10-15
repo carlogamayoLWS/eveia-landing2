@@ -166,6 +166,9 @@ export default function Navbar() {
                       <NavLink to="/healthcare" onClick={() => setSolutionsOpen(false)}>
                         Healthcare
                       </NavLink>
+                      <NavLink to="/education" onClick={() => setSolutionsOpen(false)}>
+                        Education
+                      </NavLink>
                       <NavLink to="/legal" onClick={() => setSolutionsOpen(false)}>
                         Legal
                       </NavLink>
@@ -315,6 +318,10 @@ export default function Navbar() {
                   <NavLink to="/healthcare" onClick={closeMobile}>
                     <span className="accordion-bullet" />
                     Healthcare
+                  </NavLink>
+                  <NavLink to="/education" onClick={closeMobile}>
+                    <span className="accordion-bullet" />
+                    Education
                   </NavLink>
                   <NavLink to="/legal" onClick={closeMobile}>
                     <span className="accordion-bullet" />

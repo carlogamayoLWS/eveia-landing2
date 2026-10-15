@@ -6,6 +6,7 @@ import legalBuiltArt from '../assets/legal-built-art.png'
 import financeBuiltArt from '../assets/finance-built-art.png'
 import energyBuiltArt from '../assets/energy-built-art.png'
 import manufacturingBuiltArt from '../assets/manufacturing-built-art.png'
+import educationBuiltArt from '../assets/education-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -200,6 +201,7 @@ export const industries = {
     note: 'Eveia.AI helps education teams use approved information to prepare reports, summaries, briefings, and source-supported answers.',
     hero: educationHero,
     heroAlt: 'Education team',
+    builtArt: educationBuiltArt,
     howTitle: 'How Education Teams Use Eveia.AI',
     howBody:
       'Education teams work with information across departments, programs, and administrative functions. Eveia.AI helps authorized users work with approved institutional knowledge in one private and controlled environment.',

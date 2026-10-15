@@ -5452,14 +5452,17 @@ a{text-decoration:none;color:inherit;}
 .enterprise-page--energy .reports-stack-wrap::after,
 .enterprise-page--energy .reports-cta-wrap,
 .enterprise-page--manufacturing .reports-stack-wrap::after,
-.enterprise-page--manufacturing .reports-cta-wrap{background:#fff3f9;}
+.enterprise-page--manufacturing .reports-cta-wrap,
+.enterprise-page--education .reports-stack-wrap::after,
+.enterprise-page--education .reports-cta-wrap{background:#fff3f9;}
 .enterprise-page--enterprise .reports-cta,
 .enterprise-page--government .reports-cta,
 .enterprise-page--healthcare .reports-cta,
 .enterprise-page--legal .reports-cta,
 .enterprise-page--finance .reports-cta,
 .enterprise-page--energy .reports-cta,
-.enterprise-page--manufacturing .reports-cta{
+.enterprise-page--manufacturing .reports-cta,
+.enterprise-page--education .reports-cta{
   border:0;
   box-shadow:none;
 }
