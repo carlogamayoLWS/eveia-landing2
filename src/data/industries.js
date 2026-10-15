@@ -5,6 +5,7 @@ import healthcareBuiltArt from '../assets/healthcare-built-art.png'
 import legalBuiltArt from '../assets/legal-built-art.png'
 import financeBuiltArt from '../assets/finance-built-art.png'
 import energyBuiltArt from '../assets/energy-built-art.png'
+import manufacturingBuiltArt from '../assets/manufacturing-built-art.png'
 import iconHr from '../assets/enterprise-icon-hr.svg'
 import iconLegal from '../assets/enterprise-icon-legal.svg'
 import iconFinance from '../assets/enterprise-icon-finance.svg'
@@ -343,6 +344,7 @@ export const industries = {
     note: 'Eveia.AI helps teams use approved manufacturing knowledge to prepare work and access source-supported answers faster.',
     hero: manufacturingHero,
     heroAlt: 'Manufacturing team',
+    builtArt: manufacturingBuiltArt,
     howTitle: 'How Manufacturing Teams Use Eveia.AI',
     howBody:
       'Manufacturing teams rely on information across production, quality, safety, maintenance, and supplier operations. Eveia.AI helps authorized teams use approved manufacturing knowledge to prepare work faster while keeping information controlled.',
