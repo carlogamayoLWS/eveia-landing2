@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
 const frameModules = import.meta.glob(
-  '../assets/homepage-eve-animations/Purple_plushie_waving_hello_*.png',
+  '../assets/homepage-eve-animations/Purple_plushie_waving_hello_*.webp',
   { eager: true, import: 'default' }
 )
 
 const FRAMES = Object.entries(frameModules)
   .map(([path, src]) => ({
-    n: Number(path.match(/_(\d+)\.png$/)?.[1] ?? 0),
+    n: Number(path.match(/_(\d+)\.webp$/)?.[1] ?? 0),
     src,
   }))
   .sort((a, b) => a.n - b.n)
@@ -16,8 +16,9 @@ const SOURCE_FPS = 24
 const LOOP_FROM = 10
 const LAST_FRAME = FRAMES[FRAMES.length - 1]?.n ?? 0
 const STATIC_FRAME = 50
+const LOOP_CYCLE = LAST_FRAME - LOOP_FROM + 1
 
-function pickFrame(frameNumber) {
+function frameIndexAtOrBefore(frameNumber) {
   let lo = 0
   let hi = FRAMES.length - 1
   let result = 0
@@ -30,15 +31,49 @@ function pickFrame(frameNumber) {
       hi = mid - 1
     }
   }
-  return FRAMES[result]
+  return result
+}
+
+function timelineFrame(elapsedFrames) {
+  if (elapsedFrames <= LAST_FRAME) return elapsedFrames
+  return LOOP_FROM + ((elapsedFrames - LOOP_FROM) % LOOP_CYCLE)
+}
+
+async function loadBitmap(src) {
+  const img = new Image()
+  img.decoding = 'sync'
+  img.src = src
+  if (typeof img.decode === 'function') {
+    await img.decode()
+  } else {
+    await new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+    })
+  }
+  if (typeof createImageBitmap === 'function') {
+    return createImageBitmap(img)
+  }
+  return img
+}
+
+function paintFrame(canvas, bitmap) {
+  if (!canvas || !bitmap) return
+  const ctx = canvas.getContext('2d', { alpha: false })
+  if (!ctx) return
+  const w = bitmap.width
+  const h = bitmap.height
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w
+    canvas.height = h
+  }
+  ctx.drawImage(bitmap, 0, 0)
 }
 
 export default function Section5() {
   const sectionRef = useRef(null)
+  const canvasRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
-  const [frameSrc, setFrameSrc] = useState(
-    () => pickFrame(STATIC_FRAME).src || FRAMES[0]?.src || ''
-  )
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -59,41 +94,58 @@ export default function Section5() {
   }, [])
 
   useEffect(() => {
-    FRAMES.forEach((frame) => {
-      const img = new Image()
-      img.src = frame.src
-    })
-  }, [])
-
-  useEffect(() => {
     if (!FRAMES.length) return undefined
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setFrameSrc(pickFrame(STATIC_FRAME).src)
-      return undefined
-    }
 
     let rafId = 0
-    let startTime = 0
-    let lastSrc = ''
+    let cancelled = false
+    const bitmaps = []
 
-    const tick = (now) => {
-      if (!startTime) startTime = now
-      const elapsedFrames = Math.floor(((now - startTime) / 1000) * SOURCE_FPS)
-      const cycle = LAST_FRAME - LOOP_FROM + 1
-      let frameNumber = elapsedFrames
-      if (elapsedFrames > LAST_FRAME) {
-        frameNumber = LOOP_FROM + ((elapsedFrames - LOOP_FROM) % cycle)
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+
+    const run = async () => {
+      try {
+        const loaded = await Promise.all(FRAMES.map((frame) => loadBitmap(frame.src)))
+        if (cancelled) {
+          loaded.forEach((bitmap) => bitmap.close?.())
+          return
+        }
+        bitmaps.push(...loaded)
+
+        const canvas = canvasRef.current
+        const staticIdx = frameIndexAtOrBefore(STATIC_FRAME)
+        paintFrame(canvas, bitmaps[reduceMotion ? staticIdx : 0])
+
+        if (reduceMotion) return
+
+        let startTime = 0
+        let lastIdx = -1
+
+        const tick = (now) => {
+          if (!startTime) startTime = now
+          const elapsed = ((now - startTime) / 1000) * SOURCE_FPS
+          const idx = frameIndexAtOrBefore(timelineFrame(elapsed))
+          if (idx !== lastIdx) {
+            lastIdx = idx
+            paintFrame(canvasRef.current, bitmaps[idx])
+          }
+          rafId = requestAnimationFrame(tick)
+        }
+
+        rafId = requestAnimationFrame(tick)
+      } catch {
+        /* keep empty canvas if a frame fails to decode */
       }
-      const nextSrc = pickFrame(frameNumber).src
-      if (nextSrc !== lastSrc) {
-        lastSrc = nextSrc
-        setFrameSrc(nextSrc)
-      }
-      rafId = requestAnimationFrame(tick)
     }
 
-    rafId = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafId)
+    run()
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(rafId)
+      bitmaps.forEach((bitmap) => bitmap.close?.())
+    }
   }, [])
 
   return (
@@ -104,13 +156,7 @@ export default function Section5() {
     >
       <div className="sec5-card">
         <div className="sec5-eve" aria-hidden="true">
-          {frameSrc ? (
-            <img
-              className="sec5-eve__img"
-              src={frameSrc}
-              alt=""
-            />
-          ) : null}
+          <canvas className="sec5-eve__img" ref={canvasRef} />
         </div>
 
         <div className="sec5-container">
