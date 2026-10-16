@@ -157,9 +157,11 @@ export default function IndustryPage({ id }) {
                 className={`enterprise-team enterprise-team--${team.accent}`}
                 key={team.title}
               >
-                <img src={team.icon} alt="" />
-                <h3>{team.title}</h3>
-                <p>{team.body}</p>
+                <div className="enterprise-team-face">
+                  <img src={team.icon} alt="" />
+                  <h3>{team.title}</h3>
+                  <p>{team.body}</p>
+                </div>
               </article>
             ))}
           </div>

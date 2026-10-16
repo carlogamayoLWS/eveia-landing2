@@ -136,7 +136,9 @@ function FileTile({ src, alt, offset = 0, delay = 0, rise = 180 }) {
         '--tile-rise': `${rise}px`,
       }}
     >
-      <img src={src} alt={alt} />
+      <div className="reports-file-tile-face">
+        <img src={src} alt={alt} />
+      </div>
     </div>
   )
 }
