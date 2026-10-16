@@ -354,19 +354,19 @@ export default function Navbar() {
               <a href="#blog" className="nav-mobile-direct-link" onClick={closeMobile}>
                 Blog
               </a>
+            </div>
 
-              <div className="nav-mobile-drawer-footer">
-                <a
-                  href="mailto:inquiry@eveia.ai"
-                  className="btn btn-primary nav-mobile-drawer-cta"
-                  onClick={closeMobile}
-                >
-                  Request a Private Demo
-                </a>
-                <p className="nav-mobile-drawer-tagline">
-                  Your Private Enterprise AI. Built to move your team forward.
-                </p>
-              </div>
+            <div className="nav-mobile-drawer-footer">
+              <a
+                href="mailto:inquiry@eveia.ai"
+                className="btn btn-primary nav-mobile-drawer-cta"
+                onClick={closeMobile}
+              >
+                Request a Private Demo
+              </a>
+              <p className="nav-mobile-drawer-tagline">
+                Your Private Enterprise AI. Built to move your team forward.
+              </p>
             </div>
           </div>
         </div>

@@ -433,6 +433,7 @@ a{text-decoration:none;color:inherit;}
   transform:translateY(-12px);
   transition:transform .32s cubic-bezier(0.16, 1, 0.3, 1);
   overflow:hidden;
+  min-height:0;
 }
 .nav-mobile-drawer.is-active .nav-mobile-drawer-sheet{
   transform:translateY(0);
@@ -568,11 +569,14 @@ a{text-decoration:none;color:inherit;}
   color:var(--pink);
 }
 .nav-mobile-drawer-footer{
-  margin-top:auto;
-  padding-top:28px;
+  flex-shrink:0;
+  margin-top:0;
+  padding:16px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:12px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  background:linear-gradient(180deg, rgba(12,8,22,0) 0%, #0c0816 28%);
 }
 .nav-mobile-drawer-cta{
   width:100%;
@@ -2795,8 +2799,11 @@ a{text-decoration:none;color:inherit;}
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1024px){
   .reports-hero-wrap{padding:12px 12px 0;}
-  .reports-hero{padding:100px 32px 48px;}
-  .reports-hero-visual{width:100%;max-width:505px;height:auto;min-height:320px;margin:0 auto;}
+  .reports-hero{min-height:0;padding:100px 32px 48px;}
+  .reports-hero-inner{grid-template-columns:1fr;gap:28px;}
+  .reports-hero-title{font-size:clamp(34px,4.6vw,46px);margin-bottom:28px;}
+  .reports-hero-desc{letter-spacing:0.3px;line-height:1.6;margin-bottom:28px;}
+  .reports-hero-visual{width:100%;max-width:505px;height:auto;min-height:0;margin:0 auto;}
   .reports-q2-card{margin:0 auto;}
   .reports-hero-minis{
     position:relative;
@@ -3149,10 +3156,9 @@ a{text-decoration:none;color:inherit;}
     position:relative;
     top:auto;
     height:auto;
-    min-height:85svh;
-    min-height:85vh;
-    padding-top:110px;
-    padding-bottom:56px;
+    min-height:0;
+    padding-top:calc(108px + env(safe-area-inset-top, 0px));
+    padding-bottom:48px;
     padding-left:20px;
     padding-right:20px;
   }
@@ -3481,7 +3487,9 @@ a{text-decoration:none;color:inherit;}
   }
   .sec7-pill-text{
     font-size:13px;
-    white-space:nowrap;
+    white-space:normal;
+    line-height:1.25;
+    text-align:center;
   }
   .sec7-ideal{
     padding:18px;
@@ -3626,19 +3634,18 @@ a{text-decoration:none;color:inherit;}
 }
 
 @media (max-width:600px){
-  .hero{padding-top:100px;}
+  .hero{padding-top:calc(96px + env(safe-area-inset-top, 0px));}
   .logo-mark{font-size:clamp(40px, 11vw, 54px);}
   .tagline{font-size:12.5px;letter-spacing:0.02em;}
   .hero-desc{font-size:14.5px;}
   .dark-heading{font-size:27px;letter-spacing:-0.5px;}
-  .sec4-mini-card{max-width:115px;}
-  .sec4-mini-cards{right:4px;}
+  .sec4-mini-cards{display:none;}
   .reports-hero{padding:100px 18px 36px;border-radius:20px;}
   .reports-file-tile{width:54px;height:54px;border-radius:14px;}
   .reports-file-tile img{width:32px;height:32px;}
   .reports-composer-hint{display:none;}
   .reports-cta{padding:36px 16px;}
-  .reports-q2-card,.reports-hero-minis{zoom:.58;}
+  .reports-q2-card{zoom:.58;}
   .reports-hero-visual{min-height:0;max-width:300px;}
   .reports-file-grid{max-width:252px;gap:10px;}
   .reports-composer{height:auto;padding-bottom:14px;}
@@ -3646,6 +3653,10 @@ a{text-decoration:none;color:inherit;}
   .search-hero-visual,
   .proposal-hero-visual,
   .summaries-hero-visual{max-width:300px;}
+  .footer-col-touch{grid-column:1 / -1;}
+  .sec8-left{align-items:stretch;text-align:left;}
+  .sec8-banner{text-align:left;}
+  .sec8-banner-btn{max-width:none;}
 }
 
 @media (max-width:480px){
@@ -7411,4 +7422,200 @@ a{text-decoration:none;color:inherit;}
   }
   .ph-step p{font-size:15px;letter-spacing:0;}
   .privacy-cta-heading{font-size:clamp(24px,7vw,32px);}
+}
+
+/* ==========================================================================
+   MOBILE POLISH
+   Desktop (≥1025px) stays on existing rules. These only tighten phones/tablets.
+   ========================================================================== */
+@media (max-width:1024px){
+  img,video,canvas,svg{
+    max-width:100%;
+  }
+  .gradient-line{
+    width:100%;
+    margin-left:0;
+  }
+  .reports-hero-ctas{
+    gap:16px;
+  }
+  .reports-hero-ctas .btn,
+  .reports-hero-ctas .btn-secondary{
+    letter-spacing:0.2px;
+  }
+  .pricing-hero-desc,
+  .pricing-included-lead,
+  .pricing-included-list,
+  .pricing-expand-desc,
+  .pricing-faq-item h3,
+  .pricing-faq-item p{
+    letter-spacing:0.2px;
+    line-height:1.5;
+  }
+}
+
+@media (max-width:860px){
+  html{
+    scroll-padding-top:88px;
+  }
+  .nav-mobile-wrap{
+    top:max(10px, env(safe-area-inset-top, 0px));
+    left:max(12px, env(safe-area-inset-left, 0px));
+    right:max(12px, env(safe-area-inset-right, 0px));
+  }
+  .nav-mobile-drawer-sheet{
+    padding-top:env(safe-area-inset-top, 0px);
+  }
+  .nav-mobile-drawer-scroll{
+    min-height:0;
+    padding-bottom:12px;
+  }
+  .hero-brand{
+    max-width:100%;
+  }
+  .logo-mark{
+    max-width:100%;
+  }
+  .tagline{
+    max-width:100%;
+    overflow:hidden;
+  }
+  .hero-desc{
+    max-width:100%;
+  }
+  .hero-ctas,
+  .reports-hero-ctas,
+  .reports-cta-actions,
+  .sec8-actions{
+    max-width:none;
+    width:100%;
+  }
+  .hero-ctas .btn,
+  .hero-ctas .btn-secondary,
+  .reports-hero-ctas .btn,
+  .reports-hero-ctas .btn-secondary,
+  .reports-cta-btn,
+  .reports-cta-btn--primary{
+    min-height:48px;
+    width:100%;
+    max-width:none;
+  }
+  .app-shot,
+  .sec4-media-wrap,
+  .sec8-right,
+  .reports-hero-visual,
+  .enterprise-hero-visual{
+    overflow:hidden;
+  }
+  .sec4-mini-cards{
+    max-width:46%;
+  }
+  .sec4-mini-card{
+    max-width:100%;
+  }
+  .sec5-eve{
+    left:auto;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .dark-desc,
+  .dark-callout,
+  .sec5-desc,
+  .sec5-callout,
+  .sec6-desc,
+  .sec6-card-accent,
+  .sec6-card-body,
+  .sec6-footnote,
+  .sec7-desc,
+  .sec7-link,
+  .sec8-banner-desc{
+    letter-spacing:0;
+    line-height:1.6;
+  }
+  .sec4,
+  .sec6,
+  .sec7,
+  .sec8{
+    padding-top:56px;
+    padding-bottom:56px;
+  }
+  .sec7-pill{
+    min-height:44px;
+  }
+  .reports-hero{
+    padding-top:calc(96px + env(safe-area-inset-top, 0px));
+  }
+  .reports-hero-minis{
+    display:none;
+  }
+  .reports-q2-card{
+    max-width:100%;
+  }
+  .reports-q2-spark{
+    width:100%;
+    max-width:310px;
+    height:auto;
+  }
+  .reports-cta-btn,
+  .reports-cta-btn--primary{
+    max-width:none;
+  }
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:28px 24px;
+  }
+  .footer-col-brand,
+  .footer-col-touch{
+    grid-column:1 / -1;
+  }
+  .footer-touch-btn{
+    max-width:none;
+  }
+  input,
+  textarea,
+  select{
+    font-size:16px;
+  }
+  .contact-reach,
+  .contact-reach p,
+  .contact-reach-item{
+    max-width:100%;
+    white-space:normal;
+  }
+  .contact-reach-icon{
+    width:48px;
+    height:48px;
+  }
+  .footer-links a,
+  .footer-contact-list a,
+  .footer-contact-list li{
+    overflow-wrap:anywhere;
+  }
+  .pricing-hero,
+  .security-hero,
+  .contact-hero,
+  .ph-hero,
+  .privacy-hero{
+    padding-left:20px;
+    padding-right:20px;
+  }
+}
+
+@media (max-width:380px){
+  .nav-mobile-demo-btn{
+    padding:7px 12px;
+    font-size:12px;
+  }
+  .nav-mobile-bar{
+    padding-left:14px;
+    padding-right:10px;
+  }
+  .sec7-pills{
+    grid-template-columns:1fr;
+  }
+  .hero-ctas,
+  .reports-hero-ctas,
+  .sec8-actions{
+    max-width:none;
+  }
 }
