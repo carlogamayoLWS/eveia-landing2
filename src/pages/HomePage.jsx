@@ -72,7 +72,7 @@ export default function HomePage() {
       observer.observe(darkSectionRef.current)
     }
 
-    const smoothScrollTo = (targetY, duration = 700, onComplete) => {
+    const smoothScrollTo = (targetY, duration = 900, onComplete) => {
       const html = document.documentElement
       const previousBehavior = html.style.scrollBehavior
       html.style.scrollBehavior = 'auto'
@@ -81,7 +81,8 @@ export default function HomePage() {
       const difference = targetY - startY
       const startTime = performance.now()
 
-      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
+      const easeInOutCubic = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
       const finish = () => {
         html.style.scrollBehavior = previousBehavior
@@ -91,7 +92,7 @@ export default function HomePage() {
       const step = (currentTime) => {
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
-        const ease = easeOutCubic(progress)
+        const ease = easeInOutCubic(progress)
 
         window.scrollTo({ top: startY + difference * ease, left: 0, behavior: 'instant' })
 
@@ -111,7 +112,7 @@ export default function HomePage() {
       showScreenshot()
 
       const targetY = getSection2Y()
-      smoothScrollTo(targetY, 700, () => {
+      smoothScrollTo(targetY, 980, () => {
         isAnimating = false
       })
     }
@@ -188,7 +189,7 @@ export default function HomePage() {
     <>
       <Hero />
       <div ref={darkSectionRef}>
-        <DarkSection>
+        <DarkSection revealBg={sectionVisible} instant={skipShotAnimation}>
           <AppScreenshot isVisible={sectionVisible} skipAnimation={skipShotAnimation} />
           <TickerSection />
         </DarkSection>
