@@ -2744,8 +2744,12 @@ a{text-decoration:none;color:inherit;}
 .reports-how-heading{margin-bottom:50px;font-size:50px;font-weight:700;line-height:1.05;letter-spacing:-2px;color:#000;}
 .reports-page:not(.search-page):not(.enterprise-page) .reports-how-inner{max-width:1320px;}
 .reports-page:not(.search-page):not(.enterprise-page) .reports-how-heading{
-  white-space:nowrap;
   font-size:clamp(34px, 3.55vw, 50px);
+}
+@media (min-width:861px){
+  .reports-page:not(.search-page):not(.enterprise-page) .reports-how-heading{
+    white-space:nowrap;
+  }
 }
 .reports-how-heading span{background:linear-gradient(172deg,#250d69 8%,#fc0061 35%);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .reports-how-lead,.reports-how-body{font-size:20px;line-height:30px;letter-spacing:2px;color:#1d1d1f;font-weight:400;}
@@ -3263,6 +3267,14 @@ a{text-decoration:none;color:inherit;}
     letter-spacing:-0.8px;
     margin-bottom:20px;
     white-space:normal;
+  }
+  .reports-page:not(.search-page):not(.enterprise-page) .reports-how-heading{
+    white-space:normal;
+    overflow-wrap:break-word;
+    word-break:normal;
+    font-size:clamp(24px, 6.6vw, 32px);
+    line-height:1.18;
+    letter-spacing:-0.6px;
   }
   .reports-how-lead,
   .reports-how-body,
