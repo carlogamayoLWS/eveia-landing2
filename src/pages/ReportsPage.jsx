@@ -12,6 +12,9 @@ import byNeedAnswers from '../assets/reports-byneed-answers.webp'
 import byNeedProposal from '../assets/reports-byneed-proposal.webp'
 import byNeedSummaries from '../assets/reports-byneed-summaries.webp'
 import footerLogo from '../assets/footer-logo.webp'
+import iconFolder from '../assets/reports-icon-folder.svg'
+import iconBars from '../assets/reports-icon-bars.svg'
+import iconFolderOpen from '../assets/reports-icon-folder-open.svg'
 import Footer from '../components/Footer.jsx'
 
 const FILE_ROW_1 = [
@@ -143,6 +146,12 @@ function FileTile({ src, alt, offset = 0, delay = 0, rise = 180 }) {
   )
 }
 
+const Q2_MOUNTAIN =
+  'M78 92 L102 86 L124 90 L148 74 L162 82 L186 64 L204 76 L228 48 L246 58 L268 32 L286 42 L310 8'
+const Q2_MOUNTAIN_FILL = `${Q2_MOUNTAIN} L310 115 L78 115 Z`
+const Q2_PINK =
+  'M6 96 L28 80 L46 88 L78 48 L108 84 L128 62 L152 80 L176 44 L206 74 L236 54 L262 82 L292 48 L310 58'
+
 function Q2ReportCard() {
   return (
     <article className="reports-q2-card">
@@ -153,65 +162,59 @@ function Q2ReportCard() {
           <p className="reports-q2-label">Revenue</p>
           <p className="reports-q2-value">$8.4M</p>
           <p className="reports-q2-delta">
-            <span>+12.6%</span> +12.0%
+            <span>+12.6%</span>
+            <span className="reports-q2-delta-prev">+12.0%</span>
           </p>
         </div>
         <div>
           <p className="reports-q2-label">Growth</p>
           <p className="reports-q2-value">24.8%</p>
           <p className="reports-q2-delta">
-            <span>+3.7%</span> +1.7%
+            <span>+3.7%</span>
+            <span className="reports-q2-delta-prev">+1.7%</span>
           </p>
         </div>
         <div>
           <p className="reports-q2-label">Customers</p>
           <p className="reports-q2-value">1,842</p>
           <p className="reports-q2-delta">
-            <span>+18.3%</span> +8.2%
+            <span>+18.3%</span>
+            <span className="reports-q2-delta-prev">+8.2%</span>
           </p>
         </div>
       </div>
-      <div className="reports-q2-charts">
-        <svg className="reports-q2-spark" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            className="reports-q2-spark-fill"
-            d="M0 96 C36 94 52 86 78 80 C112 72 124 88 156 70 C196 48 214 52 246 42 C278 32 298 18 320 10 V120 H0 Z"
-            fill="#F3E8FF"
-          />
-          <path
-            className="reports-q2-spark-line"
-            d="M0 96 C36 94 52 86 78 80 C112 72 124 88 156 70 C196 48 214 52 246 42 C278 32 298 18 320 10"
-            fill="none"
-            stroke="#FF4D9A"
-            strokeWidth="3"
-            strokeLinecap="round"
-            pathLength="1"
-          />
-        </svg>
-        <svg className="reports-q2-donut" viewBox="0 0 72 72" aria-hidden="true">
-          <circle cx="36" cy="36" r="24" fill="none" stroke="#F6D7F4" strokeWidth="10" />
-          <circle
-            className="reports-q2-donut-pink"
-            cx="36"
-            cy="36"
-            r="24"
-            fill="none"
-            stroke="#FF4D9A"
-            strokeWidth="10"
-            strokeLinecap="butt"
-            transform="rotate(-20 36 36)"
-          />
-          <circle
-            className="reports-q2-donut-purple"
-            cx="36"
-            cy="36"
-            r="24"
-            fill="none"
-            stroke="#7C3AED"
-            strokeWidth="10"
-            transform="rotate(110 36 36)"
-          />
-        </svg>
+      <svg className="reports-q2-spark" viewBox="0 0 310 115" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="q2SparkFill" gradientUnits="objectBoundingBox" x1="0.2" y1="0" x2="0.85" y2="1">
+            <stop offset="19.25%" stopColor="#E5DBFF" />
+            <stop offset="82.54%" stopColor="#491ACF" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path className="reports-q2-spark-fill" d={Q2_MOUNTAIN_FILL} fill="url(#q2SparkFill)" />
+        <path
+          className="reports-q2-spark-line reports-q2-spark-line--magenta"
+          d={Q2_MOUNTAIN}
+          fill="none"
+          stroke="#B216BD"
+          strokeWidth="1.84"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          pathLength="1"
+        />
+        <path
+          className="reports-q2-spark-line reports-q2-spark-line--pink"
+          d={Q2_PINK}
+          fill="none"
+          stroke="#FF7EB0"
+          strokeWidth="1.84"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          pathLength="1"
+        />
+      </svg>
+      <div className="reports-q2-donut" aria-hidden="true">
+        <div className="reports-q2-donut-ring" />
+        <div className="reports-q2-donut-hole" />
       </div>
     </article>
   )
@@ -304,13 +307,8 @@ export default function ReportsPage() {
             <Q2ReportCard />
             <div className="reports-hero-minis">
               <div className="reports-mini-file">
-                <span className="reports-mini-icon reports-mini-icon--folder" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3.1c.4 0 .8.2 1.1.5l1.2 1.2c.3.3.7.5 1.1.5H18.5A2.5 2.5 0 0 1 21 9.7v6.8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"
-                      fill="#FC0061"
-                    />
-                  </svg>
+                <span className="reports-mini-icon reports-mini-icon--folder">
+                  <img src={iconFolder} alt="" width="52" height="52" />
                 </span>
                 <div>
                   <p className="reports-mini-title">Sales Deck</p>
@@ -319,20 +317,10 @@ export default function ReportsPage() {
                 </div>
               </div>
               <div className="reports-mini-tile reports-mini-tile--chart" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 19V10" stroke="#7C4DFF" strokeWidth="2.4" strokeLinecap="round" />
-                  <path d="M10 19V5" stroke="#7C4DFF" strokeWidth="2.4" strokeLinecap="round" />
-                  <path d="M16 19V13" stroke="#7C4DFF" strokeWidth="2.4" strokeLinecap="round" />
-                  <path d="M22 19V8" stroke="#7C4DFF" strokeWidth="2.4" strokeLinecap="round" />
-                </svg>
+                <img src={iconBars} alt="" width="56" height="56" />
               </div>
               <div className="reports-mini-tile reports-mini-tile--folder" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3.1c.4 0 .8.2 1.1.5l1.2 1.2c.3.3.7.5 1.1.5H18.5A2.5 2.5 0 0 1 21 9.7v6.8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"
-                    fill="#E45CFF"
-                  />
-                </svg>
+                <img src={iconFolderOpen} alt="" width="47" height="42" />
               </div>
             </div>
           </div>

@@ -45,7 +45,7 @@ export default function Section4() {
         <div className="sec4-left">
           <div className="sec4-fade-block">
             <h2 className="sec4-heading">
-              What Slows Down
+              <span className="sec4-heading__lead">What Slows Down</span>
               <span className="sec4-heading__grad">Organizations?</span>
             </h2>
 
