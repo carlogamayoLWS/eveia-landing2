@@ -14,6 +14,7 @@ import SecurityPage from './pages/SecurityPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import PhilippinesPage from './pages/PhilippinesPage.jsx'
 import DataPrivacyPage from './pages/DataPrivacyPage.jsx'
+import { ChatWidget } from './components/chat/ChatWidget'
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/philippines" element={<PhilippinesPage />} />
           <Route path="/data-privacy" element={<DataPrivacyPage />} />
         </Routes>
+        <ChatWidget />
       </DemoModalProvider>
     </BrowserRouter>
   )
