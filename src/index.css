@@ -6213,9 +6213,13 @@ a{text-decoration:none;color:inherit;}
 .pricing-hero-title .reports-hero-grad{
   display:inline;
   width:auto;
+  background:none;
+  -webkit-background-clip:unset;
+  background-clip:unset;
+  color:var(--pink);
 }
 .pricing-hero-desc{
-  max-width:1065px;
+  max-width:845px;
   margin:0 auto 75px;
   font-size:20px;
   font-weight:400;
@@ -6611,7 +6615,7 @@ a{text-decoration:none;color:inherit;}
 }
 .security-hero-title span{color:var(--pink);}
 .security-hero-desc{
-  max-width:1193px;
+  max-width:1020px;
   margin:0 auto 45px;
   font-size:20px;
   line-height:1.45;
@@ -6619,6 +6623,9 @@ a{text-decoration:none;color:inherit;}
   font-weight:400;
   color:#fff;
 }
+.ph-page .security-hero-desc{max-width:880px;}
+.security-page .security-hero-desc{max-width:920px;}
+.privacy-page .security-hero-desc{max-width:1020px;}
 .security-data-title{
   margin:0 0 39px;
   font-size:30px;
@@ -7004,13 +7011,10 @@ a{text-decoration:none;color:inherit;}
   color:#fff;
 }
 .contact-hero-title span{
-  background:linear-gradient(167deg,#250d69 19%,#fc0061 53%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  color:var(--pink);
 }
 .contact-hero-desc{
-  max-width:1065px;
+  max-width:900px;
   margin:0 auto 45px;
   font-size:20px;
   line-height:1.45;
@@ -7027,7 +7031,7 @@ a{text-decoration:none;color:inherit;}
   color:#fff;
 }
 .contact-hero-lead{
-  max-width:1065px;
+  max-width:930px;
   margin:0 auto 25px;
   font-size:20px;
   line-height:1.45;
@@ -7399,6 +7403,7 @@ a{text-decoration:none;color:inherit;}
   font-weight:400;
   color:#fff;
 }
+.ph-page .ph-hero-lead{max-width:850px;}
 .ph-sheet,
 .privacy-sheet{
   position:relative;
