@@ -206,7 +206,26 @@ export default function Navbar() {
             </div>
           </div>
           <a href="#" className="label-hide">Blog</a>
-          <NavLink to="/pricing" className="label-hide">Pricing</NavLink>
+          <NavLink
+            to="/pricing"
+            className="label-hide"
+            onClick={() => {
+              setProductOpen(false)
+              setSolutionsOpen(false)
+            }}
+          >
+            Pricing
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="label-hide"
+            onClick={() => {
+              setProductOpen(false)
+              setSolutionsOpen(false)
+            }}
+          >
+            Contact Us
+          </NavLink>
           <a href="mailto:inquiry@eveia.ai" className="cta">Request a Demo</a>
         </nav>
       </div>
@@ -365,6 +384,9 @@ export default function Navbar() {
 
               <NavLink to="/pricing" className="nav-mobile-direct-link" onClick={closeMobile}>
                 Pricing
+              </NavLink>
+              <NavLink to="/contact" className="nav-mobile-direct-link" onClick={closeMobile}>
+                Contact Us
               </NavLink>
               <a href="#blog" className="nav-mobile-direct-link" onClick={closeMobile}>
                 Blog
