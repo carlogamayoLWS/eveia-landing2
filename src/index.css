@@ -5933,6 +5933,9 @@ a{text-decoration:none;color:inherit;}
   height:auto;
   object-fit:contain;
 }
+.enterprise-page--government .enterprise-built-art img{
+  width:min(422px,100%);
+}
 .enterprise-page--enterprise .reports-stack-wrap::after,
 .enterprise-page--enterprise .reports-cta-wrap,
 .enterprise-page--government .reports-stack-wrap::after,
