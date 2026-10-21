@@ -95,6 +95,17 @@ export default function Navbar() {
       <div className="nav-wrap nav-desktop-wrap">
         <nav className={`nav-pill ${isOverDark ? 'nav-over-dark' : ''}`}>
           <div className="nav-pill-glass" aria-hidden="true" />
+          <NavLink
+            to="/"
+            end
+            className="label-hide"
+            onClick={() => {
+              setProductOpen(false)
+              setSolutionsOpen(false)
+            }}
+          >
+            Home
+          </NavLink>
           <div className={`nav-item ${productOpen ? 'is-open' : ''}`}>
             <button
               type="button"
@@ -245,6 +256,10 @@ export default function Navbar() {
             </div>
 
             <div className="nav-mobile-drawer-scroll">
+              <NavLink to="/" end className="nav-mobile-direct-link" onClick={closeMobile}>
+                Home
+              </NavLink>
+
               {/* Product Accordion */}
               <div className={`nav-mobile-accordion ${mobileProductOpen ? 'is-expanded' : ''}`}>
                 <button
