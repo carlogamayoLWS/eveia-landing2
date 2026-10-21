@@ -32,6 +32,7 @@ import {
   type EveiaTrackingIds,
 } from './eveiaChatApi'
 import { formatChatMessage, TypingIndicator } from './chatMessageFormat'
+import { ChatEveSprite } from './ChatEveSprite'
 import chatIcon from '../../assets/chaticon.png'
 
 type ChatMsg = PersistedChatMsg
@@ -716,7 +717,25 @@ export function ChatWidget() {
         aria-expanded={open}
         onClick={handleToggle}
       >
-        <img src={chatIcon} alt="" className="chat-widget-launcher-img" />
+        {!open && (
+          <span className="chat-widget-thought" aria-hidden="true">
+            <svg viewBox="0 0 80 64" fill="none">
+              <circle cx="69" cy="58" r="2.8" fill="#fff" stroke="#d4cfe0" strokeWidth="1.4" />
+              <circle cx="61" cy="50" r="4.4" fill="#fff" stroke="#d4cfe0" strokeWidth="1.4" />
+              <path
+                d="M22 8c8.4-6.6 22.4-6.8 31.2 0 4.8 3.7 7.6 9.2 7.3 15.2 5.8 1.4 10.2 6.8 10.2 13.2 0 7.6-6.2 13.8-14.4 14.4-3.4 6.4-11.2 10.4-20.4 9.2C26.2 59 18 53.4 14.6 45.6 8.4 44.2 4 38.4 4 31.4c0-6.6 4-12.2 9.8-14.2C14.2 12.4 17.2 9.6 22 8Z"
+                fill="#fff"
+                stroke="#d4cfe0"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
+              <circle cx="26.5" cy="28.5" r="3.15" fill="#b9b3c6" />
+              <circle cx="36.5" cy="28.5" r="3.15" fill="#b9b3c6" />
+              <circle cx="46.5" cy="28.5" r="3.15" fill="#b9b3c6" />
+            </svg>
+          </span>
+        )}
+        <ChatEveSprite />
         {open && (
           <span className="chat-widget-launcher-close" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">

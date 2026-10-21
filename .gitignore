@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Studio source frames for the chat launcher (WebP frames are committed)
+src/assets/evebot/*.png
+
 # Local environment files
 .env
 .env*.local
