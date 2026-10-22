@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { EVEIA_RESPONSE_STYLE_PROMPT } from '../../lib/eveiaChatPrompt'
 import {
   cancelActiveFlow,
@@ -41,7 +42,109 @@ function bootFromStorage() {
   return loadChatState()
 }
 
+function parseCssRgb(value: string) {
+  const m = value.match(/rgba?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)\s*[, ]\s*([\d.]+)(?:\s*[,/]\s*([\d.]+%?))?\s*\)/i)
+  if (!m) return null
+  const alpha = m[4] == null
+    ? 1
+    : m[4].endsWith('%')
+      ? Number(m[4].slice(0, -1)) / 100
+      : Number(m[4])
+  return { r: Number(m[1]), g: Number(m[2]), b: Number(m[3]), a: alpha }
+}
+
+function lumaOf(rgb: { r: number; g: number; b: number }) {
+  return 0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b
+}
+
+function gradientLuma(image: string) {
+  if (!image || image === 'none' || !/gradient/i.test(image)) return null
+  const stops = [...image.matchAll(/rgba?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)\s*[, ]\s*([\d.]+)/g)]
+  if (!stops.length) return null
+  const lumas = stops.map((stop) => lumaOf({ r: Number(stop[1]), g: Number(stop[2]), b: Number(stop[3]) }))
+  return lumas.reduce((sum, value) => sum + value, 0) / lumas.length
+}
+
+function isPaintedLayer(style: CSSStyleDeclaration) {
+  if (style.visibility === 'hidden' || Number(style.opacity) === 0) return false
+  const clip = style.clipPath
+  if (clip && clip !== 'none' && /inset\(\s*100%/.test(clip)) return false
+  return true
+}
+
+function layerLuma(style: CSSStyleDeclaration) {
+  if (!isPaintedLayer(style)) return null
+  const overlay = parseCssRgb(style.backgroundColor)
+  const fromGradient = gradientLuma(style.backgroundImage)
+  if (overlay && overlay.a >= 0.28) {
+    const overlayLuma = lumaOf(overlay)
+    if (fromGradient == null || overlay.a >= 0.55) return overlayLuma
+    return overlayLuma * overlay.a + fromGradient * (1 - overlay.a)
+  }
+  return fromGradient
+}
+
+function sampleImageLuma(img: HTMLImageElement, cx: number, cy: number) {
+  if (!img.complete || !img.naturalWidth) return null
+  const box = img.getBoundingClientRect()
+  if (box.width < 2 || box.height < 2) return null
+  const sx = ((cx - box.left) / box.width) * img.naturalWidth
+  const sy = ((cy - box.top) / box.height) * img.naturalHeight
+  const canvas = document.createElement('canvas')
+  canvas.width = 1
+  canvas.height = 1
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return null
+  try {
+    ctx.drawImage(img, sx, sy, 1, 1, 0, 0, 1, 1)
+    const px = ctx.getImageData(0, 0, 1, 1).data
+    return lumaOf({ r: px[0], g: px[1], b: px[2] })
+  } catch {
+    return null
+  }
+}
+
+function isCoveredStickyHero(node: Element, hits: Element[]) {
+  if (!node.closest('.hero')) return false
+  return hits.some((hit) => {
+    if (hit === node || hit.closest('.hero')) return false
+    if (!(hit instanceof HTMLElement)) return false
+    const z = Number.parseInt(getComputedStyle(hit).zIndex, 10)
+    return Number.isFinite(z) && z >= 2
+  })
+}
+
+function isDarkBehindAsk(ask: HTMLElement) {
+  const widget = ask.closest('.chat-widget')
+  const rect = ask.getBoundingClientRect()
+  const cx = rect.left + rect.width / 2
+  const cy = rect.top + rect.height / 2
+  const prev = widget instanceof HTMLElement ? widget.style.visibility : ''
+  if (widget instanceof HTMLElement) {
+    widget.style.visibility = 'hidden'
+    void widget.offsetHeight
+  }
+  const hits = document.elementsFromPoint(cx, cy)
+  if (widget instanceof HTMLElement) widget.style.visibility = prev
+
+  for (const node of hits) {
+    if (!(node instanceof Element) || node.closest('.chat-widget')) continue
+    if (isCoveredStickyHero(node, hits)) continue
+
+    const cs = getComputedStyle(node)
+    const before = layerLuma(getComputedStyle(node, '::before'))
+    const own = layerLuma(cs)
+    const fromImg = node instanceof HTMLImageElement ? sampleImageLuma(node, cx, cy) : null
+    const luma = before ?? own ?? fromImg
+    if (luma == null) continue
+    return luma < 160
+  }
+
+  return false
+}
+
 export function ChatWidget() {
+  const { pathname } = useLocation()
   const initial = bootFromStorage()
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -53,6 +156,8 @@ export function ChatWidget() {
   const [sending, setSending] = useState(false)
   const messagesRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  const askRef = useRef<HTMLSpanElement>(null)
+  const [askOnDark, setAskOnDark] = useState(false)
   const trackingRef = useRef<EveiaTrackingIds>(loadEveiaTrackingIds())
   const abortRef = useRef<AbortController | null>(null)
   const leadPhaseRef = useRef(leadPhase)
@@ -120,6 +225,32 @@ export function ChatWidget() {
     }
     setOpen(true)
   }, [open, handleClose])
+
+  useEffect(() => {
+    if (open) return
+    const ask = askRef.current
+    if (!ask) return
+
+    let frame = 0
+    const sync = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const el = askRef.current
+        if (el) setAskOnDark(isDarkBehindAsk(el))
+      })
+    }
+
+    sync()
+    window.addEventListener('scroll', sync, { passive: true, capture: true })
+    window.addEventListener('resize', sync)
+    document.addEventListener('scroll', sync, { passive: true, capture: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', sync, true)
+      window.removeEventListener('resize', sync)
+      document.removeEventListener('scroll', sync, true)
+    }
+  }, [open, pathname])
 
   const startFreshChat = useCallback(() => {
     abortRef.current?.abort()
@@ -717,24 +848,7 @@ export function ChatWidget() {
         aria-expanded={open}
         onClick={handleToggle}
       >
-        {!open && (
-          <span className="chat-widget-thought" aria-hidden="true">
-            <svg viewBox="0 0 80 64" fill="none">
-              <circle cx="69" cy="58" r="2.8" fill="#fff" stroke="#d4cfe0" strokeWidth="1.4" />
-              <circle cx="61" cy="50" r="4.4" fill="#fff" stroke="#d4cfe0" strokeWidth="1.4" />
-              <path
-                d="M22 8c8.4-6.6 22.4-6.8 31.2 0 4.8 3.7 7.6 9.2 7.3 15.2 5.8 1.4 10.2 6.8 10.2 13.2 0 7.6-6.2 13.8-14.4 14.4-3.4 6.4-11.2 10.4-20.4 9.2C26.2 59 18 53.4 14.6 45.6 8.4 44.2 4 38.4 4 31.4c0-6.6 4-12.2 9.8-14.2C14.2 12.4 17.2 9.6 22 8Z"
-                fill="#fff"
-                stroke="#d4cfe0"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-              />
-              <circle cx="26.5" cy="28.5" r="3.15" fill="#b9b3c6" />
-              <circle cx="36.5" cy="28.5" r="3.15" fill="#b9b3c6" />
-              <circle cx="46.5" cy="28.5" r="3.15" fill="#b9b3c6" />
-            </svg>
-          </span>
-        )}
+        <span className="chat-widget-glass" aria-hidden="true" />
         <ChatEveSprite />
         {open && (
           <span className="chat-widget-launcher-close" aria-hidden="true">
@@ -744,6 +858,16 @@ export function ChatWidget() {
           </span>
         )}
       </button>
+      {!open && (
+        <span
+          ref={askRef}
+          className={`chat-widget-ask${askOnDark ? ' is-on-dark' : ''}`}
+          aria-hidden="true"
+        >
+          <span className="chat-widget-ask-disc" />
+          <span className="chat-widget-ask-mark">?</span>
+        </span>
+      )}
     </div>
   )
 }
