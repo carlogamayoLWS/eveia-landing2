@@ -66,7 +66,8 @@ const initialForm = {
   website: '',
 }
 
-export function ContactModal({ open, onClose }) {
+export function ContactModal({ open, onClose, variant = 'message' }) {
+  const isPricing = variant === 'pricing'
   const [form, setForm] = useState(initialForm)
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -121,7 +122,7 @@ export function ContactModal({ open, onClose }) {
         name,
         email,
         company,
-        message,
+        message: isPricing ? `Pricing request\n\n${message}` : message,
         website: form.website,
       })
       setSuccess(true)
@@ -155,12 +156,18 @@ export function ContactModal({ open, onClose }) {
             <div className="contact-modal-left-bg contact-modal-left-bg--blob" />
 
             <div className="contact-modal-intro">
-              <div className="contact-modal-eyebrow">Get in Touch</div>
+              <div className="contact-modal-eyebrow">{isPricing ? 'Pricing' : 'Get in Touch'}</div>
               <h2 id="contact-title" className="contact-modal-title">
-                Let's talk about<br />your organization
+                {isPricing ? (
+                  <>Get a pricing estimate<br />for your organization</>
+                ) : (
+                  <>Let's talk about<br />your organization</>
+                )}
               </h2>
               <p className="contact-modal-desc">
-                Reach out to our team - we're happy to answer questions about Eveia.AI, or how we can help your organization.
+                {isPricing
+                  ? 'Tell us how you plan to deploy Eveia.AI, how many people need access, and what you want to connect first. We’ll follow up with an estimate.'
+                  : "Reach out to our team - we're happy to answer questions about Eveia.AI, or how we can help your organization."}
               </p>
             </div>
 
@@ -181,7 +188,9 @@ export function ContactModal({ open, onClose }) {
 
           <div className="contact-modal-right">
             <div className="contact-modal-form-header">
-              <div className="form-title contact-modal-form-title">Send us a message</div>
+              <div className="form-title contact-modal-form-title">
+                {isPricing ? 'Request Pricing' : 'Send us a message'}
+              </div>
               <p className="form-subtitle">Our team will get in touch shortly.</p>
             </div>
 
@@ -236,7 +245,9 @@ export function ContactModal({ open, onClose }) {
                     id="ct-message"
                     name="message"
                     required
-                    placeholder="Tell us more about your inquiry…"
+                    placeholder={isPricing
+                      ? 'Tell us about deployment, users, and what you want to connect first…'
+                      : 'Tell us more about your inquiry…'}
                     rows={4}
                     value={form.message}
                     onChange={(e) => updateField('message', e.target.value)}
@@ -266,7 +277,7 @@ export function ContactModal({ open, onClose }) {
                   className="btn-gradient form-btn"
                   disabled={submitting}
                 >
-                  {submitting ? 'Sending...' : 'Send Message'}
+                  {submitting ? 'Sending...' : isPricing ? 'Request Pricing' : 'Send Message'}
                 </button>
 
                 <p className="contact-modal-privacy">

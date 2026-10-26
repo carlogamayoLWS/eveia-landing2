@@ -27,12 +27,15 @@ export function DemoModalProvider({ children }) {
         text.includes('send us a message') ||
         text === 'send message'
 
+      const isPricingBtn =
+        text.includes('request pricing') ||
+        href.includes('#request-pricing')
+
       const isDemoBtn =
         text.includes('request a private demo') ||
         text.includes('request for a private demo') ||
         text.includes('request a demo') ||
         text.includes('request demo') ||
-        text.includes('request pricing') ||
         text.includes('request private demo') ||
         href.includes('#request-demo')
 
@@ -40,6 +43,9 @@ export function DemoModalProvider({ children }) {
         if (href.includes('/contact') || href.includes('#send-message')) return
         e.preventDefault()
         window.location.assign('/contact#send-message')
+      } else if (isPricingBtn) {
+        e.preventDefault()
+        openModal('pricing')
       } else if (isDemoBtn) {
         e.preventDefault()
         openModal('demo')
@@ -54,7 +60,11 @@ export function DemoModalProvider({ children }) {
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       <DemoModal open={modalType === 'demo'} onClose={closeModal} />
-      <ContactModal open={modalType === 'message'} onClose={closeModal} />
+      <ContactModal
+        open={modalType === 'message' || modalType === 'pricing'}
+        onClose={closeModal}
+        variant={modalType === 'pricing' ? 'pricing' : 'message'}
+      />
     </ModalContext.Provider>
   )
 }

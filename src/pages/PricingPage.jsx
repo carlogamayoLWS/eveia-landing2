@@ -82,6 +82,7 @@ export default function PricingPage() {
             <br />
             <br />
             We explain what affects pricing so you can understand the cost
+            <br />
             before speaking with us
           </p>
           <div className="pricing-factors">
