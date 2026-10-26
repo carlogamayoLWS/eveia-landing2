@@ -29,7 +29,9 @@ export default function Footer() {
 
             <div className="footer-socials">
               <a
-                href="#facebook"
+                href="https://www.facebook.com/eveiadotai"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Facebook"
                 className="footer-social-btn"
               >
@@ -39,7 +41,9 @@ export default function Footer() {
               </a>
 
               <a
-                href="#linkedin"
+                href="https://www.linkedin.com/company/ai-eveia/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="LinkedIn"
                 className="footer-social-btn"
               >
@@ -49,7 +53,9 @@ export default function Footer() {
               </a>
 
               <a
-                href="#instagram"
+                href="https://www.instagram.com/eveia.ai/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Instagram"
                 className="footer-social-btn"
               >
@@ -62,7 +68,7 @@ export default function Footer() {
             <p className="footer-sub">
               A product of{' '}
               <a
-                href="https://lightweightsolutions.com"
+                href="https://lightweightsolutions.co/"
                 target="_blank"
                 rel="noreferrer"
                 className="footer-link-underline"
@@ -79,7 +85,7 @@ export default function Footer() {
               <li><a href="#blog">Blog</a></li>
               <li><Link to="/#what-is-eveia">What is Eveia.AI</Link></li>
               <li><Link to="/#how-it-works">Use Cases</Link></li>
-              <li><Link to="/pricing">Pricing</Link></li>
+              <li><a href="#request-pricing">Pricing</a></li>
               <li><a href="mailto:inquiry@eveia.ai">Request a Private Demo</a></li>
             </ul>
           </div>

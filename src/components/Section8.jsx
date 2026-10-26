@@ -48,7 +48,7 @@ export default function Section8() {
             </p>
 
             <div className="sec8-actions">
-              <a href="mailto:inquiry@eveia.ai" className="btn btn-primary sec8-btn-primary">
+              <a href="#request-pricing" className="btn btn-primary sec8-btn-primary">
                 Request Pricing
               </a>
               <a href="/contact#send-message" className="btn btn-secondary sec8-btn-secondary">
