@@ -8,6 +8,7 @@ import {
   validateUsersOrDepartments,
   validateWorkEmail,
 } from './chatFieldValidation'
+import { replaceGeneratedFileReply } from './chatGenerationGuard'
 import { getInquiryErrorMessage, submitInquiryPayload } from './inquiryApi'
 
 export const WELCOME_MESSAGE = "Hi, I'm Eve. Ask me what Eveia.AI can do for your team."
@@ -216,10 +217,14 @@ export function loadChatState(): PersistedChatState {
     const parsed = JSON.parse(raw) as Partial<PersistedChatState>
     if (!Array.isArray(parsed.msgs) || parsed.msgs.length === 0) return createFreshChatState()
     return {
-      msgs: parsed.msgs.filter(
-        (m): m is PersistedChatMsg =>
-          !!m && (m.role === 'assistant' || m.role === 'user') && typeof m.text === 'string',
-      ),
+      msgs: parsed.msgs
+        .filter(
+          (m): m is PersistedChatMsg =>
+            !!m && (m.role === 'assistant' || m.role === 'user') && typeof m.text === 'string',
+        )
+        .map((m) =>
+          m.role === 'assistant' ? { ...m, text: replaceGeneratedFileReply(m.text) } : m,
+        ),
       phase: typeof parsed.phase === 'string' ? (parsed.phase as LeadPhase) : 'idle',
       lead: { ...EMPTY_LEAD_DATA, ...(parsed.lead ?? {}) },
       flowMode:

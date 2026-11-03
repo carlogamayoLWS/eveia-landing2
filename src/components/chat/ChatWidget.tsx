@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { EVEIA_RESPONSE_STYLE_PROMPT } from '../../lib/eveiaChatPrompt'
+import {
+  DOCUMENT_GENERATION_REFUSAL,
+  EVEIA_RESPONSE_STYLE_PROMPT,
+  FILE_GENERATION_BLOCK_PROMPT,
+} from '../../lib/eveiaChatPrompt'
+import {
+  containsGeneratedFileOutput,
+  parseDocumentGenerationIntent,
+} from './chatGenerationGuard'
 import {
   cancelActiveFlow,
   createFreshChatState,
@@ -357,6 +365,7 @@ export function ChatWidget() {
   function buildChatRequestMessages(history: ChatMsg[], userMsg: string): EveiaChatMessage[] {
     const recent = history.filter((m) => m.text.trim()).slice(-20)
     return [
+      { role: 'system', content: FILE_GENERATION_BLOCK_PROMPT },
       { role: 'system', content: EVEIA_RESPONSE_STYLE_PROMPT },
       ...recent.map((m) => ({ role: m.role, content: m.text })),
       { role: 'user', content: userMsg },
@@ -593,6 +602,18 @@ export function ChatWidget() {
     abortRef.current?.abort()
     const controller = new AbortController()
     abortRef.current = controller
+    let blockedGeneratedFile = false
+
+    const setLastAssistant = (text: string) => {
+      setMsgs((current) => {
+        const next = [...current]
+        const last = next[next.length - 1]
+        if (last?.role === 'assistant') {
+          next[next.length - 1] = { role: 'assistant', text, source: 'chat' }
+        }
+        return next
+      })
+    }
 
     try {
       const reply = await streamEveiaChat({
@@ -601,29 +622,29 @@ export function ChatWidget() {
         signal: controller.signal,
         onEmbedSessionId: persistEmbedSessionId,
         onChunk: (content) => {
-          setMsgs((current) => {
-            const next = [...current]
-            const last = next[next.length - 1]
-            if (last?.role === 'assistant') {
-              next[next.length - 1] = { role: 'assistant', text: content, source: 'chat' }
-            }
-            return next
-          })
+          if (containsGeneratedFileOutput(content)) {
+            blockedGeneratedFile = true
+            controller.abort()
+            setLastAssistant(DOCUMENT_GENERATION_REFUSAL)
+            return
+          }
+          setLastAssistant(content)
         },
       })
 
+      if (blockedGeneratedFile || containsGeneratedFileOutput(reply)) {
+        setLastAssistant(DOCUMENT_GENERATION_REFUSAL)
+        return
+      }
+
       if (!reply.trim()) {
-        setMsgs((current) => {
-          const next = [...current]
-          next[next.length - 1] = {
-            role: 'assistant',
-            text: 'I could not generate a response. Please try again.',
-            source: 'chat',
-          }
-          return next
-        })
+        setLastAssistant('I could not generate a response. Please try again.')
       }
     } catch (error) {
+      if (blockedGeneratedFile) {
+        setLastAssistant(DOCUMENT_GENERATION_REFUSAL)
+        return
+      }
       if (error instanceof Error && error.name === 'AbortError') {
         setMsgs((current) => {
           const last = current[current.length - 1]
@@ -669,6 +690,16 @@ export function ChatWidget() {
     if (parseBookingIntent(msg)) {
       setText('')
       beginDemoFlow(msg)
+      return
+    }
+
+    if (parseDocumentGenerationIntent(msg)) {
+      setText('')
+      setMsgs((current) => [
+        ...current,
+        { role: 'user', text: msg, source: 'chat' },
+        { role: 'assistant', text: DOCUMENT_GENERATION_REFUSAL, source: 'chat' },
+      ])
       return
     }
 
