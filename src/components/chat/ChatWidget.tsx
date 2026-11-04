@@ -162,6 +162,7 @@ export function ChatWidget() {
   const [flowMode, setFlowMode] = useState<FlowMode>(initial.flowMode)
   const [hasSubmittedDemo, setHasSubmittedDemo] = useState<boolean>(initial.hasSubmittedDemo === true)
   const [sending, setSending] = useState(false)
+  const widgetRef = useRef<HTMLDivElement>(null)
   const messagesRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const askRef = useRef<HTMLSpanElement>(null)
@@ -299,9 +300,46 @@ export function ChatWidget() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') handleClose()
     }
+    const onPointerDown = (e: PointerEvent) => {
+      const root = widgetRef.current
+      if (!root) return
+      if (e.target instanceof Node && root.contains(e.target)) return
+      handleClose()
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
   }, [open, handleClose])
+
+  useEffect(() => {
+    if (!open) return
+    const panel = panelRef.current
+    if (!panel) return
+
+    const isolateWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const el = messagesRef.current
+      if (!el) return
+      el.scrollTop += e.deltaY
+    }
+
+    const isolateTouch = (e: TouchEvent) => {
+      const el = messagesRef.current
+      if (el && e.target instanceof Node && el.contains(e.target)) return
+      e.preventDefault()
+    }
+
+    panel.addEventListener('wheel', isolateWheel, { passive: false })
+    panel.addEventListener('touchmove', isolateTouch, { passive: false })
+    return () => {
+      panel.removeEventListener('wheel', isolateWheel)
+      panel.removeEventListener('touchmove', isolateTouch)
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open || hydratedOpenRef.current) return
@@ -725,7 +763,7 @@ export function ChatWidget() {
   const showSkipButton = !!currentField?.optional
 
   return (
-    <div className={`chat-widget${open ? ' is-open' : ''}`}>
+    <div ref={widgetRef} className={`chat-widget${open ? ' is-open' : ''}`}>
       <div
         ref={panelRef}
         className={`chat-widget-panel${open ? ' open' : ''}`}
@@ -881,13 +919,6 @@ export function ChatWidget() {
       >
         <span className="chat-widget-glass" aria-hidden="true" />
         <ChatEveSprite />
-        {open && (
-          <span className="chat-widget-launcher-close" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </span>
-        )}
       </button>
       {!open && (
         <span
