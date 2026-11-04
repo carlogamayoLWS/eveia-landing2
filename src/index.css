@@ -9381,3 +9381,192 @@ a{text-decoration:none;color:inherit;}
     max-width:none;
   }
 }
+
+/* ==========================================================================
+   TABLET (iPad portrait + landscape, 768–1199px)
+   Phones (<768) keep existing mobile rules. Desktop web (≥1200) is unchanged.
+   ========================================================================== */
+@media (min-width:768px) and (max-width:1199px){
+  .hero{
+    padding:120px 40px 48px;
+  }
+  .hero-desc{
+    max-width:560px;
+    font-size:16px;
+  }
+  .hero-ctas,
+  .reports-hero-ctas,
+  .sec8-actions,
+  .reports-cta-actions,
+  .enterprise-page .reports-hero-ctas{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    width:auto;
+    max-width:none;
+    gap:16px;
+  }
+  .hero-ctas .btn,
+  .hero-ctas .btn-secondary,
+  .reports-hero-ctas .btn,
+  .reports-hero-ctas .btn-secondary,
+  .reports-cta-btn,
+  .reports-cta-btn--primary,
+  .sec8-actions .btn{
+    width:auto;
+    max-width:none;
+    min-height:48px;
+    padding:14px 28px;
+  }
+  .app-shot-wrap{
+    max-width:720px;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0 24px;
+  }
+  .reports-hero{
+    padding:96px 36px 48px;
+  }
+  .reports-hero-title{
+    font-size:clamp(34px,4.4vw,46px);
+  }
+  .reports-hero-desc,
+  .reports-sources-desc,
+  .search-uses-desc,
+  .reports-how-lead{
+    font-size:16px;
+    line-height:1.55;
+    letter-spacing:0.4px;
+  }
+  .reports-hero-visual{
+    zoom:0.82;
+    margin:16px auto 0;
+  }
+  .search-page .reports-hero-inner,
+  .proposal-page .reports-hero-inner,
+  .summaries-page .reports-hero-inner{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:28px;
+    align-items:center;
+  }
+  .search-page .reports-hero-copy,
+  .search-page .reports-hero-desc,
+  .search-page .reports-hero-note{
+    max-width:none;
+  }
+  .search-hero-visual{
+    max-width:min(420px,100%);
+    margin:0 auto;
+  }
+  .search-pills,
+  .proposal-pills{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .search-docs{height:280px;}
+  .reports-byneed-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .reports-how-heading{
+    white-space:normal;
+    font-size:clamp(32px,4vw,44px);
+  }
+  .enterprise-teams{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+  }
+  .enterprise-page .reports-byneed-grid,
+  .enterprise-teams{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .enterprise-hero-visual{
+    max-width:420px;
+  }
+  .sec4-container,
+  .sec6-row--wide-left,
+  .sec6-row--wide-right,
+  .sec8-split{
+    grid-template-columns:1fr;
+    gap:36px;
+  }
+  .sec7-heading__line,
+  .sec7-desc span,
+  .sec7-ideal-list span{
+    white-space:normal;
+  }
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  .contact-sheet{
+    padding:48px 36px 40px;
+  }
+  .pricing-hero,
+  .security-hero,
+  .contact-hero{
+    padding-left:40px;
+    padding-right:40px;
+  }
+  .chat-widget.is-open{
+    inset:auto;
+    right:max(10px, env(safe-area-inset-right));
+    bottom:max(28px, env(safe-area-inset-bottom));
+    width:96px;
+    height:100px;
+  }
+  .chat-widget.is-open .chat-widget-panel,
+  .chat-widget.is-open .chat-widget-panel.open{
+    inset:auto;
+    right:0;
+    bottom:108px;
+    width:min(360px, calc(100vw - 48px));
+    height:min(440px, calc(100dvh - 140px));
+    max-height:calc(100dvh - 140px);
+    border-radius:20px;
+    border:1px solid var(--border);
+    padding:0;
+  }
+  .chat-widget.is-open .chat-widget-launcher{
+    display:block;
+  }
+}
+
+@media (min-width:861px) and (max-width:1199px){
+  .nav-wrap{padding:0 16px;}
+  .nav-pill{
+    gap:clamp(10px,1.6vw,22px);
+    padding:12px 22px;
+  }
+  .nav-pill a,
+  .nav-pill .nav-trigger{
+    font-size:13px;
+  }
+  .reports-hero-inner{
+    grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
+    gap:28px;
+    align-items:center;
+  }
+  .enterprise-page .reports-hero-inner{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);
+  }
+  .enterprise-page .reports-hero-copy{
+    display:flex;
+    flex-direction:column;
+  }
+  .enterprise-hero-visual{
+    order:0;
+    margin:0;
+  }
+}
+
+@media (min-width:900px) and (max-width:1199px){
+  .enterprise-teams,
+  .enterprise-page .reports-byneed-grid,
+  .reports-byneed-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .search-pills{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
