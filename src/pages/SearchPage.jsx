@@ -219,12 +219,17 @@ export default function SearchPage() {
         <div className="reports-sources-glow reports-sources-glow--pink" aria-hidden="true" />
         <div className="reports-sources-inner">
           <h2 className="reports-sources-title">Find Answers, Not Just Files</h2>
-          <p className="reports-sources-desc">
-            Instead of searching through folders and opening multiple documents,
-            employees can ask a question and get a relevant answer from your
-            organization’s knowledge. Eveia.AI works with the documents you
-            connect and respects user access permissions.
-          </p>
+          <div className="reports-sources-desc">
+            <p>
+              Instead of searching through folders and opening multiple
+              documents, employees can ask a question and get a relevant answer
+              from your organization’s knowledge.
+            </p>
+            <p>
+              Eveia.AI works with the documents you connect and respects user
+              access permissions.
+            </p>
+          </div>
           <div
             ref={chatRef}
             className={`search-chat-stage ${chatVisible ? 'is-visible' : ''}`}
