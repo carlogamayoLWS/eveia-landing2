@@ -1,3 +1,9 @@
+import {
+  containsFoulLanguage,
+  containsUnsafeInput as containsUnsafeMarkup,
+  getWorkEmailError,
+} from '../../lib/contactValidation'
+
 export const REAL_NAME_ERROR =
   'Please provide your real full name. We will not process incorrect information to ensure we can provide a professional recommendation for your organization.'
 
@@ -6,47 +12,6 @@ export const UNSAFE_INPUT_ERROR =
 
 export const FOUL_INPUT_ERROR =
   "Sorry, I can't proceed with that information. Please try again with professional details, or tap Cancel if you'd like to stop."
-
-const FOUL_WORDS = [
-  'shit', 'shitty', 'shitting', 'bullshit', 'horseshit',
-  'fuck', 'fucking', 'fucked', 'fucker', 'motherfuck', 'motherfucker',
-  'bitch', 'bitches', 'bitching', 'sonofabitch',
-  'asshole', 'assholes', 'asshat', 'dumbass', 'badass', 'jackass',
-  'bastard', 'bastards',
-  'damn', 'damned', 'dammit', 'goddamn', 'goddamnit',
-  'crap', 'crappy',
-  'dick', 'dicks', 'dickhead',
-  'pussy', 'pussies',
-  'cock', 'cocks', 'cocksucker',
-  'piss', 'pissed', 'pissing',
-  'slut', 'sluts', 'slutty',
-  'whore', 'whores', 'whoring',
-  'cunt', 'cunts',
-  'fag', 'faggot', 'faggots',
-  'nigger', 'nigga', 'niggas',
-  'kike', 'spic', 'chink', 'wetback', 'towelhead', 'raghead',
-  'retard', 'retarded', 'retards',
-  'idiot', 'idiots', 'stupid', 'dumb', 'moron', 'morons',
-  'putang', 'putangina', 'putang ina', 'putang-ina', 'putanginaa', 'potang', 'potangina',
-  'gago', 'gaga', 'gagong', 'gagu',
-  'tangina', 'tang ina', 'tang-ina', 'tanginamo', 'tanginamoka',
-  'ulol', 'ulul', 'olol',
-  'tanga', 'tangang',
-  'baliw', 'baliws',
-  'hudas', 'huwes', 'hayop',
-  'punyeta', 'punyemas',
-  'leche', 'lechugas',
-  'buang', 'buangit',
-  'kupal', 'kupals',
-  'pakyu', 'pak yu', 'pakyew', 'pak you',
-  'lintik', 'shet', 'puta', 'puke', 'pokpok',
-  'hindot', 'hinayupak', 'hayupak', 'hayupaka',
-  'demonyo', 'diyablo', 'satang', 'satanas',
-  'kingina', 'king ina', 'kang ina',
-  // Tagalog sexual slang / joke names frequently used in testing
-  'salsal', 'salsalani', 'salsalin', 'jabol', 'jabolito', 'jakol', 'jakolin',
-  'bayag', 'titi', 'puke', 'pepe', 'kantot', 'iyot', 'libog',
-] as const
 
 const KEYBOARD_SPAM = [
   'asdf', 'asdfg', 'asdfgh', 'qwer', 'qwert', 'qwerty', 'qwertyuiop',
@@ -93,46 +58,6 @@ const NON_NAME_TOKENS = new Set([
   'name', 'firstname', 'lastname', 'fullname', 'lname',
 ])
 
-const DISPOSABLE_EMAIL_DOMAINS = new Set([
-  'mailinator.com',
-  'guerrillamail.com',
-  'guerrillamail.org',
-  'tempmail.com',
-  'temp-mail.org',
-  'trashmail.com',
-  '10minutemail.com',
-  'yopmail.com',
-  'sharklasers.com',
-  'getnada.com',
-  'mailnesia.com',
-  'maildrop.cc',
-  'discard.email',
-  'throwaway.email',
-  'fakeinbox.com',
-])
-
-const FAKE_EMAIL_DOMAINS = new Set([
-  'test.com',
-  'testing.com',
-  'example.com',
-  'example.org',
-  'example.net',
-  'asdf.com',
-  'asdfasdf.com',
-  'fake.com',
-  'xxx.com',
-  'zzz.com',
-  '123.com',
-  'localhost',
-  'local.dev',
-])
-
-const SPAM_LOCAL_PARTS = new Set([
-  'test', 'testing', 'asdf', 'asdfg', 'qwerty', 'qwer', 'xxx', 'aaaa',
-  'abc', 'abcd', 'admin', 'noreply', 'no-reply', 'fake', 'sample',
-  'dummy', 'user', 'null', 'undefined', '12345', '123456', '00000',
-])
-
 function normalizeForMatch(value: string): string {
   return value
     .toLowerCase()
@@ -150,32 +75,11 @@ function normalizeForMatch(value: string): string {
 }
 
 export function containsUnsafeInput(value: string): boolean {
-  if (!value) return false
-  if ((/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/).test(value)) return true
-  if ((/<\s*\/?\s*[a-z!]/i).test(value)) return true
-  if ((/javascript\s*:/i).test(value)) return true
-  if ((/data\s*:\s*text\/html/i).test(value)) return true
-  if ((/\bon\w+\s*=/i).test(value)) return true
-  if ((/&#x?[0-9a-f]+;?/i).test(value)) return true
-  if ((/%3c\s*script/i).test(value)) return true
-  if ((/expression\s*\(/i).test(value)) return true
-  return false
+  return containsUnsafeMarkup(value)
 }
 
 export function containsFoulOrSlang(value: string): boolean {
-  const normalized = normalizeForMatch(value)
-  if (!normalized) return false
-  const compact = normalized.replace(/[\s-]/g, '')
-  const tokens = new Set(normalized.split(' '))
-
-  for (const word of FOUL_WORDS) {
-    const w = word.replace(/\s+/g, ' ')
-    if (tokens.has(w)) return true
-    if (normalized.includes(w)) return true
-    const compactWord = w.replace(/[\s-]/g, '')
-    if (compactWord.length >= 4 && compact.includes(compactWord)) return true
-  }
-  return false
+  return containsFoulLanguage(value)
 }
 
 function looksLikeKeyboardSpam(value: string): boolean {
@@ -280,42 +184,18 @@ export function validateFullName(value: string): string | null {
 }
 
 export function validateWorkEmail(value: string): string | null {
+  const sharedError = getWorkEmailError(value)
+  if (sharedError) return sharedError
+
   const trimmed = value.trim()
-  if (!trimmed) return 'Please enter a valid email address (e.g. you@company.com).'
-
-  if (containsUnsafeInput(trimmed)) return UNSAFE_INPUT_ERROR
-  if (containsFoulOrSlang(trimmed)) return FOUL_INPUT_ERROR
-
-  if (trimmed.length > 254) {
-    return 'That email address is too long. Please enter a valid work email.'
-  }
-
-  const emailRe = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/
-  if (!emailRe.test(trimmed)) {
-    return 'Please enter a valid email address (e.g. you@company.com).'
-  }
-
   const [localRaw, domainRaw] = trimmed.split('@')
   const local = localRaw.toLowerCase()
   const domain = domainRaw.toLowerCase()
-  const tld = domain.split('.').pop() ?? ''
 
-  if (tld.length < 2) {
-    return 'Please enter a valid email address (e.g. you@company.com).'
-  }
-  if (local.length < 2) {
-    return 'Please enter a real work email address.'
-  }
-  if (SPAM_LOCAL_PARTS.has(local) || looksLikeKeyboardSpam(local) || /^(.)\1{3,}$/.test(local) || /^\d+$/.test(local)) {
+  if (looksLikeKeyboardSpam(local) || /^(.)\1{3,}$/.test(local)) {
     return 'Please enter a real work email address, not a placeholder or test email.'
   }
-  if (DISPOSABLE_EMAIL_DOMAINS.has(domain) || FAKE_EMAIL_DOMAINS.has(domain)) {
-    return 'Please use a real work email address (temporary or placeholder domains are not accepted).'
-  }
-  if (domain === local || domain.startsWith('test.') || domain.startsWith('asdf.')) {
-    return 'Please enter a real work email address, not a placeholder or test email.'
-  }
-  if (domainLooksFake(domain) || looksLikeKeyboardSpam(domain.replace(/\./g, ''))) {
+  if (domain === local || domainLooksFake(domain) || looksLikeKeyboardSpam(domain.replace(/\./g, ''))) {
     return 'Please enter a real work email address, not a placeholder or test email.'
   }
 

@@ -1,4 +1,6 @@
 import {
+  containsFoulOrSlang,
+  FOUL_INPUT_ERROR,
   validateCompany,
   validateFullName,
   validateLeadForSubmit,
@@ -112,7 +114,7 @@ const DEMO_FIELD_ORDER: FieldDef[] = [
     prompt: 'Thanks. What email should our team use to reach you?',
     error: 'Please enter a valid email address (e.g. you@company.com).',
   },
-  { phase: 'collecting_phone', key: 'phone', prompt: "What's your phone number?" },
+  { phase: 'collecting_phone', key: 'phone', prompt: "What's your phone number, including country code? (e.g. +63 917 123 4567)" },
   { phase: 'collecting_company', key: 'company', prompt: "What's your company name?" },
   { phase: 'collecting_role', key: 'role', prompt: "What's your role?" },
   {
@@ -135,7 +137,7 @@ const PRICING_FIELD_ORDER: FieldDef[] = [
     prompt: 'Thanks. What work email should our team use?',
     error: 'Please enter a valid email address (e.g. you@company.com).',
   },
-  { phase: 'collecting_phone', key: 'phone', prompt: "What's your phone number?" },
+  { phase: 'collecting_phone', key: 'phone', prompt: "What's your phone number, including country code? (e.g. +63 917 123 4567)" },
   { phase: 'collecting_company', key: 'company', prompt: "What's your company name?" },
   { phase: 'collecting_role', key: 'role', prompt: "What's your role? (e.g. CTO, VP of Operations)" },
   {
@@ -305,7 +307,7 @@ function validateField(mode: FlowMode, phase: LeadPhase, value: string): string 
     case 'collecting_use_case':
       return validateOptionalUseCase(trimmed)
     case 'collecting_industry':
-      return null
+      return containsFoulOrSlang(trimmed) ? FOUL_INPUT_ERROR : null
     default:
       return null
   }

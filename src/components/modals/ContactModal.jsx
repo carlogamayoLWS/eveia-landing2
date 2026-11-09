@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock'
-import { isValidEmail } from '../../lib/contactValidation'
+import { PhoneField } from '../PhoneField.jsx'
+import {
+  DEFAULT_PHONE_COUNTRY,
+  formatInternationalPhone,
+  validateContactFields,
+} from '../../lib/contactValidation'
 import {
   CONTACT_SEND_ERROR,
   CONTACT_SUCCESS_MESSAGE,
@@ -62,6 +67,8 @@ const initialForm = {
   name: '',
   email: '',
   company: '',
+  phoneCountry: DEFAULT_PHONE_COUNTRY,
+  phoneNational: '',
   message: '',
   website: '',
 }
@@ -72,6 +79,7 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(null)
+  const [fieldErrors, setFieldErrors] = useState({})
   const overlayRef = useRef(null)
 
   useEffect(() => {
@@ -87,6 +95,7 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
     if (!open) return
     setSuccess(false)
     setError(null)
+    setFieldErrors({})
     setSubmitting(false)
     setForm(initialForm)
   }, [open])
@@ -94,6 +103,14 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
   function updateField(key, value) {
     setForm((prev) => ({ ...prev, [key]: value }))
     if (error) setError(null)
+    if (fieldErrors[key] || ((key === 'phoneNational' || key === 'phoneCountry') && fieldErrors.phone)) {
+      setFieldErrors((prev) => {
+        const next = { ...prev }
+        if (key === 'phoneNational' || key === 'phoneCountry') delete next.phone
+        else delete next[key]
+        return next
+      })
+    }
   }
 
   async function handleSubmit(e) {
@@ -103,25 +120,36 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
     const email = form.email.trim()
     const company = form.company.trim()
     const message = form.message.trim()
+    const phone = formatInternationalPhone(form.phoneCountry, form.phoneNational)
 
-    if (!name || !email || !company || !message) {
-      setError('All fields are required.')
-      return
-    }
+    const validation = validateContactFields({
+      name,
+      email,
+      company,
+      message,
+      phone,
+      phoneCountry: form.phoneCountry,
+      phoneNational: form.phoneNational,
+    })
 
-    if (!isValidEmail(email)) {
-      setError('Please enter a valid work email address.')
+    if (!validation.ok) {
+      setFieldErrors(validation.fieldErrors)
+      setError(null)
       return
     }
 
     setSubmitting(true)
     setError(null)
+    setFieldErrors({})
 
     try {
       await submitContactForm({
         name,
         email,
         company,
+        phone,
+        phoneCountry: form.phoneCountry,
+        phoneNational: form.phoneNational,
         message: isPricing ? `Pricing request\n\n${message}` : message,
         website: form.website,
       })
@@ -211,6 +239,7 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
                     value={form.name}
                     onChange={(e) => updateField('name', e.target.value)}
                   />
+                  {fieldErrors.name ? <p className="form-validation-error">{fieldErrors.name}</p> : null}
                 </div>
 
                 <div className="form-group">
@@ -224,6 +253,7 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
                     value={form.email}
                     onChange={(e) => updateField('email', e.target.value)}
                   />
+                  {fieldErrors.email ? <p className="form-validation-error">{fieldErrors.email}</p> : null}
                 </div>
 
                 <div className="form-group">
@@ -237,6 +267,20 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
                     value={form.company}
                     onChange={(e) => updateField('company', e.target.value)}
                   />
+                  {fieldErrors.company ? <p className="form-validation-error">{fieldErrors.company}</p> : null}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="ct-phone">Contact Number *</label>
+                  <PhoneField
+                    id="ct-phone"
+                    country={form.phoneCountry}
+                    nationalNumber={form.phoneNational}
+                    onCountryChange={(value) => updateField('phoneCountry', value)}
+                    onNumberChange={(value) => updateField('phoneNational', value)}
+                    disabled={submitting}
+                  />
+                  {fieldErrors.phone ? <p className="form-validation-error">{fieldErrors.phone}</p> : null}
                 </div>
 
                 <div className="form-group">
@@ -253,6 +297,7 @@ export function ContactModal({ open, onClose, variant = 'message' }) {
                     onChange={(e) => updateField('message', e.target.value)}
                     className="contact-modal-textarea"
                   />
+                  {fieldErrors.message ? <p className="form-validation-error">{fieldErrors.message}</p> : null}
                 </div>
 
                 <div

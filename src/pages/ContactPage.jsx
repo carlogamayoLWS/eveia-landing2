@@ -5,7 +5,12 @@ import contactIconMobile from '../assets/contact-icon-mobile.svg'
 import contactIconEmail from '../assets/contact-icon-email.svg'
 import contactIconPhone from '../assets/contact-icon-phone.svg'
 import Footer from '../components/Footer.jsx'
-import { isValidEmail } from '../lib/contactValidation'
+import { PhoneField } from '../components/PhoneField.jsx'
+import {
+  DEFAULT_PHONE_COUNTRY,
+  formatInternationalPhone,
+  validateContactFields,
+} from '../lib/contactValidation'
 import {
   CONTACT_SEND_ERROR,
   CONTACT_SUCCESS_MESSAGE,
@@ -38,7 +43,8 @@ const initialForm = {
   name: '',
   company: '',
   email: '',
-  phone: '',
+  phoneCountry: DEFAULT_PHONE_COUNTRY,
+  phoneNational: '',
   message: '',
   website: '',
 }
@@ -71,10 +77,19 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(null)
+  const [fieldErrors, setFieldErrors] = useState({})
 
   function updateField(key, value) {
     setForm((prev) => ({ ...prev, [key]: value }))
     if (error) setError(null)
+    if (fieldErrors[key] || (key === 'phoneNational' && fieldErrors.phone) || (key === 'phoneCountry' && fieldErrors.phone)) {
+      setFieldErrors((prev) => {
+        const next = { ...prev }
+        if (key === 'phoneNational' || key === 'phoneCountry') delete next.phone
+        else delete next[key]
+        return next
+      })
+    }
   }
 
   async function handleSubmit(e) {
@@ -83,28 +98,39 @@ export default function ContactPage() {
     const name = form.name.trim()
     const email = form.email.trim()
     const company = form.company.trim()
-    const phone = form.phone.trim()
     const message = form.message.trim()
+    const phone = formatInternationalPhone(form.phoneCountry, form.phoneNational)
 
-    if (!name || !email || !company || !phone || !message) {
-      setError('All fields are required.')
-      return
-    }
+    const validation = validateContactFields({
+      name,
+      email,
+      company,
+      message,
+      phone,
+      phoneCountry: form.phoneCountry,
+      phoneNational: form.phoneNational,
+    })
 
-    if (!isValidEmail(email)) {
-      setError('Please enter a valid work email address.')
+    if (!validation.ok) {
+      setFieldErrors(validation.fieldErrors)
+      setError(null)
+      setSuccess(false)
       return
     }
 
     setSubmitting(true)
     setError(null)
+    setFieldErrors({})
 
     try {
       await submitContactForm({
         name,
         email,
         company,
-        message: phone ? `${message}\n\nContact Number: ${phone}` : message,
+        phone,
+        phoneCountry: form.phoneCountry,
+        phoneNational: form.phoneNational,
+        message,
         website: form.website,
       })
       setSuccess(true)
@@ -185,7 +211,9 @@ export default function ContactPage() {
                   value={form.name}
                   onChange={(e) => updateField('name', e.target.value)}
                   required
+                  aria-invalid={Boolean(fieldErrors.name)}
                 />
+                {fieldErrors.name ? <p className="contact-field-error">{fieldErrors.name}</p> : null}
               </label>
 
               <label className="contact-field">
@@ -198,7 +226,9 @@ export default function ContactPage() {
                   value={form.company}
                   onChange={(e) => updateField('company', e.target.value)}
                   required
+                  aria-invalid={Boolean(fieldErrors.company)}
                 />
+                {fieldErrors.company ? <p className="contact-field-error">{fieldErrors.company}</p> : null}
               </label>
 
               <label className="contact-field">
@@ -207,25 +237,26 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   autoComplete="email"
-                  placeholder="your@email.com"
+                  placeholder="you@company.com"
                   value={form.email}
                   onChange={(e) => updateField('email', e.target.value)}
                   required
+                  aria-invalid={Boolean(fieldErrors.email)}
                 />
+                {fieldErrors.email ? <p className="contact-field-error">{fieldErrors.email}</p> : null}
               </label>
 
-              <label className="contact-field">
+              <div className="contact-field">
                 <span>Contact Number</span>
-                <input
-                  type="tel"
-                  name="phone"
-                  autoComplete="tel"
-                  placeholder="+63 9XX XXX XXXX"
-                  value={form.phone}
-                  onChange={(e) => updateField('phone', e.target.value)}
-                  required
+                <PhoneField
+                  country={form.phoneCountry}
+                  nationalNumber={form.phoneNational}
+                  onCountryChange={(value) => updateField('phoneCountry', value)}
+                  onNumberChange={(value) => updateField('phoneNational', value)}
+                  disabled={submitting}
                 />
-              </label>
+                {fieldErrors.phone ? <p className="contact-field-error">{fieldErrors.phone}</p> : null}
+              </div>
 
               <label className="contact-field">
                 <span>How Can We Help?</span>
@@ -236,7 +267,9 @@ export default function ContactPage() {
                   value={form.message}
                   onChange={(e) => updateField('message', e.target.value)}
                   required
+                  aria-invalid={Boolean(fieldErrors.message)}
                 />
+                {fieldErrors.message ? <p className="contact-field-error">{fieldErrors.message}</p> : null}
               </label>
 
               <label className="contact-honeypot" aria-hidden="true">

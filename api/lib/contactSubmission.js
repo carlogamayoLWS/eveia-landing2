@@ -1,4 +1,4 @@
-import { isValidEmail } from './contactValidation.js'
+import { validateContactFields } from './contactValidation.js'
 
 export const EMAIL_FORMAT_ERROR = 'Please enter a valid work email address.'
 export const CONTACT_REQUIRED_ERROR = 'All fields are required.'
@@ -27,14 +27,8 @@ export function getContactFrom() {
 export function validateContactPayload(payload) {
   if (payload.website?.trim()) return null
 
-  const name = payload.name.trim()
-  const email = payload.email.trim()
-  const company = payload.company.trim()
-  const message = payload.message.trim()
-
-  if (!name || !email || !company || !message) return CONTACT_REQUIRED_ERROR
-  if (!isValidEmail(email)) return EMAIL_FORMAT_ERROR
-  return null
+  const result = validateContactFields(payload)
+  return result.ok ? null : result.error
 }
 
 export function formatPhilippineDateTime(date) {
@@ -61,10 +55,11 @@ export function buildContactEmailBody(payload, submittedAt) {
     `Name: ${payload.name.trim()}`,
     `Work Email: ${payload.email.trim()}`,
     `Company: ${payload.company.trim()}`,
+    payload.phone?.trim() ? `Contact Number: ${payload.phone.trim()}` : null,
     `Message: ${payload.message.trim()}`,
     '',
     `Submitted: ${formatPhilippineDateTime(submittedAt)}`,
-  ].join('\n')
+  ].filter((line) => line != null).join('\n')
 }
 
 export async function sendContactEmail(payload, submittedAt = new Date()) {

@@ -16,15 +16,18 @@ async function readJsonBody(req) {
 
 function readPayload(body) {
   if (!body || typeof body !== 'object') {
-    return { name: '', email: '', company: '', message: '' }
+    return { name: '', email: '', company: '', phone: '', message: '' }
   }
 
   return {
     name: typeof body.name === 'string' ? body.name : '',
     email: typeof body.email === 'string' ? body.email : '',
     company: typeof body.company === 'string' ? body.company : '',
+    phone: typeof body.phone === 'string' ? body.phone : '',
     message: typeof body.message === 'string' ? body.message : '',
     website: typeof body.website === 'string' ? body.website : undefined,
+    phoneCountry: typeof body.phoneCountry === 'string' ? body.phoneCountry : undefined,
+    phoneNational: typeof body.phoneNational === 'string' ? body.phoneNational : undefined,
   }
 }
 

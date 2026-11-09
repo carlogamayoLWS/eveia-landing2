@@ -6471,6 +6471,13 @@ a{text-decoration:none;color:inherit;}
   scrollbar-color:rgba(0, 0, 0, 0.2) transparent;
 }
 .contact-modal-right .form-row,.contact-modal-right .form-group{min-width:0;}
+.contact-modal-right .phone-field__country,
+.contact-modal-right .phone-field__number{
+  height:46px;
+  border-radius:12px;
+  border-width:1.5px;
+  font-size:0.95rem;
+}
 .contact-modal-right .form-group input,
 .contact-modal-right .form-group textarea,
 .contact-modal-right .form-group select{
@@ -8169,8 +8176,67 @@ a{text-decoration:none;color:inherit;}
   color:#b5b5b5;
 }
 .contact-field input:focus,
-.contact-field textarea:focus{
+.contact-field textarea:focus,
+.contact-field .phone-field__country:focus,
+.contact-field .phone-field__number:focus{
   border-color:#250d69;
+}
+.contact-field-error{
+  margin:-12px 0 0;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.4;
+  letter-spacing:0;
+  color:#c4004d;
+}
+.phone-field{
+  display:flex;
+  gap:10px;
+  width:100%;
+  min-width:0;
+}
+.phone-field__country-label{
+  display:flex;
+  flex:0 0 118px;
+  min-width:118px;
+}
+.phone-field__country,
+.phone-field__number{
+  width:100%;
+  min-width:0;
+  height:55px;
+  padding:0 12px;
+  border:2px solid #e0e0e0;
+  border-radius:10px;
+  background:#fff;
+  color:#1d1d1f;
+  font-family:inherit;
+  font-size:16px;
+  outline:none;
+  appearance:none;
+}
+.phone-field__country{
+  padding-right:28px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%231d1d1f' d='M1.4.6 6 5.2 10.6.6 12 2 6 8 0 2z'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  cursor:pointer;
+}
+.phone-field__number{
+  flex:1;
+  padding:0 22px;
+  font-size:18px;
+}
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 .contact-honeypot{
   position:absolute;
@@ -8344,6 +8410,8 @@ a{text-decoration:none;color:inherit;}
   .contact-field{gap:12px;}
   .contact-form{gap:18px;}
   .contact-form-submit{height:52px;font-size:18px;}
+  .phone-field__country-label{flex-basis:108px;min-width:108px;}
+  .phone-field__country,.phone-field__number{height:52px;font-size:16px;}
   .contact-reach-item{
     font-size:15px;
     letter-spacing:0;
