@@ -5,6 +5,96 @@ import footerLogo from '../assets/footer-logo.webp'
 import Footer from '../components/Footer.jsx'
 import { INDUSTRY_CARDS, industries } from '../data/industries.js'
 
+function IndustryCardsCarousel({ currentId }) {
+  const trackRef = useRef(null)
+  const [canPrev, setCanPrev] = useState(false)
+  const [canNext, setCanNext] = useState(true)
+  const cards = INDUSTRY_CARDS.filter((item) => item.id !== currentId)
+
+  const updateNav = () => {
+    const el = trackRef.current
+    if (!el) return
+    setCanPrev(el.scrollLeft > 8)
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 8)
+  }
+
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return undefined
+
+    el.scrollLeft = 0
+    updateNav()
+
+    const onScroll = () => updateNav()
+    el.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [currentId])
+
+  const scrollByCard = (direction) => {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.querySelector('.reports-byneed-card')
+    const styles = window.getComputedStyle(el)
+    const gap = Number.parseFloat(styles.columnGap || styles.gap) || 31
+    const amount = (card?.offsetWidth || 239) + gap
+    el.scrollBy({ left: direction * amount, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="reports-byneed reports-byneed--carousel">
+      <p className="reports-byneed-label">BY INDUSTRY</p>
+      <div className="reports-byneed-carousel">
+        {canPrev ? (
+          <button
+            type="button"
+            className="reports-byneed-nav reports-byneed-nav--prev"
+            aria-label="Show previous industries"
+            onClick={() => scrollByCard(-1)}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M8.75 2.5 4.25 7l4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        ) : null}
+        <div className="reports-byneed-viewport" ref={trackRef}>
+          <div className="reports-byneed-track">
+            {cards.map((item) => (
+              <article className="reports-byneed-card" key={item.id}>
+                <img src={item.image} alt="" />
+                <div className="reports-byneed-copy">
+                  <h3>{item.title}</h3>
+                  <p>{item.blurb}</p>
+                  <Link to={item.href}>
+                    Read more
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+            <span className="reports-byneed-endcap" aria-hidden="true" />
+          </div>
+        </div>
+        {canNext ? (
+          <button
+            type="button"
+            className="reports-byneed-nav reports-byneed-nav--next"
+            aria-label="Show next industries"
+            onClick={() => scrollByCard(1)}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M5.25 2.5 9.75 7l-4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
 export default function IndustryPage({ id }) {
   const page = industries[id]
   const [section2Visible, setSection2Visible] = useState(false)
@@ -201,23 +291,7 @@ export default function IndustryPage({ id }) {
           </section>
 
           <section className="reports-amplify">
-            <div className="reports-byneed">
-              <p className="reports-byneed-label">BY INDUSTRY</p>
-              <div className="reports-byneed-grid">
-                {INDUSTRY_CARDS.filter((item) => item.id !== id)
-                  .slice(0, 5)
-                  .map((item) => (
-                  <article className="reports-byneed-card" key={item.title}>
-                    <img src={item.image} alt="" />
-                    <div className="reports-byneed-copy">
-                      <h3>{item.title}</h3>
-                      <p>Lorem ipsum dolor sit amet consectetur. Ac sapien....</p>
-                      <Link to={item.href}>Read more →</Link>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
+            <IndustryCardsCarousel currentId={id} />
           </section>
         </div>
       </div>

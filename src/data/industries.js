@@ -18,6 +18,8 @@ import cardHealthcare from '../assets/industry-card-healthcare.webp'
 import cardEducation from '../assets/industry-card-education.webp'
 import cardLegal from '../assets/industry-card-legal.webp'
 import cardFinance from '../assets/industry-card-finance.webp'
+import cardEnergy from '../assets/industry-card-energy.webp'
+import cardManufacturing from '../assets/industry-card-manufacturing.webp'
 
 import governmentHero from '../assets/industry-hero-government.webp'
 import healthcareHero from '../assets/industry-hero-healthcare.webp'
@@ -76,12 +78,62 @@ function teams(items) {
 }
 
 export const INDUSTRY_CARDS = [
-  { id: 'enterprise', title: 'Enterprise', href: '/enterprise', image: cardEnterprise },
-  { id: 'government', title: 'Government', href: '/government', image: cardGovernment },
-  { id: 'healthcare', title: 'Healthcare', href: '/healthcare', image: cardHealthcare },
-  { id: 'education', title: 'Education', href: '/education', image: cardEducation },
-  { id: 'legal', title: 'Legal', href: '/legal', image: cardLegal },
-  { id: 'finance', title: 'Finance', href: '/financial-services', image: cardFinance },
+  {
+    id: 'enterprise',
+    title: 'Enterprise',
+    href: '/enterprise',
+    image: cardEnterprise,
+    blurb: 'Large organizations manage information across....',
+  },
+  {
+    id: 'government',
+    title: 'Government',
+    href: '/government',
+    image: cardGovernment,
+    blurb: 'Government agencies manage large volumes....',
+  },
+  {
+    id: 'healthcare',
+    title: 'Healthcare',
+    href: '/healthcare',
+    image: cardHealthcare,
+    blurb: 'Healthcare organizations manage protocols,...',
+  },
+  {
+    id: 'education',
+    title: 'Education',
+    href: '/education',
+    image: cardEducation,
+    blurb: 'Schools and universities manage handbooks...',
+  },
+  {
+    id: 'legal',
+    title: 'Legal',
+    href: '/legal',
+    image: cardLegal,
+    blurb: 'Legal teams work with contracts, opinions, ....',
+  },
+  {
+    id: 'finance',
+    title: 'Financial Services',
+    href: '/financial-services',
+    image: cardFinance,
+    blurb: 'Banks, insurers, and financial institutions manage...',
+  },
+  {
+    id: 'energy',
+    title: 'Energy & Utilities',
+    href: '/energy',
+    image: cardEnergy,
+    blurb: 'Energy companies and utilities manage rate schedules....',
+  },
+  {
+    id: 'manufacturing',
+    title: 'Manufacturing',
+    href: '/manufacturing',
+    image: cardManufacturing,
+    blurb: 'Manufacturing teams work with specifications, SOPs...',
+  },
 ]
 
 export const industries = {
