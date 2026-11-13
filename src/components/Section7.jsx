@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import GradientLine from './GradientLine.jsx'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 
 const BADGES = [
   'Private AI Environment',
@@ -8,7 +9,20 @@ const BADGES = [
   'Enterprise-ready Security',
 ]
 
+// Same organizations as the "Ideal for" sentence, shown as chips on phones.
+const IDEAL_FOR = [
+  'Enterprise',
+  'Government',
+  'Healthcare',
+  'Manufacturing',
+  'Education',
+  'Legal',
+  'Financial Services',
+  'Corporate Organizations',
+]
+
 export default function Section7() {
+  const isMobile = useIsMobile()
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -75,6 +89,13 @@ export default function Section7() {
             <span>Enterprise, Government, Healthcare, Manufacturing, Education,</span>
             <span>Legal, Financial Services and Corporate Organizations.</span>
           </p>
+          {isMobile && (
+            <div className="m-chips">
+              {IDEAL_FOR.map((name) => (
+                <span key={name}>{name}</span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

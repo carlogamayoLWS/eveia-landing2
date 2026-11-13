@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
   DOCUMENT_GENERATION_REFUSAL,
@@ -42,6 +42,8 @@ import {
 } from './eveiaChatApi'
 import { formatChatMessage, TypingIndicator } from './chatMessageFormat'
 import { ChatEveSprite } from './ChatEveSprite'
+import { ChatMobileDock } from './ChatMobileDock'
+import { useIsMobile } from '../../hooks/useIsMobile.js'
 import chatIcon from '../../assets/chaticon.png'
 
 type ChatMsg = PersistedChatMsg
@@ -151,8 +153,55 @@ function isDarkBehindAsk(ask: HTMLElement) {
   return false
 }
 
+type ChatLauncherProps = {
+  isMobile: boolean
+  open: boolean
+  askOnDark: boolean
+  askRef: RefObject<HTMLSpanElement | null>
+  onToggle: () => void
+  onClose: () => void
+  onOpen: () => void
+}
+
+// Phones get the bottom dock + sheet scrim; tablet/desktop keep the original 96×100 launcher.
+function ChatLauncher({ isMobile, open, askOnDark, askRef, onToggle, onClose, onOpen }: ChatLauncherProps) {
+  if (isMobile) {
+    return (
+      <>
+        {open && <div className="chat-sheet-scrim" aria-hidden="true" onClick={onClose} />}
+        <ChatMobileDock open={open} onOpen={onOpen} />
+      </>
+    )
+  }
+  return (
+    <>
+      <button
+        type="button"
+        className={`chat-widget-launcher${open ? ' is-open' : ''}`}
+        aria-label={open ? 'Close chat' : 'Open Eveia.AI chat'}
+        aria-expanded={open}
+        onClick={onToggle}
+      >
+        <span className="chat-widget-glass" aria-hidden="true" />
+        <ChatEveSprite />
+      </button>
+      {!open && (
+        <span
+          ref={askRef}
+          className={`chat-widget-ask${askOnDark ? ' is-on-dark' : ''}`}
+          aria-hidden="true"
+        >
+          <span className="chat-widget-ask-disc" />
+          <span className="chat-widget-ask-mark">?</span>
+        </span>
+      )}
+    </>
+  )
+}
+
 export function ChatWidget() {
   const { pathname } = useLocation()
+  const isMobile = useIsMobile()
   const initial = bootFromStorage()
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -763,7 +812,7 @@ export function ChatWidget() {
   const showSkipButton = !!currentField?.optional
 
   return (
-    <div ref={widgetRef} className={`chat-widget${open ? ' is-open' : ''}`}>
+    <div ref={widgetRef} className={`chat-widget${open ? ' is-open' : ''}${isMobile ? ' is-mobile-sheet' : ''}`}>
       <div
         ref={panelRef}
         className={`chat-widget-panel${open ? ' open' : ''}`}
@@ -910,26 +959,15 @@ export function ChatWidget() {
         </div>
       </div>
 
-      <button
-        type="button"
-        className={`chat-widget-launcher${open ? ' is-open' : ''}`}
-        aria-label={open ? 'Close chat' : 'Open Eveia.AI chat'}
-        aria-expanded={open}
-        onClick={handleToggle}
-      >
-        <span className="chat-widget-glass" aria-hidden="true" />
-        <ChatEveSprite />
-      </button>
-      {!open && (
-        <span
-          ref={askRef}
-          className={`chat-widget-ask${askOnDark ? ' is-on-dark' : ''}`}
-          aria-hidden="true"
-        >
-          <span className="chat-widget-ask-disc" />
-          <span className="chat-widget-ask-mark">?</span>
-        </span>
-      )}
+      <ChatLauncher
+        isMobile={isMobile}
+        open={open}
+        askOnDark={askOnDark}
+        askRef={askRef}
+        onToggle={handleToggle}
+        onClose={handleClose}
+        onOpen={() => setOpen(true)}
+      />
     </div>
   )
 }

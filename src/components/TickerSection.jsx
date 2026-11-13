@@ -1,3 +1,5 @@
+import { useIsMobile } from '../hooks/useIsMobile.js'
+
 const TICKER_ITEMS = [
   'EXECUTIVE SUMMARIES',
   'DECISION-READY REPORTS',
@@ -19,10 +21,13 @@ function TickerGroup() {
 }
 
 export default function TickerSection() {
-  return (
+  const isMobile = useIsMobile()
+  const track = (
     <div className="ticker-track">
       <TickerGroup />
       <TickerGroup />
     </div>
   )
+  // Phones get a fixed-width band so the edge fade stays put while the track moves.
+  return isMobile ? <div className="m-ticker">{track}</div> : track
 }

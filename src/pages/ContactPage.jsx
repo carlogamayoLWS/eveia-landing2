@@ -5,6 +5,7 @@ import contactIconMobile from '../assets/contact-icon-mobile.svg'
 import contactIconEmail from '../assets/contact-icon-email.svg'
 import contactIconPhone from '../assets/contact-icon-phone.svg'
 import Footer from '../components/Footer.jsx'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 import { PhoneField } from '../components/PhoneField.jsx'
 import {
   DEFAULT_PHONE_COUNTRY,
@@ -69,6 +70,51 @@ function useInView(threshold = 0.2, rootMargin = '0px 0px -40px 0px') {
   }, [threshold, rootMargin])
 
   return [ref, isVisible]
+}
+
+// Hero for /contact. On phones the demo copy sits in a photo card (mobile-only branch).
+function ContactHero() {
+  const isMobile = useIsMobile()
+  const demoCopy = (
+    <>
+      <h2 className="contact-hero-sub">Book a Demo</h2>
+      <p className="contact-hero-lead">
+        See Eveia.AI using your own documents, questions, or reports. We’ll
+        show you how it can help your team find information, prepare reports,
+        create summaries, and complete work faster.
+      </p>
+      <a className="contact-hero-cta" href="#request-demo">
+        Request for a Private Demo
+      </a>
+    </>
+  )
+
+  return (
+    <section className="contact-hero">
+      <div className="contact-hero-glow contact-hero-glow--right" aria-hidden="true" />
+      <div className="contact-hero-glow contact-hero-glow--left" aria-hidden="true" />
+
+      <div className="contact-hero-inner">
+        {isMobile && <span className="m-chip-eyebrow"><i />CONTACT US</span>}
+        <h1 className="contact-hero-title">
+          Let’s Talk About Your <span>Organization</span>
+        </h1>
+        <p className="contact-hero-desc">
+          Have questions about Eveia.AI or want to see how private enterprise AI
+          can support your team? Choose how you’d like to connect with us.
+        </p>
+        {isMobile ? (
+          <div className="m-demo-card">
+            <img className="m-demo-card-photo" src={contactPhoto} alt="" aria-hidden="true" />
+            <span className="m-demo-card-tag">Private Demo</span>
+            {demoCopy}
+          </div>
+        ) : (
+          demoCopy
+        )}
+      </div>
+    </section>
+  )
 }
 
 export default function ContactPage() {
@@ -147,29 +193,7 @@ export default function ContactPage() {
 
   return (
     <main className="reports-page contact-page">
-      <section className="contact-hero">
-        <div className="contact-hero-glow contact-hero-glow--right" aria-hidden="true" />
-        <div className="contact-hero-glow contact-hero-glow--left" aria-hidden="true" />
-
-        <div className="contact-hero-inner">
-          <h1 className="contact-hero-title">
-            Let’s Talk About Your <span>Organization</span>
-          </h1>
-          <p className="contact-hero-desc">
-            Have questions about Eveia.AI or want to see how private enterprise AI
-            can support your team? Choose how you’d like to connect with us.
-          </p>
-          <h2 className="contact-hero-sub">Book a Demo</h2>
-          <p className="contact-hero-lead">
-            See Eveia.AI using your own documents, questions, or reports. We’ll
-            show you how it can help your team find information, prepare reports,
-            create summaries, and complete work faster.
-          </p>
-          <a className="contact-hero-cta" href="#request-demo">
-            Request for a Private Demo
-          </a>
-        </div>
-      </section>
+      <ContactHero />
 
       <div
         ref={stackRef}
