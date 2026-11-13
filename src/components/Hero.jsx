@@ -1,8 +1,11 @@
 import { useEffect, useRef } from 'react'
 import heroBg from '../assets/hero-bg.webp'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import MobileHomeHero from './mobile/MobileHomeHero.jsx'
 
 export default function Hero() {
   const brandRef = useRef(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const brand = brandRef.current
@@ -35,7 +38,9 @@ export default function Hero() {
       window.removeEventListener('resize', fitTagline)
       fontsReady?.catch?.(() => {})
     }
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return <MobileHomeHero />
 
   return (
     <header

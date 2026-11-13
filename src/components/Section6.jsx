@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 import decisionReportImg from '../assets/decision-ready-report3.webp'
 import instantAnswersImg from '../assets/instant-answer2.webp'
 import proposalDraftImg from '../assets/proposal-draft2.webp'
@@ -56,7 +57,9 @@ function FeatureCard({ title, from, to, body, img, alt, tone, visual }) {
       <div className="sec6-card-copy">
         <h3 className="sec6-card-title">{title}</h3>
         <p className="sec6-card-accent">
-          {from} → {to}
+          <span className="sec6-card-from">{from}</span>
+          <span className="sec6-card-arrow"> → </span>
+          <span className="sec6-card-to">{to}</span>
         </p>
         <p className="sec6-card-body">{body}</p>
       </div>
@@ -67,7 +70,29 @@ function FeatureCard({ title, from, to, body, img, alt, tone, visual }) {
   )
 }
 
+const CARD_COUNT = ROW1.length + ROW2.length
+
+// Phone-only carousel dots for the snap row of use-case cards.
+function useSnapIndex(gridRef, enabled) {
+  const [index, setIndex] = useState(0)
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!enabled || !grid) return undefined
+    const onScroll = () => {
+      const card = grid.querySelector('.sec6-card')
+      const step = card ? card.getBoundingClientRect().width + 14 : grid.clientWidth
+      setIndex(Math.min(CARD_COUNT - 1, Math.round(grid.scrollLeft / step)))
+    }
+    grid.addEventListener('scroll', onScroll, { passive: true })
+    return () => grid.removeEventListener('scroll', onScroll)
+  }, [gridRef, enabled])
+  return index
+}
+
 export default function Section6() {
+  const isMobile = useIsMobile()
+  const gridRef = useRef(null)
+  const snapIndex = useSnapIndex(gridRef, isMobile)
   const row1Ref = useRef(null)
   const row2Ref = useRef(null)
   const [row1Visible, setRow1Visible] = useState(false)
@@ -119,7 +144,7 @@ export default function Section6() {
           </p>
         </div>
 
-        <div className="sec6-grid">
+        <div className="sec6-grid" ref={gridRef}>
           <div
             ref={row1Ref}
             className={`sec6-row sec6-row--wide-left ${row1Visible ? 'is-inview' : ''}`}
@@ -138,6 +163,14 @@ export default function Section6() {
             ))}
           </div>
         </div>
+
+        {isMobile && (
+          <div className="m-dots" aria-hidden="true">
+            {Array.from({ length: CARD_COUNT }, (_, i) => (
+              <i key={i} className={i === snapIndex ? 'is-on' : ''} />
+            ))}
+          </div>
+        )}
 
         <p className="sec6-footnote">
           For more detail, read about

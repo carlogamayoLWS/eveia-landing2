@@ -2,6 +2,7 @@ import Footer from '../components/Footer.jsx'
 import heroBg from '../assets/pricing-hero-bg.webp'
 import logomark from '../assets/pricing-included-mark.webp'
 import footerLogo from '../assets/footer-logo.webp'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 
 const FACTORS = [
   {
@@ -67,11 +68,13 @@ const FAQS = [
 ]
 
 export default function PricingPage() {
+  const isMobile = useIsMobile()
   return (
     <main className="pricing-page reports-page">
       <section className="pricing-hero">
         <img className="pricing-hero-bg" src={heroBg} alt="" aria-hidden="true" />
         <div className="pricing-hero-inner">
+          {isMobile && <span className="m-chip-eyebrow"><i />PRICING</span>}
           <h1 className="pricing-hero-title">
             Pricing Built Around Your{' '}
             <span className="reports-hero-grad">Organization</span>
@@ -85,6 +88,11 @@ export default function PricingPage() {
             <br />
             before speaking with us
           </p>
+          {isMobile && (
+            <a className="m-page-btn" href="#request-demo">
+              Get a Pricing Estimate
+            </a>
+          )}
           <div className="pricing-factors">
             <h2 className="pricing-factors-title">What Pricing Is Based On</h2>
             <div className="pricing-factor-grid">

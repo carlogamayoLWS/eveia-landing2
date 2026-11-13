@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar.jsx'
+import MobileTopbar from './components/mobile/MobileTopbar.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
 import { DemoModalProvider } from './components/DemoModal.jsx'
 import HomePage from './pages/HomePage.jsx'
@@ -22,6 +23,7 @@ export default function App() {
       <DemoModalProvider>
         <ScrollToTop />
         <Navbar />
+        <MobileTopbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/reports" element={<ReportsPage />} />

@@ -1,0 +1,319 @@
+/* ==========================================================================
+   Mobile redesign — inner page system (phones only, max-width:767px)
+   Shared by Reports, Search, Proposals, Summaries, Enterprise/industries.
+   ========================================================================== */
+@media (max-width: 767px) {
+  /* ── Hero ── */
+  .reports-page .reports-hero-wrap {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #fff 0%, var(--blush) 100%);
+    overflow: hidden;
+  }
+  .reports-page .reports-hero-wrap::before {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    left: -160px;
+    top: -180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(252, 0, 97, 0.16), transparent 65%);
+    pointer-events: none;
+  }
+  .reports-page .reports-hero {
+    position: relative;
+    min-height: 0;
+    margin: 0;
+    padding: calc(var(--m-bar) + 28px) var(--m-pad) 40px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .reports-page .reports-hero-ambient {
+    display: none;
+  }
+  .reports-page .reports-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .reports-page .reports-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .reports-page .reports-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    margin: 0;
+    padding: 0 12px 0 10px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(139, 8, 101, 0.16);
+    box-shadow: 0 4px 14px -8px rgba(139, 8, 101, 0.35);
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    -webkit-text-fill-color: var(--magenta);
+    background-clip: border-box;
+  }
+  .reports-page .reports-eyebrow::before {
+    content: '';
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gradient);
+    box-shadow: 0 0 0 3px rgba(252, 0, 97, 0.12);
+  }
+  .reports-page .reports-hero-title {
+    margin: 18px 0 0;
+    max-width: none;
+    text-align: left;
+    font-size: 36px;
+    line-height: 1.06;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .reports-page .reports-hero-title br {
+    display: none;
+  }
+  .reports-page .reports-hero-grad,
+  .reports-page .reports-hero-title span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .reports-page .reports-hero-desc {
+    margin: 16px 0 0;
+    max-width: none;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--gray);
+  }
+  .reports-page .reports-hero-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin: 28px 0 0;
+  }
+  .reports-page .reports-hero-ctas .btn,
+  .m-page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    height: 56px;
+    margin: 0;
+    padding: 0 20px;
+    border-radius: 16px;
+    font-size: 15.5px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .reports-page.reports-page .reports-hero .reports-hero-ctas .btn-primary.btn-primary,
+  .m-page-btn {
+    background: var(--gradient);
+    color: #fff;
+    border: 0;
+    box-shadow: 0 14px 30px -14px rgba(252, 0, 97, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+  .reports-page.reports-page .reports-hero .reports-hero-ctas .btn-secondary.btn-secondary {
+    height: 48px;
+    margin-top: 6px;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .reports-page .reports-hero-ctas .btn-secondary::after {
+    content: '→';
+    margin-left: 8px;
+  }
+  .reports-page .reports-hero-note {
+    margin: 20px 0 0;
+    max-width: none;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.55;
+    letter-spacing: 0;
+    color: var(--gray);
+  }
+  .reports-page .reports-hero-visual,
+  .reports-page .summaries-hero-visual,
+  .reports-page .enterprise-hero-visual {
+    width: 100%;
+    max-width: none;
+    margin: 28px 0 0;
+  }
+
+  /* ── Section rhythm & type ── */
+  .reports-page .reports-sources,
+  .reports-page .reports-how,
+  .reports-page .reports-amplify {
+    padding: 56px var(--m-pad);
+    min-height: 0;
+  }
+  .reports-page .reports-sources-inner,
+  .reports-page .reports-how-inner,
+  .reports-page .reports-amplify-inner,
+  .reports-page .reports-uses-inner {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .reports-page .reports-sources-title,
+  .reports-page .reports-how-heading,
+  .reports-page .reports-amplify-heading,
+  .reports-page .reports-uses-heading {
+    margin: 0;
+    max-width: none;
+    text-align: left;
+    font-size: 31px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+  .reports-page .reports-sources-desc,
+  .reports-page .reports-how-lead,
+  .reports-page .reports-amplify-desc {
+    margin: 12px 0 0;
+    max-width: none;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: 0;
+  }
+  .reports-page .reports-stack-wrap,
+  .reports-page .reports-stack {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* ── Closing CTA band (start-band) ── */
+  .reports-page .reports-cta-wrap {
+    margin: 0;
+    padding: 0 var(--m-pad) 56px;
+    background: #fff;
+  }
+  .reports-page .reports-cta {
+    position: relative;
+    margin: 0;
+    padding: 32px 24px 24px;
+    min-height: 0;
+    border-radius: 32px;
+    background: linear-gradient(150deg, #250d69 0%, #5a0967 35%, #900665 62%, #c60363 82%, #fc0061 100%);
+    color: #fff;
+    overflow: hidden;
+    text-align: left;
+  }
+  .reports-page .reports-cta-bg {
+    position: absolute;
+    inset: auto -110px -110px auto;
+    width: 300px;
+    height: 300px;
+    opacity: 0.16;
+  }
+  .reports-page .reports-cta-bg img {
+    width: 100%;
+    height: 100%;
+    animation: none;
+  }
+  .reports-page .reports-cta-content {
+    position: relative;
+    max-width: none;
+    padding: 0;
+    text-align: left;
+    align-items: stretch;
+  }
+  .reports-page .reports-cta-content::before {
+    content: 'Start today';
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .reports-page .reports-cta-heading {
+    margin: 10px 0 0;
+    text-align: left;
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+  .reports-page .reports-cta-desc {
+    margin: 12px 0 0;
+    max-width: none;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .reports-page .reports-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+  }
+  .reports-page .reports-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 16px;
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .reports-page .reports-cta-btn--primary {
+    height: 56px;
+    margin-bottom: 6px;
+    background: #fff;
+    color: var(--ink) !important;
+    font-size: 15.5px;
+    font-weight: 700;
+  }
+}
