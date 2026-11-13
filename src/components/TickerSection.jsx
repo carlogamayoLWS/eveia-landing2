@@ -20,9 +20,11 @@ function TickerGroup() {
 
 export default function TickerSection() {
   return (
-    <div className="ticker-track">
-      <TickerGroup />
-      <TickerGroup />
+    <div className="ticker-wrap">
+      <div className="ticker-track">
+        <TickerGroup />
+        <TickerGroup />
+      </div>
     </div>
   )
 }
