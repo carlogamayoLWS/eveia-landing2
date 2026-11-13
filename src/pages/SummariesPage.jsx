@@ -104,6 +104,7 @@ export default function SummariesPage() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    if (window.matchMedia('(max-width:860px)').matches) return undefined
 
     const page = pageRef.current
     if (!page) return undefined
